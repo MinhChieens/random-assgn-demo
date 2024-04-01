@@ -11,7 +11,8 @@ Trong terminal, nhập `npm install` để cài package, `npm run dev` để ch�
 Source code mượn chủ yếu từ cái tutorial https://www.youtube.com/watch?v=B91wc5dCEBA&t=1405s
 
 <details>
-<summary>`.vscode/settings.json` (để sử dụng Prettier) </summary>
+<summary><code>.vscode/settings.json</code> (để sử dụng Prettier) </summary>
+
 ```json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -38,4 +39,5 @@ Source code mượn chủ yếu từ cái tutorial https://www.youtube.com/watch
   }
 }
 ```
+
 </details>
