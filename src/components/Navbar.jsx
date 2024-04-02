@@ -13,9 +13,7 @@ const Header = () => {
             key={item.id}
             href={item.url}
             className={`block relative font-sans text-white/50 transition-colors hover:text-white px-4 py-6 text-base leading-5 ${
-              item.url === pathname.hash
-                ? "z-2 lg:text-white"
-                : "lg:text-white/50"
+              item.url === pathname.hash ? "z-2 text-white" : "text-white/50"
             }`}
           >
             {item.title}
