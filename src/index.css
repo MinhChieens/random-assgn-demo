@@ -6,15 +6,9 @@
   --font-sora: "Sora", sans-serif;
   --font-code: "Source Code Pro", monospace;
   --font-grotesk: "Space Grotesk", sans-serif;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
   scroll-behavior: smooth;
-}
-
-@layer base {
-  body {
-    @apply font-sans bg-n-1 text-n-1 text-base;
-  }
 }
