@@ -1,11 +1,11 @@
 import "./index.css";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <>
       <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
-        <Header />
+        <Navbar />
       </div>
     </>
   );
