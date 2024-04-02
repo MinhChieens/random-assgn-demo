@@ -5,9 +5,11 @@ const Footer = () => {
     <div className="static bottom-0 left-0 w-full flex items-center text-white/80 text-sm bg-darkblue">
       <div className="flex m-auto py-8">
         <div className="flex-col items-center mx-auto px-4 align-top">
-          <div className="text-2xl text-lightblue pb-3">MEDDICAL</div>
+          <p className="text-lightblue text-3xl font-bold font-serif pb-2">
+            MEDDICAL
+          </p>
           <div className="text-wrap">
-            Leading the Way in Medical Execellence, Trusted Care.
+            Leading the Way in Medical <br /> Execellence, Trusted Care.
           </div>
         </div>
         <div className="flex-col items-center mx-auto px-4 align-top">
