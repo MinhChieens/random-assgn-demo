@@ -4,7 +4,7 @@ import { navigation } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const Header = () => {
+const Navbar = () => {
   const pathname = useLocation();
 
   return (
@@ -46,4 +46,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
