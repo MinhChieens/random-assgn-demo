@@ -1,11 +1,12 @@
 import { navigation } from "../constants/index";
+import Button from "../components/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTelegram,
-  faFacebookF,
+  faFacebook,
   faInstagram,
-  faLinkedinIn,
+  faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
@@ -23,15 +24,21 @@ const Footer = () => {
         <div className="flex-col items-center mx-auto px-4 align-top">
           <span className="font-bold pb-6">Important Links</span>
           <nav className="static flex-col pt-6">
-            {navigation.map((item) => (
+            {navigation.slice(0, 4).map((item) => (
               <a
-                key={item.id}
+                key={item.id < 2}
                 href={item.url}
-                className={`block relative font-sans transition-colors hover:text-white text-sm leading-5`}
+                className="block relative font-sans transition-colors hover:text-white text-sm"
               >
                 {item.title}
               </a>
             ))}
+            <a
+              href="appointment"
+              className="block relative font-sans transition-colors hover:text-white text-sm"
+            >
+              Appointment
+            </a>
           </nav>
         </div>
         <div className="flex-col items-center mx-auto px-4 align-top">
@@ -45,8 +52,8 @@ const Footer = () => {
         </div>
         <div className="flex-col items-center mx-auto px-4 align-top">
           <span className="block font-bold pb-6">Newsletter</span>
-          <a
-            className="flex bg-lightblue rounded-md px-2 py-2 text-darkblue items-center"
+          <Button
+            className="rounded-md px-2 py-2 bg-lightblue"
             href="#newsletter"
           >
             <span>Enter your email address</span>
@@ -55,25 +62,34 @@ const Footer = () => {
               icon={faTelegram}
               size="2x"
             />
-          </a>
+          </Button>
         </div>
       </div>
       <hr className="w-full h-1px my-4 px-auto bg-white/50" />
       <div className="flex flex-row my-4 justify-between px-36">
         <span>© 2021 Hospitals name All Rights Reserved by PNTEC-LTD</span>
         <div className="flex">
-          <FontAwesomeIcon
-            className="bg-lightblue rounded-full px-1 py-1 text-darkblue"
-            icon={faLinkedinIn}
-          />
-          <FontAwesomeIcon
-            className="bg-lightblue rounded-full px-1 py-1 text-darkblue"
-            icon={faFacebookF}
-          />
-          <FontAwesomeIcon
-            className="bg-lightblue rounded-full px-1 py-1 text-darkblue"
-            icon={faInstagram}
-          />
+          <Button className=" mx-4" href="#linkedin">
+            <FontAwesomeIcon
+              className="text-lightblue"
+              size="2x"
+              icon={faLinkedin}
+            />
+          </Button>
+          <Button className=" mx-4" href="#facebook">
+            <FontAwesomeIcon
+              className="text-lightblue"
+              size="2x"
+              icon={faFacebook}
+            />
+          </Button>
+          <Button className=" mx-4" href="#instagram">
+            <FontAwesomeIcon
+              className="text-lightblue"
+              size="2x"
+              icon={faInstagram}
+            />
+          </Button>
         </div>
       </div>
     </div>
