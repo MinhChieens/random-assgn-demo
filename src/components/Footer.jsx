@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 left-0 w-full flex flex-col text-white/80 text-sm bg-darkblue">
+    <div className="relative bottom-0 left-0 w-full flex flex-col text-white/80 text-sm bg-darkblue">
       <div className="flex m-auto pt-8 pb-4 px-28 w-full">
         <div className="flex-col items-center mx-auto px-4 align-top">
           <p className="text-lightblue text-3xl font-bold font-serif pb-2">

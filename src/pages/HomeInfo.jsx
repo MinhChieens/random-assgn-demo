@@ -5,7 +5,9 @@ import Footer from "../components/Footer";
 const HomeInfo = () => {
   return (
     <>
-      <Navbar></Navbar>;<Footer></Footer>;
+      <Navbar></Navbar>
+      Hello World
+      <Footer></Footer>
     </>
   );
 };

@@ -8,9 +8,9 @@ const Navbar = () => {
   const pathname = useLocation();
 
   return (
-    <div className="header fixed top-0 left-0 w-full">
+    <div className="header relative top-0 left-0 w-full">
       <HeadInfo></HeadInfo>
-      <div className={`w-full flex items-center bg-darkblue`}>
+      <div className={`static w-full flex items-center bg-darkblue`}>
         <nav className="static flex mx-auto">
           {navigation.map((item) => (
             <a
