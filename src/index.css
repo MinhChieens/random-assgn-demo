@@ -6,6 +6,11 @@
   color-scheme: light;
 }
 
+
+  --font-worksans: "worksans", monospace;
+  color-scheme: light;
+}
+
 * {
   scroll-behavior: smooth;
 }
