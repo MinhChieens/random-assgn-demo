@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <div className="relative bottom-0 left-0 w-full flex flex-col text-white/80 text-sm bg-darkblue">
       <div className="flex m-auto pt-8 pb-4 px-28 w-full">
-        <div className="flex-col items-center mx-auto px-4 align-top">
+        <div className="mx-auto px-4 align-top">
           <p className="text-lightblue text-3xl font-bold font-serif pb-2">
             MEDDICAL
           </p>
@@ -21,7 +21,7 @@ const Footer = () => {
             Leading the Way in Medical <br /> Execellence, Trusted Care.
           </div>
         </div>
-        <div className="flex-col items-center mx-auto px-4 align-top">
+        <div className="mx-auto px-4 align-top">
           <span className="font-bold pb-6">Important Links</span>
           <nav className="static flex-col pt-6">
             {navigation.slice(0, 4).map((item) => (
@@ -41,7 +41,7 @@ const Footer = () => {
             </a>
           </nav>
         </div>
-        <div className="flex-col items-center mx-auto px-4 align-top">
+        <div className="mx-auto px-4 align-top">
           <span className="block font-bold pb-6">Contact Us</span>
           <li className="static flex-col items-center list-none">
             <ul>Call: (237) 681-812-255</ul>
@@ -50,7 +50,7 @@ const Footer = () => {
             <ul>Some country</ul>
           </li>
         </div>
-        <div className="flex-col items-center mx-auto px-4 align-top">
+        <div className="mx-auto px-4 align-top">
           <span className="block font-bold pb-6">Newsletter</span>
           <Button
             className="rounded-md px-2 py-2 bg-lightblue"

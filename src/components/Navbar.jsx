@@ -8,7 +8,7 @@ const Navbar = () => {
   const pathname = useLocation();
 
   return (
-    <div className="header relative top-0 left-0 w-full">
+    <div className="header sticky top-0 left-0 w-full z-50">
       <HeadInfo></HeadInfo>
       <div className={`static w-full flex items-center bg-darkblue`}>
         <nav className="static flex mx-auto">
