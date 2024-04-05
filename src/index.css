@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-}
-
-
   --font-worksans: "worksans", monospace;
   color-scheme: light;
 }
