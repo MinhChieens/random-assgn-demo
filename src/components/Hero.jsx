@@ -12,9 +12,9 @@ const Hero = () => {
       <>
          <section className="relative min-w-full aspect-[1125/512] bg-[url('../src/assets/bg-doctor.png')] bg-no-repeat bg-cover flex flex-col justify-center">
             <div className="px-36">
-               <h3 className="text-skyblue uppercase font-bold  my-2">
+               <p className="text-skyblue uppercase font-bold  my-2">
                   Caring for life
-               </h3>
+               </p>
                <h1 className="text-darkblue font-bold  text-5xl my-2">
                   Leading the Way <br /> in Medical Excellence
                </h1>

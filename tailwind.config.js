@@ -13,6 +13,7 @@ export default {
          },
          fontFamily: {
             worksans: ["Work Sans", "sans-serif"],
+            yeseva: ["Yeseva One", "serif"],
          },
       },
    },
