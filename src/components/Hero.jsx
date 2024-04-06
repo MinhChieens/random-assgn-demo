@@ -5,10 +5,10 @@ const Hero = () => {
       <>
          <section className="relative min-w-full aspect-[1125/512] bg-[url('../src/assets/bg-doctor.png')] bg-no-repeat bg-cover flex flex-col justify-center">
             <div className="px-36">
-               <h3 className="text-skyblue uppercase font-bold font-worksans my-2">
+               <h3 className="text-skyblue uppercase font-bold  my-2">
                   Caring for life
                </h3>
-               <h1 className="text-darkblue font-bold font-worksans text-5xl my-2">
+               <h1 className="text-darkblue font-bold  text-5xl my-2">
                   Leading the Way <br /> in Medical Excellence
                </h1>
                <Button
@@ -22,18 +22,18 @@ const Hero = () => {
 
          <div className="welcome relative flex flex-col justify-center items-center">
             <div className="appointment relative top-[-3rem] flex flex-row justify-center items-center gap-12">
-               <div className="book w-[20rem] rounded h-[6rem] bg-[#1F2B6C] flex items-center justify-center">
+               <div className="book w-[20rem] rounded h-[6rem] bg-[#1F2B6C] flex items-center justify-center text-white">
                   <p>Book an Appointment</p>
                </div>
-               <div className="book w-[20rem] rounded h-[6rem] bg-[#BFD2F8] flex items-center justify-center">
+               <div className="book w-[20rem] rounded h-[6rem] bg-[#BFD2F8] flex items-center justify-center text-darkblue">
                   <p>Book an Appointment</p>
                </div>
-               <div className="book w-[20rem] rounded h-[6rem] bg-[#159EEC] flex items-center justify-center">
+               <div className="book w-[20rem] rounded h-[6rem] bg-[#159EEC] flex items-center justify-center text-white">
                   <p>Book an Appointment</p>
                </div>
             </div>
             <div className="content w-[40rem] flex flex-col justify-center items-center ">
-               <h4 className=" font-worksans font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
+               <h4 className="  font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
                   Welcome To Meddical
                </h4>
                <h3 className="text-center text-blue-950 text-[32px]  font-bold font-['Yeseva One']">

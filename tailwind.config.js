@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -13,10 +12,7 @@ export default {
             black: "#000000",
          },
          fontFamily: {
-            sans: ["var(--font-sora)", ...fontFamily.sans],
-            code: "var(--font-code)",
-            grotesk: "var(--font-grotesk)",
-            worksans: ['"Work Sans"', "sans-serif"],
+            worksans: ["Work Sans", "sans-serif"],
          },
       },
    },

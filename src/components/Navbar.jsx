@@ -16,7 +16,7 @@ const Navbar = () => {
                   <a
                      key={item.id}
                      href={item.url}
-                     className={`block relative font-sans text-white/50 transition-colors hover:text-white px-4 py-6 text-base leading-5 ${
+                     className={`block relative  text-white/50 transition-colors hover:text-white px-4 py-6 text-base leading-5 ${
                         item.url === pathname.hash
                            ? "z-2 lg:text-white"
                            : "lg:text-white/50"
@@ -35,7 +35,7 @@ const Navbar = () => {
                   />
                </a>
                <a
-                  className="mx-4 font-sans text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
+                  className="mx-4  text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
                   href="appointment"
                >
                   Appointment

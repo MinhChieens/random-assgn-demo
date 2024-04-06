@@ -3,10 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --font-worksans: "worksans", monospace;
-  color-scheme: light;
+   --font-worksans: "Work Sans", sans-serif;
+   color-scheme: light;
+}
+
+@layer base {
+   html {
+      font-family: "Work Sans", sans-serif;
+   }
 }
 
 * {
-  scroll-behavior: smooth;
+   scroll-behavior: smooth;
 }
