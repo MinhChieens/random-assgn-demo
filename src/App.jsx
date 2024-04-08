@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Services from "./pages/Services";
 import SignUp from "./pages/SignUp";
 import ConfirmAccept from "./components/ConfirmAccept";
+import ForgotPass from "./pages/ForgotPass";
 const App = () => {
    return (
       <>
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/login" element={<Login></Login>} />
             <Route path="/signup" element={<SignUp></SignUp>} />
             <Route path="/test" element={<ConfirmAccept />}></Route>
+            <Route path="/forgot" element={<ForgotPass />}></Route>
          </Routes>
       </>
    );
