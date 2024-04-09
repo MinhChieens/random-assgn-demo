@@ -25,7 +25,7 @@ const Appointment = () => {
    };
 
    return (
-      <div className="relative m-auto w-3/4 aspect-video grid grid-cols-2 auto-cols-max items-center justify-stretch ">
+      <div className="relative m-auto w-3/4 aspect-video grid grid-cols-2 auto-cols-max items-center justify-stretch gap-2">
          <div className="flex flex-col items-start justify-center">
             <h3 className="font-bold text-2xl text-skyblue">
                Book an Appointment

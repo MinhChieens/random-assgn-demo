@@ -11,12 +11,16 @@ import {
 
 const Contact = () => {
    return (
-      <section className="relative flex flex-col items-center justify-stretch">
-         <p className="text-skyblue uppercase font-bold">Get in touch</p>
-         <h3 className="text-darkblue font-bold font-yeseva text-2xl">
-            Contact
-         </h3>
-         <div className="flex w-3/4 justify-stretch items-center gap-8 mt-8 mb-4">
+      <section className="relative flex flex-col items-center justify-stretch gap-4 mb-8">
+         <div>
+            <h4 className="  font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
+               Get in touch
+            </h4>
+            <h3 className="text-center text-blue-950 text-[32px]  font-bold font-yeseva">
+               Contact
+            </h3>
+         </div>
+         <div className="flex w-3/4 justify-stretch items-center gap-4">
             {contact.map((item) => (
                <div
                   key={item.id}
@@ -27,15 +31,11 @@ const Contact = () => {
                      className="text-darkblue px-4"
                      size="2x"
                   ></FontAwesomeIcon>
-                  <p className="font-bold uppercase text-darkblue text-sm px-4">
+                  <p className="font-bold uppercase text-darkblue px-4">
                      {item.title}
                   </p>
-                  <p className="text-sm text-darkblue px-4">
-                     {item.main_entry}
-                  </p>
-                  <p className="text-sm  text-darkblue px-4">
-                     {item.sub_entry}
-                  </p>
+                  <p className="text-darkblue px-4">{item.main_entry}</p>
+                  <p className="text-darkblue px-4">{item.sub_entry}</p>
                </div>
             ))}
          </div>
