@@ -92,9 +92,10 @@ const Appointment = () => {
                      placeholder="Department"
                      name="Department"
                   />
-                  <input
+                  <textarea
                      onChange={(e) => handleChange(e)}
-                     className="col-span-2 row-span-4"
+                     className="w-full"
+                     rows="5"
                      type="text"
                      placeholder="Message"
                      name="message"
