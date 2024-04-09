@@ -26,7 +26,7 @@ const Navbar = () => {
                   </a>
                ))}
             </nav>
-            <nav className="static flex m-auto items-center ">
+            <nav className="static flex m-auto items-center gap-2">
                <a href="search">
                   <FontAwesomeIcon
                      style={{ color: "#ffffff" }}
@@ -35,10 +35,16 @@ const Navbar = () => {
                   />
                </a>
                <a
-                  className="mx-4  text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
+                  className="text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
                   href="appointment"
                >
                   Appointment
+               </a>
+               <a
+                  className="text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
+                  href="login"
+               >
+                  Login
                </a>
             </nav>
          </div>
