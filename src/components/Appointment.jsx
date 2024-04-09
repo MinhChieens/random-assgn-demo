@@ -92,15 +92,15 @@ const Appointment = () => {
                      placeholder="Department"
                      name="Department"
                   />
-                  <textarea
-                     onChange={(e) => handleChange(e)}
-                     className="w-full"
-                     rows="5"
-                     type="text"
-                     placeholder="Message"
-                     name="message"
-                  />
                </div>
+               <textarea
+                  onChange={(e) => handleChange(e)}
+                  className="w-full"
+                  rows="5"
+                  type="text"
+                  placeholder="Message"
+                  name="message"
+               />
                <Button className="mt-4 m-auto hover:text-white" type="submit">
                   Submit
                </Button>
