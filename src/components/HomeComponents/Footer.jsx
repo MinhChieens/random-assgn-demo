@@ -1,5 +1,5 @@
-import { navigation } from "../constants/index";
-import Button from "../components/Button";
+import { navigation } from "../../constants/index";
+import Button from "../Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

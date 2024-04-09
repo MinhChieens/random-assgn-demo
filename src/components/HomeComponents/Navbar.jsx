@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
-import HeadInfo from "./HeadInfo";
-import { navigation } from "../constants";
+import HeadInfo from "../HeadInfo";
+import { navigation } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { contact } from "../constants";
+import { contact } from "../../constants";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

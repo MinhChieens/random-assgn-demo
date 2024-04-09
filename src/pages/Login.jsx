@@ -26,7 +26,20 @@ const Login = () => {
       email: "",
       password: "",
    });
+   const routeUserLogin = (user) => {
+      if (!user) return;
+      const uid = user.uid;
+      const type = ["admin", "users", "doctors"];
+      console.log(uid);
+      type.map(async (type) => {
+         const docRef = doc(db, type, uid);
+         const docSnap = await getDoc(docRef);
 
+         if (docSnap.exists()) {
+            navigate(`/${type}`);
+         }
+      });
+   };
    useEffect(() => {
       if (!currentUser) return;
       const uid = currentUser.uid;
@@ -50,6 +63,7 @@ const Login = () => {
          .then((userCredential) => {
             //.....Sign Up
             const user = userCredential.user;
+            routeUserLogin(user);
             console.log(user);
          })
          .catch((error) => {

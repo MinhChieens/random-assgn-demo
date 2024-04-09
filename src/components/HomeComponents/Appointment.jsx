@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Button from "../components/Button";
+import Button from "../Button";
 
 const Appointment = () => {
    const [value, setValues] = useState({

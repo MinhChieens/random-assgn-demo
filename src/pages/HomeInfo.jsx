@@ -1,16 +1,16 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Hero from "../components/Hero";
-import Contact from "../components/Contact";
-import Appointment from "../components/Appointment";
+import Navbar from "../components/HomeComponents/Navbar";
+import Footer from "../components/HomeComponents/Footer";
+import Hero from "../components/HomeComponents/Hero";
+import Contact from "../components/HomeComponents/Contact";
+import Appointment from "../components/HomeComponents/Appointment";
 
 const HomeInfo = () => {
    return (
       <>
          <Navbar></Navbar>
          <Hero></Hero>
-         <Appointment></Appointment>
+
          <Contact></Contact>
          <Footer></Footer>
       </>

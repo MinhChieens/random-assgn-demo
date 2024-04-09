@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../components/Button";
-
+import Button from "../Button";
+import Appointment from "./Appointment";
+import FrameDoctor from "../FrameDoctor";
 import {
    faCalendar,
    faUser,
@@ -11,7 +12,7 @@ import {
 const HeroButton = ({ children, className }) => {
    return (
       <div
-         className={`group flex flex-col justify-center items-center gap-3 bg-white text-black hover:bg-darkblue hover:text-white py-3 px-6 rounded-sm ${className || ""}`}
+         className={`group flex flex-col justify-center items-center gap-3 bg-white text-black hover:bg-darkblue hover:text-white py-3 px-6 rounded-sm border-slate-100 border-2  ${className || ""}`}
       >
          <FontAwesomeIcon
             icon={faHeart}
@@ -165,6 +166,21 @@ const Hero = () => {
                <HeroButton>Gynaecology</HeroButton>
             </div>
          </section>
+         <Appointment></Appointment>
+
+         <div className="ourDoctor w-3/4 mx-auto my-16 gap-4">
+            <h4 className="  font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
+               Trust Care
+            </h4>
+            <h3 className="text-center text-blue-950 text-[32px]  font-bold font-yeseva">
+               Our Doctors
+            </h3>
+            <div className="doctorsImg flex gap-5 items-center justify-center pt-16">
+               <FrameDoctor />
+               <FrameDoctor />
+               <FrameDoctor />
+            </div>
+         </div>
       </>
    );
 };
