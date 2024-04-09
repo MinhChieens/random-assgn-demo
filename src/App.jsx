@@ -9,6 +9,7 @@ import Services from "./pages/Services";
 import SignUp from "./pages/SignUp";
 import ConfirmAccept from "./components/ConfirmAccept";
 import ForgotPass from "./pages/ForgotPass";
+import User from "./pages/User";
 const App = () => {
    return (
       <>
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp></SignUp>} />
             <Route path="/test" element={<ConfirmAccept />}></Route>
             <Route path="/forgot" element={<ForgotPass />}></Route>
+            <Route path="/users" element={<User />}></Route>
          </Routes>
       </>
    );
