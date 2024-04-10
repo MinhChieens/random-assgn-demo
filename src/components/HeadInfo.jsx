@@ -5,16 +5,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, signOut } from "firebase/auth";
 import Doctor from "../assets/doctor.png";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import ConfirmAccept from "./ConfirmAccept";
+import { useState } from "react";
 
-const HeadInfo = ({ children }) => {
+const HeadInfo = ({ currentUser }) => {
+   const navigate = useNavigate();
+   const [logout, setLogout] = useState(false);
+   const conFirm = () => {
+      signout();
+   };
+   const setLogoutPara = () => {
+      setLogout(false);
+   };
    const signout = () => {
       const auth = getAuth();
       signOut(auth)
          .then(() => {
             // Sign-out successful.
             console.log("Sign-out successful");
+            navigate("/");
          })
          .catch((error) => {
             // An error happened.
@@ -34,15 +45,23 @@ const HeadInfo = ({ children }) => {
                   </p>
                </div>
 
-               {children ? (
+               {currentUser ? (
                   <div className="users basis-3/4 flex flex-row justify-end px-10 items-center  ">
                      <img
                         src={Doctor}
                         alt="Doctor"
                         className=" h-10 w-10 rounded-full"
                      />
-                     <p className=" px-4">name_account_users</p>
-                     <button onClick={signout}> Sign Out</button>
+                     <p className=" px-4">
+                        {currentUser.displayName
+                           ? currentUser.displayName
+                           : currentUser.email}
+                     </p>
+                     <div className="logout hover:bg-slate-200 h-10 flex items-center p-2">
+                        <button onClick={() => setLogout(true)}>
+                           Sign Out
+                        </button>
+                     </div>
                   </div>
                ) : (
                   <div className="main_info font-worksans font-bold text-xs flex flex-row pr-20 basis-2/3 justify-around">
@@ -92,6 +111,9 @@ const HeadInfo = ({ children }) => {
             </div>
             <div className="nav"></div>
          </div>
+         {logout && (
+            <ConfirmAccept conFirm={conFirm} setLogoutPara={setLogoutPara} />
+         )}
       </>
    );
 };

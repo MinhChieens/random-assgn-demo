@@ -12,12 +12,26 @@ export const AuthProvider = ({ children }) => {
    const [loading, setLoading] = useState(true);
 
    useEffect(() => {
-      setCurrentUser(currentUser);
-   }, [currentUser]);
-
-   useEffect(() => {
       const followChange = onAuthStateChanged(auth, initializeUser);
       return followChange;
+   }, []);
+
+   useEffect(() => {
+      const unsubscribe = () => {
+         if (currentUser) {
+            const auth = getAuth();
+            signOut(auth)
+               .then(() => {
+                  // Sign-out successful.
+                  console.log("Sign-out successful");
+               })
+               .catch((error) => {
+                  // An error happened.
+                  console.log("Error: " + error);
+               });
+         }
+      };
+      return unsubscribe();
    }, []);
 
    const initializeUser = async (user) => {

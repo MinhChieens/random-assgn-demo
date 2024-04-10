@@ -2,16 +2,7 @@ import {
    createUserWithEmailAndPassword,
    signInWithEmailAndPassword,
 } from "firebase/auth";
-import {
-   collection,
-   addDoc,
-   getDocs,
-   setDoc,
-   getDoc,
-   doc,
-   updateDoc,
-   serverTimestamp,
-} from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { auth, db } from "../constants/firebase";
 import HeadInfo from "../components/HeadInfo";
 import React, { useEffect, useRef, useState } from "react";
