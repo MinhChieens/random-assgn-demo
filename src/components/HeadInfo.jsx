@@ -50,7 +50,7 @@ const HeadInfo = ({ currentUser }) => {
 
                {currentUser ? (
                   <div className="users basis-3/4 flex flex-row justify-end px-10 items-center text-darkblue font-bold text-sm ">
-                     <div className="account flex items-center justify-center hover:bg-slate-200 p-2 rounded-md">
+                     <div className="account flex items-center justify-center rounded-md">
                         <img
                            src={Doctor}
                            alt="Doctor"
@@ -62,7 +62,7 @@ const HeadInfo = ({ currentUser }) => {
                               : currentUser.email}
                         </p>
                      </div>
-                     <div className="logout hover:bg-slate-200 h-14 flex items-center px-2 rounded-md">
+                     <div className="logout flex items-center px-2 rounded-md">
                         <button onClick={() => setLogout(true)}>
                            Sign Out
                         </button>
