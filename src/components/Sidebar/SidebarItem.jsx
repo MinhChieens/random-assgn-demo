@@ -13,12 +13,12 @@ const SidebarItem = ({ item }) => {
       <div className="sidebar_Item px-2 py-1 text-darkblue/80 block">
          <div
             onClick={() => click(item)}
-            className="sidebar-title flex justify-between hover:bg-slate-400/30 hover:cursor-pointer hover:text-darkblue p-1 rounded-md"
+            className="sidebar-title flex justify-between hover:bg-darkblue/30 hover:cursor-pointer hover:text-darkblue p-1 rounded-md"
          >
             {item ? <span>{item.title}</span> : ""}
          </div>
          {open && item ? (
-            <div className="content pl-2 hover:bg-lightblue ">
+            <div className="content pl-2">
                {item.childrens.map((child, index) => {
                   return <SidebarItem key={index} item={child} />;
                })}

@@ -1,7 +1,9 @@
 import React from "react";
+import { homePatient } from "../../constants/dashboardHome";
+import DashboardHome from "../../components/Dashboard/DashboardHome";
 
 const Dashboard = () => {
-   return <button class="bg-violet-5 focus:bg-gray-400 ">Save changes</button>;
+   return <DashboardHome title="Dashboard Patient" homeContent={homePatient} />;
 };
 
 export default Dashboard;
