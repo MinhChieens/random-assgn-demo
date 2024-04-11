@@ -36,28 +36,33 @@ const HeadInfo = ({ currentUser }) => {
       <>
          <div className="header">
             <div className="bg-slate-100 p-3 head_info flex flex-row justify-center items-center">
-               <div className="title flex flex-row pl-10 basis-1/3 justify-center items-center">
+               <a
+                  className="title flex flex-row pl-10 basis-1/3 justify-center items-center"
+                  href="/"
+               >
                   <p className="text-[#1F2B6C] text-3xl font-bold font-serif">
                      MED
                   </p>
                   <p className="text-sky-400 text-3xl font-bold font-serif">
                      DICAL
                   </p>
-               </div>
+               </a>
 
                {currentUser ? (
-                  <div className="users basis-3/4 flex flex-row justify-end px-10 items-center  ">
-                     <img
-                        src={Doctor}
-                        alt="Doctor"
-                        className=" h-10 w-10 rounded-full"
-                     />
-                     <p className=" px-4">
-                        {currentUser.displayName
-                           ? currentUser.displayName
-                           : currentUser.email}
-                     </p>
-                     <div className="logout hover:bg-slate-200 h-10 flex items-center p-2">
+                  <div className="users basis-3/4 flex flex-row justify-end px-10 items-center text-darkblue font-bold text-sm ">
+                     <div className="account flex items-center justify-center hover:bg-slate-200 p-2 rounded-md">
+                        <img
+                           src={Doctor}
+                           alt="Doctor"
+                           className=" h-10 w-10 rounded-full"
+                        />
+                        <p className=" px-4">
+                           {currentUser.displayName
+                              ? currentUser.displayName
+                              : currentUser.email}
+                        </p>
+                     </div>
+                     <div className="logout hover:bg-slate-200 h-14 flex items-center px-2 rounded-md">
                         <button onClick={() => setLogout(true)}>
                            Sign Out
                         </button>

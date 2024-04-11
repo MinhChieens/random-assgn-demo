@@ -10,18 +10,15 @@ const SidebarItem = ({ item }) => {
       } else setOpen(!open);
    };
    return (
-      <div
-         className="sidebar_Item p-3 text-zinc-700 block border-b-2 border-cyan-800 hover:bg-black hover:cursor-pointer
-        "
-      >
+      <div className="sidebar_Item px-2 py-1 text-darkblue/80 block">
          <div
             onClick={() => click(item)}
-            className="sidebar-title flex justify-between"
+            className="sidebar-title flex justify-between hover:bg-slate-400/30 hover:cursor-pointer hover:text-darkblue p-1 rounded-md"
          >
             {item ? <span>{item.title}</span> : ""}
          </div>
          {open && item ? (
-            <div className="content pt-2 pl-2 hover:bg-blue-300 ">
+            <div className="content pl-2 hover:bg-lightblue ">
                {item.childrens.map((child, index) => {
                   return <SidebarItem key={index} item={child} />;
                })}
