@@ -23,6 +23,10 @@ export const homePatient = [
       path: "/doctors/profile",
    },
    {
+      title: "Make an Appointment",
+      path: "/users/appointment",
+   },
+   {
       title: "Patient Schedule",
       path: "/schedule",
    },

@@ -16,6 +16,10 @@ export const items = [
       title: "Account",
       childrens: [
          {
+            title: "Make an Appointment",
+            path: "/users/appointment",
+         },
+         {
             title: "Login",
             path: "/login",
          },
