@@ -79,6 +79,10 @@ export const homeAdmin = [
       title: "History",
       path: "/history",
    },
+   {
+      title: "List Doctors",
+      path: "listDoctors",
+   },
 ];
 
 export const homeUser = [

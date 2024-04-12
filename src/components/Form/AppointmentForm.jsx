@@ -25,7 +25,7 @@ const AppointmentForm = () => {
       <form
          onSubmit={(e) => handleSubmit(e)}
          onReset={handleReset}
-         className="flex flex-col w-4/5 mx-auto my-4 text-sm"
+         className="flex flex-col w-4/5 mx-auto my-4 text-base font-yeseva"
       >
          <ul className="w-full mx-auto  columns-2 gap-4  items-stretch *:py-2">
             <li className="flex flex-col gap-1">

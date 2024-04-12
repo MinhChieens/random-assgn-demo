@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { db } from "../constants/firebase";
-import { auth } from "../constants/firebase";
+import { db, auth } from "../constants/firebase";
+
 import HeadInfo from "../components/HeadInfo";
 import Google from "../assets/icons8-google.svg";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -12,7 +12,7 @@ const SignUp = () => {
    const navigate = useNavigate();
    const reff = useRef();
    const [passValid, setPassValid] = useState(true);
-   const { currentUser } = useAuth();
+   const { currentUser, type } = useAuth();
    const [value, setValues] = useState({
       email: "",
       password: "",
@@ -21,17 +21,7 @@ const SignUp = () => {
 
    useEffect(() => {
       if (!currentUser) return;
-      const uid = currentUser.uid;
-      const type = ["admin", "users", "doctors"];
-      console.log(uid);
-      type.map(async (type) => {
-         const docRef = doc(db, type, uid);
-         const docSnap = await getDoc(docRef);
-
-         if (docSnap.exists()) {
-            navigate(`/${type}`);
-         }
-      });
+      if (type) navigate(`/${type}`);
    }, []);
    const setUpInfoUser = (userCredential) => {
       try {
@@ -58,7 +48,7 @@ const SignUp = () => {
       await createUserWithEmailAndPassword(auth, value.email, value.password)
          .then((userCredential) => {
             setUpInfoUser(userCredential);
-            navigate("/about");
+            navigate(`/${type}`);
          })
          .catch((error) => {
             const errorCode = error.code;

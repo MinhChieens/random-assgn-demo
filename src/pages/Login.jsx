@@ -10,52 +10,43 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 const Login = () => {
    const navigate = useNavigate();
-   const { currentUser, userLoggedIn } = useAuth();
+   const { currentUser, userLoggedIn, loading, type } = useAuth();
    const focusRef = useRef([]);
    const [logInSuccess, setLogInSuccess] = useState(true);
    const [value, setValues] = useState({
       email: "",
       password: "",
    });
+
+   useEffect(() => {
+      console.log(currentUser, type);
+      if (!currentUser) return;
+      if (type) routeUserLogin(currentUser);
+   }, []);
+
    const routeUserLogin = (user) => {
       if (!user) return;
       const uid = user.uid;
-      const type = ["admin", "users", "doctors"];
+      const types = ["admin", "users", "doctors"];
       console.log(uid);
-      type.map(async (type) => {
-         const docRef = doc(db, type, uid);
+      types.map(async (tp) => {
+         const docRef = doc(db, tp, uid);
          const docSnap = await getDoc(docRef);
 
          if (docSnap.exists()) {
-            navigate(`/${type}`);
+            navigate(`/${tp}`);
          }
       });
    };
-   useEffect(() => {
-      if (!currentUser) return;
-      const uid = currentUser.uid;
-      const type = ["admin", "users", "doctors"];
-      console.log(uid);
-      type.map(async (type) => {
-         const docRef = doc(db, type, uid);
-         const docSnap = await getDoc(docRef);
-
-         if (docSnap.exists()) {
-            navigate(`/${type}`);
-         }
-      });
-   }, []);
    const handleSubmit = async (e) => {
       e.preventDefault();
       console.table(value);
 
-      console.log(currentUser);
       await signInWithEmailAndPassword(auth, value.email, value.password)
          .then((userCredential) => {
             //.....Sign Up
             const user = userCredential.user;
             routeUserLogin(user);
-            console.log(user);
          })
          .catch((error) => {
             const errorCode = error.code;

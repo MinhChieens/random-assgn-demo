@@ -5,6 +5,7 @@ import SupportAdmin from "../pages/pagesAdmin/SupportAdmin";
 import DashboardDoctor from "../pages/pagesPatient/Dashboard";
 import SupportDoctor from "../pages/pagesDoctors/SupportDoctor";
 import AppointmentForm from "../components/Form/AppointmentForm";
+import ListDoctors from "../pages/pagesAdmin/ListDoctors";
 
 export const RouteUser = [
    { path: "home", element: <Dashboard />, state: "home" },
@@ -12,13 +13,15 @@ export const RouteUser = [
    { path: "support", element: <Support />, sidebarProps: {} },
    { path: "appointment", element: <AppointmentForm />, sidebarProps: {} },
 ];
-export const RouteAdmin = [
-   { path: "home", element: <DashboardAdmin />, state: "home" },
-   { path: "dashboard", element: <DashboardAdmin />, sidebarProps: {} },
-   { path: "support", element: <SupportAdmin />, sidebarProps: {} },
-];
 export const RouteDoctor = [
    { path: "home", element: <DashboardDoctor />, state: "home" },
    { path: "dashboard", element: <DashboardDoctor />, sidebarProps: {} },
    { path: "support", element: <SupportDoctor />, sidebarProps: {} },
+];
+
+export const RouteAdmin = [
+   { path: "home", element: <DashboardAdmin />, state: "home" },
+   { path: "dashboard", element: <DashboardAdmin />, sidebarProps: {} },
+   { path: "support", element: <SupportAdmin />, sidebarProps: {} },
+   { path: "listDoctors", element: <ListDoctors />, sidebarProps: {} },
 ];

@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../constants/firebase";
+import { auth, db } from "../constants/firebase";
 import React, { useContext, useEffect, useState } from "react";
-
+import { getDoc, doc } from "firebase/firestore";
 const AuthContext = React.createContext();
 export const useAuth = () => {
    return useContext(AuthContext);
@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
    const [currentUser, setCurrentUser] = useState(null);
    const [userLoggedIn, setUserLoggedIn] = useState(false);
    const [loading, setLoading] = useState(true);
+   const [type, setType] = useState("users");
 
    useEffect(() => {
       const followChange = onAuthStateChanged(auth, initializeUser);
@@ -31,9 +32,8 @@ export const AuthProvider = ({ children }) => {
                });
          }
       };
-      return unsubscribe();
+      return () => unsubscribe();
    }, []);
-
    const initializeUser = async (user) => {
       if (user) {
          setCurrentUser({ ...user });
@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }) => {
       currentUser,
       userLoggedIn,
       loading,
+      type,
    };
    return (
       <AuthContext.Provider value={value}>

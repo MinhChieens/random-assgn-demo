@@ -13,11 +13,11 @@ const PageWraper = ({ items }) => {
    return (
       <div>
          <HeadInfo currentUser={currentUser} />
-         <div className="wrap grid grid-flow-col grid-cols-6 h-screen">
+         <div className="wrap grid grid-flow-col grid-cols-6 h-screen ">
             <div className="sideBar bg-lightblue col-span-1">
                <Sidebar items={items} />
             </div>
-            <div className="content col-span-5">
+            <div className="content col-span-5 bg-gradient-to-br from-sky-200 to-white">
                <Outlet></Outlet>
             </div>
          </div>
