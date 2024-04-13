@@ -47,7 +47,7 @@ const Hero = () => {
          <div className="welcome relative flex flex-col justify-center items-center">
             <div className="appointment relative top-[-3rem] flex flex-row justify-center items-center gap-12">
                <Button
-                  href="appointment"
+                  href="login"
                   className="book w-[20rem] rounded h-[6rem] bg-[#1F2B6C] flex items-center justify-around text-white/80 hover:text-white"
                >
                   <p>Book an Appointment</p>
