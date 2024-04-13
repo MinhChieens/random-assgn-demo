@@ -111,7 +111,6 @@ const ListDoctors = () => {
       setValues(reset);
    };
    const handleChange = (e) => {
-      e.preventDefault();
       setValues({ ...value, [e.target.name]: e.target.value });
    };
    return (

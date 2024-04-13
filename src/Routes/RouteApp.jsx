@@ -6,6 +6,7 @@ import DashboardDoctor from "../pages/pagesPatient/Dashboard";
 import SupportDoctor from "../pages/pagesDoctors/SupportDoctor";
 import AppointmentForm from "../components/Form/AppointmentForm";
 import ListDoctors from "../pages/pagesAdmin/ListDoctors";
+import DoctorScheduling from "../pages/pagesDoctors/DoctorScheduling";
 
 export const RouteUser = [
    { path: "home", element: <Dashboard />, state: "home" },
@@ -17,6 +18,7 @@ export const RouteDoctor = [
    { path: "home", element: <DashboardDoctor />, state: "home" },
    { path: "dashboard", element: <DashboardDoctor />, sidebarProps: {} },
    { path: "support", element: <SupportDoctor />, sidebarProps: {} },
+   { path: "schedule", element: <DoctorScheduling />, sidebarProps: {} },
 ];
 
 export const RouteAdmin = [
