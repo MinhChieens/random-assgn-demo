@@ -18,8 +18,28 @@ const AppointmentForm = () => {
    });
 
    const handleSubmit = (e) => {};
-   const handleReset = () => {};
-   const handleChange = (e) => {};
+
+   const handleReset = () => {
+      const reset = {
+         physicianName: "",
+         activity: "",
+         subject: "",
+         patientName: "",
+         patientPhone: "",
+         HI: false,
+         length: "",
+         startDate: "",
+         startTime: "",
+         endDate: "",
+         endTime: "",
+         message: "",
+      };
+      setValues(reset);
+   };
+   const handleChange = (e) => {
+      e.preventDefault();
+      setValues({ ...value, [e.target.name]: e.target.value });
+   };
 
    return (
       <form
@@ -49,7 +69,7 @@ const AppointmentForm = () => {
                   id="activity"
                   required
                >
-                  <option value="" disabled selected hidden>
+                  <option value="" selected hidden>
                      Select an activity
                   </option>
                   <option value="examination">Medical examination</option>
@@ -163,13 +183,13 @@ const AppointmentForm = () => {
          <div className="self-end flex gap-2">
             <button
                type="reset"
-               className=" text-skyblue rounded-md border-gray-300 border-2 px-4 py-2"
+               className=" text-skyblue rounded-md border-gray-300 hover:bg-gray-200  border-2 px-4 py-2"
             >
                Reset
             </button>
             <button
                type="submit"
-               className="bg-skyblue text-white rounded-md px-4 py-2"
+               className="bg-skyblue/80 hover:bg-skyblue text-white rounded-md px-4 py-2"
             >
                Submit
             </button>

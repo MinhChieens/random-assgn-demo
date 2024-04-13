@@ -5,7 +5,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 const ConfirmAccept = ({ conFirm, setLogoutPara }) => {
    return (
       <>
-         <div className="fixed left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-[36rem] h-[24rem] bg-slate-300 flex flex-col justify-center items-center gap-5">
+         <div className="fixed left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-[36rem] h-[24rem] bg-slate-300 flex flex-col justify-center items-center gap-5 z-50">
             <button onClick={setLogoutPara} className="absolute top-2 right-3">
                <FontAwesomeIcon icon={faX} />
             </button>

@@ -4,6 +4,10 @@ import { setDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db, auth } from "../../constants/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../../context/AuthContext";
+
+import DoctorHeader from "../../components/DoctorHeader";
+import DoctorEntry from "../../components/DoctorEntry";
+
 const ListDoctors = () => {
    const [btnAddDoc, setBtnAddDoc] = useState(false);
    const [imagePath, setImagePath] = useState(null);
@@ -124,7 +128,12 @@ const ListDoctors = () => {
             </div>
             <div>
                {btnAddDoc ? (
-                  <div className="">LIST</div>
+                  <>
+                     <DoctorHeader />
+                     <DoctorEntry />
+                     <DoctorEntry />
+                     <DoctorEntry />
+                  </>
                ) : (
                   <div className="">
                      <form
@@ -238,7 +247,7 @@ const ListDoctors = () => {
                            </li>
                         </ul>
                         <hr className="w-full h-px my-2 bg-white/50" />
-                        <div className="flex flex-row justify-between">
+                        <div className="flex flex-row justify-between z-2">
                            <input
                               name="ImagePath"
                               type="file"
@@ -249,13 +258,13 @@ const ListDoctors = () => {
                            />
                            <label
                               htmlFor="imageInput"
-                              className="block w-1/3 h-32 px-4 pt-12 border border-gray-300 rounded-md shadow-sm text-center cursor-pointer hover:bg-gray-100"
+                              className="block w-1/3 h-32 px-4 pt-12 border border-gray-300 rounded-md shadow-sm text-center cursor-pointer bg-gray-100 hover:bg-gray-200"
                            >
                               {imagePath ? (
                                  <img
                                     src={imagePath}
                                     alt="Uploaded"
-                                    className="max-w-full max-h-full"
+                                    className="max-w-full max-h-full "
                                  />
                               ) : (
                                  <span>Select Image Avatar </span>
@@ -264,13 +273,13 @@ const ListDoctors = () => {
                            <div className="self-end flex gap-2">
                               <button
                                  type="reset"
-                                 className=" text-skyblue rounded-md border-gray-300 border-2 px-4 py-2"
+                                 className=" text-skyblue rounded-md border-gray-300 hover:bg-gray-200  border-2 px-4 py-2"
                               >
                                  Reset
                               </button>
                               <button
                                  type="submit"
-                                 className="bg-skyblue text-white rounded-md px-4 py-2"
+                                 className="bg-skyblue/80 hover:bg-skyblue text-white rounded-md px-4 py-2"
                               >
                                  Submit
                               </button>
