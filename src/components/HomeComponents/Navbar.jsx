@@ -36,12 +36,6 @@ const Navbar = () => {
                </a>
                <a
                   className="text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
-                  href="appointment"
-               >
-                  Appointment
-               </a>
-               <a
-                  className="text-sm font-bold text-darkblue/80 transition-colors hover:text-darkblue block px-6 py-3 bg-solid rounded-full bg-lightblue"
                   href="login"
                >
                   Login

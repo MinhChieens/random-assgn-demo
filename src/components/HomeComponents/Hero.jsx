@@ -7,7 +7,9 @@ import {
    faUser,
    faMoneyBill1,
    faHeart,
+
 } from "@fortawesome/free-regular-svg-icons";
+import { faSyringe, faTablet, faTablets } from "@fortawesome/free-solid-svg-icons";
 
 const HeroButton = ({ children, className }) => {
    return (
@@ -47,7 +49,7 @@ const Hero = () => {
          <div className="welcome relative flex flex-col justify-center items-center">
             <div className="appointment relative top-[-3rem] flex flex-row justify-center items-center gap-12">
                <Button
-                  href="appointment"
+                  href="login"
                   className="book w-[20rem] rounded h-[6rem] bg-[#1F2B6C] flex items-center justify-around text-white/80 hover:text-white"
                >
                   <p>Book an Appointment</p>
@@ -57,15 +59,15 @@ const Hero = () => {
                   href="appointment"
                   className="book w-[20rem] rounded h-[6rem] bg-[#BFD2F8] flex items-center justify-around text-darkblue/80 hover:text-darkblue"
                >
-                  <p>Book an Appointment</p>
-                  <FontAwesomeIcon icon={faUser} size="2x" />
+                  <p>Medicine Order</p>
+                  <FontAwesomeIcon icon={faTablets} size="2x" />
                </Button>
                <Button
-                  href="appointment"
+                  href="order-medicine"
                   className="book w-[20rem] rounded h-[6rem] bg-[#159EEC] flex items-center justify-around text-white/80 hover:text-white"
                >
-                  <p>Book an Appointment</p>
-                  <FontAwesomeIcon icon={faMoneyBill1} size="2x" />
+                  <p>Medical Equipment Order</p>
+                  <FontAwesomeIcon icon={faSyringe} size="2x" />
                </Button>
             </div>
             <div className="content w-[40rem] flex flex-col justify-center items-center ">
