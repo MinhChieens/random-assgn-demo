@@ -9,15 +9,16 @@ const AppointmentForm = () => {
       patientName: "",
       patientPhone: "",
       HI: false,
-      length: "",
+      time: "",
       startDate: "",
-      startTime: "",
       endDate: "",
-      endTime: "",
       message: "",
    });
 
-   const handleSubmit = (e) => {};
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(value);
+   };
 
    const handleReset = () => {
       const reset = {
@@ -27,11 +28,9 @@ const AppointmentForm = () => {
          patientName: "",
          patientPhone: "",
          HI: false,
-         length: "",
+         time: "",
          startDate: "",
-         startTime: "",
          endDate: "",
-         endTime: "",
          message: "",
       };
       setValues(reset);
@@ -111,7 +110,12 @@ const AppointmentForm = () => {
             </li>
             <li className="flex gap-1 items-center">
                <input
-                  onChange={(e) => handleChange(e)}
+                  onClick={() => {
+                     value.HI = !value.HI;
+                     handleChange({
+                        target: { name: "HI", value: value.HI },
+                     });
+                  }}
                   type="checkbox"
                   id="HI"
                   name="HI"
@@ -120,17 +124,22 @@ const AppointmentForm = () => {
                <label htmlFor="HI">Home Isolation</label>
             </li>
             <li className="flex flex-col gap-1">
-               <label htmlFor="length">Time length (minutes)</label>
-               <input
+               <label htmlFor="time">Time</label>
+               <select
                   onChange={(e) => handleChange(e)}
-                  className="border-2 border-gray-300 p-1 rounded-md"
-                  type="number"
-                  min="0"
-                  name="length"
-                  id="length"
-                  placeholder="15 Minutes"
+                  className={`border-2 border-gray-300 px-1 py-2 rounded-md bg-white `}
+                  name="time"
+                  id="time"
                   required
-               />
+               >
+                  <option value="" selected hidden>
+                     Select time
+                  </option>
+                  <option value="8">8AM - 10AM</option>
+                  <option value="10">10AM - 12AM</option>
+                  <option value="13">1PM - 3PM</option>
+                  <option value="15">3PM - 5PM</option>
+               </select>
             </li>
          </ul>
          <hr className="w-full h-px my-2 bg-white/50" />
@@ -139,17 +148,11 @@ const AppointmentForm = () => {
                <label htmlFor="startDate">Start Date</label>
                <div className="flex gap-1 items-stretch">
                   <input
+                     onChange={(e) => handleChange(e)}
                      type="date"
                      className="border-2 border-gray-300 p-1 rounded-md"
                      id="startDate"
                      name="startDate"
-                     required
-                  />
-                  <input
-                     type="time"
-                     className="border-2 border-gray-300 p-1 rounded-md"
-                     id="startTime"
-                     name="startTime"
                      required
                   />
                </div>
@@ -158,24 +161,21 @@ const AppointmentForm = () => {
                <label htmlFor="endDate">End Date</label>
                <div className="flex gap-1">
                   <input
+                     onChange={(e) => handleChange(e)}
                      type="date"
                      className="border-2 border-gray-300 p-1 rounded-md"
                      id="endDate"
                      name="endDate"
                      required
                   />
-                  <input
-                     type="time"
-                     className="border-2 border-gray-300 p-1 rounded-md"
-                     id="endTime"
-                     name="endTime"
-                     required
-                  />
                </div>
             </li>
          </ul>
          <textarea
+            onChange={(e) => handleChange(e)}
             className="border-2 border-gray-300 my-2 p-2 rounded-md"
+            name="message"
+            id="message"
             rows="3"
             placeholder="Message"
          ></textarea>
