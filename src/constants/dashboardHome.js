@@ -1,52 +1,48 @@
 export const homeAdmin = [
    {
       title: "Doctors Information",
-      path: "/doctors/profile",
+      path: "doctors/profile",
    },
    {
       title: "Medicine Information",
-      path: "/medicine",
+      path: "medicine",
    },
    {
       title: "History",
-      path: "/history",
+      path: "history",
    },
 ];
 
 export const homePatient = [
    {
       title: "Patient Information",
-      path: "/profile",
+      path: "profile",
    },
    {
       title: "Doctors Information",
-      path: "/doctors/profile",
-   },
-   {
-      title: "Make an Appointment",
-      path: "/users/appointment",
+      path: "doctors/profile",
    },
    {
       title: "Patient Schedule",
-      path: "/schedule",
+      path: "schedule",
    },
 ];
 
 export const homeDoctor = [
    {
       title: "Doctor Information",
-      path: "/profile",
+      path: "profile",
    },
    {
       title: "Patients Information",
-      path: "/patients/profile",
+      path: "patients/profile",
    },
    {
       title: "Doctor Schedule",
-      path: "/schedule",
+      path: "schedule",
    },
    {
       title: "Patients Schedule",
-      path: "/patient/schedule",
+      path: "patient/schedule",
    },
 ];
