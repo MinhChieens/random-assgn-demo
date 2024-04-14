@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { setDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { db, auth } from "../../constants/firebase";
+import { db, auth, storage } from "../../constants/firebase";
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
-
+import { v4 } from "uuid";
 import { useAuth } from "../../context/AuthContext";
 import CardInfoUsers from "../../components/CardInfoUsers";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const ListDoctors = () => {
   const [btnAddDoc, setBtnAddDoc] = useState(true);
   const [imagePath, setImagePath] = useState(null);
@@ -23,17 +24,16 @@ const ListDoctors = () => {
     PhoneNumber: "",
     Birthday: "",
     Gender: "",
+    PathImage: "",
   });
   const getListDoctors = async (listUid) => {
-    console.log(listUid);
+    //console.log(listUid);
     const promises = listUid.map(async (doctorUid) => {
       const refDoctor = doc(db, "doctors", doctorUid);
       const data = await getDoc(refDoctor);
       if (data.exists()) {
         console.log(data.data().data);
         return data.data().value;
-      } else {
-        console.log("Not found document");
       }
       return null;
     });
@@ -41,7 +41,7 @@ const ListDoctors = () => {
     const doctorValues = await Promise.all(promises);
     // Filter out any null values returned from documents that don't exist
     const validDoctorValues = doctorValues.filter((value) => value !== null);
-    console.log(validDoctorValues);
+    //console.log(validDoctorValues);
     setListOfDoctors(validDoctorValues);
   };
   useEffect(() => {
@@ -60,39 +60,16 @@ const ListDoctors = () => {
     };
     getList();
   }, [btnAddDoc]);
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const imageData = reader.result;
-      const imgExtension = file.name.split(".").pop().toLowerCase();
-      const validExtensions = ["jpg", "jpeg", "png", "gif"];
-
-      if (validExtensions.includes(imgExtension)) {
-        const imageName = `${Date.now()}.${imgExtension}`;
-        const imagePath = `src/assets/imageDoctors/${imageName}`;
-
-        setImagePath(imagePath);
-
-        // Lưu trữ hình ảnh trong thư mục assets
-        saveImage(imagePath, imageData);
-      } else {
-        alert("Invalid file format. Please upload an image file.");
-      }
-    };
-
-    reader.readAsDataURL(file);
+  const handleImageUpload = async () => {
+    const imgRef = ref(storage, `files/${v4()}`);
+    await uploadBytes(imgRef, imagePath);
+    const downloadURL = await getDownloadURL(imgRef);
+    console.log("File available at", downloadURL);
+    return downloadURL;
+    // setValues((preValue) => ({ ...preValue, PathImage: downloadURL }));
   };
-  const saveImage = (path, data) => {
-    // Thực hiện lưu trữ hình ảnh vào thư mục assets của dự án
-    // Trong ứng dụng thực tế, bạn có thể sử dụng một backend để lưu trữ hình ảnh
-    // hoặc sử dụng các thư viện quản lý hình ảnh như Cloudinary, Firebase Storage, ...
-
-    console.log("Image saved at:", path);
-    console.log("Image data:", data);
-  };
-  const setUpInfoUser = (uid) => {
+  const setUpInfoUser = async (uid) => {
+    console.log(value);
     try {
       setDoc(doc(db, "doctors", uid), {
         value: value,
@@ -124,13 +101,16 @@ const ListDoctors = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    value.PathImage = await handleImageUpload();
     console.log(value);
     const preGmail = currentUser.email;
     console.log(currentUser.uid);
     console.log(currentUser);
+
     await createUserWithEmailAndPassword(auth, value.Gmail, value.PassWord)
       .then((userCredential) => {
         setUpInfoUser(userCredential.user.uid);
+
         addListDoctor(userCredential.user.uid);
 
         setTimeout(() => SignInAgain(preGmail), 900);
@@ -154,8 +134,10 @@ const ListDoctors = () => {
       PhoneNumber: "",
       Birthday: "",
       Gender: "",
+      PathImage: "",
     };
     setValues(reset);
+    setImagePath(null);
     console.log;
   };
   const handleChange = (e) => {
@@ -185,7 +167,7 @@ const ListDoctors = () => {
               <div className="list flex flex-col justify-center items-center gap-5 pt-3">
                 {listOfDoctors &&
                   listOfDoctors.map((doctor, index) => {
-                    console.log(doctor);
+                    // console.log(doctor);
                     return (
                       doctor && (
                         <CardInfoUsers
@@ -313,23 +295,27 @@ const ListDoctors = () => {
                     accept="image/*"
                     className="hidden"
                     id="imageInput"
-                    onChange={handleImageUpload}
+                    onChange={(e) => setImagePath(e.target.files[0])}
                   />
                   <label
                     htmlFor="imageInput"
-                    className="block w-1/3 h-32 px-4 pt-12 border border-gray-300 rounded-md shadow-sm text-center cursor-pointer hover:bg-gray-100"
+                    className={`flex w-1/3 h-36 justify-center items-center ${
+                      !imagePath
+                        ? "border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-100"
+                        : ""
+                    }`}
                   >
                     {imagePath ? (
                       <img
-                        src={imagePath}
+                        src={URL.createObjectURL(imagePath)}
                         alt="Uploaded"
-                        className="max-w-full max-h-full"
+                        className="w-40 h-40 rounded-full"
                       />
                     ) : (
                       <span>Select Image Avatar </span>
                     )}
                   </label>
-                  <div className="self-end flex gap-2">
+                  <div className="self-end flex gap-2 justify-center">
                     <button
                       type="reset"
                       className=" text-skyblue rounded-md border-gray-300 border-2 px-4 py-2"

@@ -1,7 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import { auth, db } from "../constants/firebase";
 import HeadInfo from "../components/HeadInfo";
@@ -19,9 +16,9 @@ const Login = () => {
   });
 
   useEffect(() => {
-    console.log(currentUser, type);
+    console.log(currentUser);
     if (!currentUser) return;
-    if (type) routeUserLogin(currentUser);
+    routeUserLogin(currentUser);
   }, []);
 
   const routeUserLogin = (user) => {

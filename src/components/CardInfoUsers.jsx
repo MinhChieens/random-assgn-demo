@@ -1,12 +1,17 @@
 import React from "react";
 import avt from "../assets/doctor.png";
 const CardInfoUsers = ({ props }) => {
+  console.log(props && props.PathImage);
   return (
     <>
       {props ? (
         <div className="wrap flex flex-row items-center h-12 w-[95%] bg-transparent border-2 pr-3 rounded-lg font-[poppins] font-bold">
           <div className="head flex flex-row w-1/5">
-            <img src={avt} className="h-12 w-12 rounded-lg" alt="" />
+            <img
+              src={props.PathImage}
+              className="h-12 w-12 rounded-lg"
+              alt=""
+            />
             <div className="info pl-3">
               <h3>{props.FirstName}</h3>
               <p className=" text-[#B5B5C3]">{props.Activity}</p>
