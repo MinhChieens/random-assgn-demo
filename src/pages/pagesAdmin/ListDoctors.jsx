@@ -10,6 +10,8 @@ import { v4 } from "uuid";
 import { useAuth } from "../../context/AuthContext";
 import CardInfoUsers from "../../components/CardInfoUsers";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ListDoctors = () => {
   const [btnAddDoc, setBtnAddDoc] = useState(true);
   const [imagePath, setImagePath] = useState(null);
@@ -32,8 +34,8 @@ const ListDoctors = () => {
       const refDoctor = doc(db, "doctors", doctorUid);
       const data = await getDoc(refDoctor);
       if (data.exists()) {
-        console.log(data.data().data);
-        return data.data().value;
+        console.log(data.data());
+        return { value: data.data(), uid: doctorUid };
       }
       return null;
     });
@@ -44,24 +46,27 @@ const ListDoctors = () => {
     //console.log(validDoctorValues);
     setListOfDoctors(validDoctorValues);
   };
-  useEffect(() => {
-    const getList = async () => {
-      console.log(currentUser.uid);
-      if (currentUser) {
-        const docRef = doc(db, "admin", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          getListDoctors(docSnap.data().listOfDoctors);
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
-        }
+  const getList = async () => {
+    console.log(currentUser.uid);
+    if (currentUser) {
+      const docRef = doc(db, "admin", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        getListDoctors(docSnap.data().listOfDoctors);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
       }
-    };
+    }
+  };
+  useEffect(() => {
     getList();
   }, [btnAddDoc]);
+  const handleDelDoc = () => {
+    getList();
+  };
   const handleImageUpload = async () => {
-    const imgRef = ref(storage, `files/${v4()}`);
+    const imgRef = ref(storage, `images/${v4()}`);
     await uploadBytes(imgRef, imagePath);
     const downloadURL = await getDownloadURL(imgRef);
     console.log("File available at", downloadURL);
@@ -73,6 +78,7 @@ const ListDoctors = () => {
     try {
       setDoc(doc(db, "doctors", uid), {
         value: value,
+        status: true,
       });
       console.log("Send data");
     } catch (err) {
@@ -147,10 +153,29 @@ const ListDoctors = () => {
   return (
     <>
       <div className={`w-11/12 h-full bg-sky-100 mx-auto mt-5`}>
-        <div className=" bg-orange-300 h-14 flex items-center justify-between px-10">
-          {btnAddDoc ? <h3>List Of Doctor</h3> : <h3>ADD DOCTOR</h3>}
-          <button onClick={() => setBtnAddDoc(!btnAddDoc)} className="h-10">
-            Add Doctor
+        <div className=" bg-orange-100 h-14 flex items-center justify-between px-10 font-[poppins] text-base">
+          {btnAddDoc ? (
+            <div className="">
+              <h3 className="text-lg  font-bold">List Of Doctor</h3>
+              <p className="text-[#B5B5C3] text-sm">
+                {listOfDoctors.length} available doctors
+              </p>
+            </div>
+          ) : (
+            <h3 className="text-lg  font-bold">ADD DOCTOR</h3>
+          )}
+          <button
+            onClick={() => setBtnAddDoc(!btnAddDoc)}
+            className="h-10 w-40 rounded bg-green-300  font-bold  text-white"
+          >
+            {btnAddDoc ? (
+              <span>
+                <FontAwesomeIcon icon={faUserPlus} />
+                Add Doctor
+              </span>
+            ) : (
+              <p>List Doctors</p>
+            )}
           </button>
         </div>
         <div>
@@ -169,10 +194,14 @@ const ListDoctors = () => {
                   listOfDoctors.map((doctor, index) => {
                     // console.log(doctor);
                     return (
-                      doctor && (
+                      doctor &&
+                      doctor.value && (
                         <CardInfoUsers
                           key={index}
-                          props={doctor}
+                          typeUser={"admin"}
+                          uid={doctor.uid}
+                          handleDeleteUser={handleDelDoc}
+                          props={doctor.value}
                         ></CardInfoUsers>
                       )
                     );
