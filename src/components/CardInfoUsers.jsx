@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../constants/firebase";
 import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
+
 const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
   const { currentUser } = useAuth();
   const handleDelete = async () => {
@@ -65,7 +66,7 @@ const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
           <p className="phone w-1/5">PhoneNumber</p>
           <p className="dateAdd w-1/5">Birthday</p>
           <p className="status w-[15%]">Status</p>
-          <button>More or Remove</button>
+          <button>Delete</button>
         </div>
       )}
     </>

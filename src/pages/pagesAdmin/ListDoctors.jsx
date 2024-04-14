@@ -12,11 +12,14 @@ import CardInfoUsers from "../../components/CardInfoUsers";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Spin from "../../assets/spin-svgrepo-com.svg";
 const ListDoctors = () => {
   const [btnAddDoc, setBtnAddDoc] = useState(true);
   const [imagePath, setImagePath] = useState(null);
   const { currentUser } = useAuth();
+  1;
   const [listOfDoctors, setListOfDoctors] = useState([]);
+  const [Loading, setLoading] = useState(false);
   const [value, setValues] = useState({
     FirstName: "",
     LastName: "",
@@ -107,6 +110,7 @@ const ListDoctors = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     value.PathImage = await handleImageUpload();
     console.log(value);
     const preGmail = currentUser.email;
@@ -129,6 +133,7 @@ const ListDoctors = () => {
       });
 
     console.log(currentUser);
+    setLoading(false);
   };
   const handleReset = () => {
     const reset = {
@@ -152,7 +157,7 @@ const ListDoctors = () => {
   };
   return (
     <>
-      <div className={`w-11/12 h-full bg-sky-100 mx-auto mt-5`}>
+      <div className={`w-full h-full bg-sky-100 mx-auto`}>
         <div className=" bg-orange-100 h-14 flex items-center justify-between px-10 font-[poppins] text-base">
           {btnAddDoc ? (
             <div className="">
@@ -353,9 +358,16 @@ const ListDoctors = () => {
                     </button>
                     <button
                       type="submit"
-                      className="bg-skyblue text-white rounded-md px-4 py-2"
+                      className="bg-skyblue flex flex-row text-white rounded-md px-4 py-2"
                     >
-                      Submit
+                      {Loading && (
+                        <img
+                          src={Spin}
+                          className="h-6 w-6 motion-reduce:hidden animate-spin"
+                          alt=""
+                        />
+                      )}
+                      <p className=""> Submit</p>
                     </button>
                   </div>
                 </div>

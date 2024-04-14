@@ -16,6 +16,7 @@ const HeadInfo = ({ currentUser }) => {
   const conFirm = () => {
     signout();
   };
+
   const setLogoutPara = () => {
     setLogout(false);
   };
@@ -45,7 +46,7 @@ const HeadInfo = ({ currentUser }) => {
           </a>
 
           {currentUser ? (
-            <div className="users basis-3/4 flex flex-row justify-end px-10 items-center text-darkblue font-bold text-sm ">
+            <div className="users basis-3/4 flex flex-row justify-end px-10 items-center text-darkblue font-bold text-base font-[poppins]">
               <div className="account flex items-center justify-center rounded-md">
                 <img
                   src={Doctor}
@@ -53,12 +54,13 @@ const HeadInfo = ({ currentUser }) => {
                   className=" h-10 w-10 rounded-full"
                 />
                 <p className=" px-4">
+                  {console.log(currentUser)}
                   {currentUser.displayName
                     ? currentUser.displayName
                     : currentUser.email}
                 </p>
               </div>
-              <div className="logout flex items-center px-2 rounded-md">
+              <div className="logout flex items-center px-2 rounded-md hover:bg-slate-200 h-10">
                 <button onClick={() => setLogout(true)}>Sign Out</button>
               </div>
             </div>
@@ -104,6 +106,7 @@ const HeadInfo = ({ currentUser }) => {
             </div>
           )}
         </div>
+
         <div className="nav"></div>
       </div>
       {logout && (
