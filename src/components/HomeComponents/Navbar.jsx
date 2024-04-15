@@ -4,14 +4,20 @@ import { navigation } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
+
+//Get the positoion of Med_header
+
+
 const Navbar = () => {
    const pathname = useLocation();
 
    return (
       <div className="header sticky top-0 left-0 w-full z-50">
          <HeadInfo></HeadInfo>
-         <div className={`static w-full flex items-center bg-darkblue`}>
-            <nav className="static flex mx-auto">
+         
+         <div className={`static w-full flex items-center bg-darkblue `}>
+            <nav className="flex">
+               
                {navigation.map((item) => (
                   <a
                      key={item.id}

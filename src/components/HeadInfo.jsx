@@ -40,7 +40,7 @@ const HeadInfo = ({ currentUser }) => {
                   className="title flex flex-row pl-10 basis-1/3 justify-center items-center"
                   href="/"
                >
-                  <p className="text-[#1F2B6C] text-3xl font-bold font-serif">
+                  <p id="Med_header" className="text-[#1F2B6C] text-3xl font-bold font-serif">
                      MED
                   </p>
                   <p className="text-sky-400 text-3xl font-bold font-serif">

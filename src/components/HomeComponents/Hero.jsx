@@ -10,7 +10,18 @@ import {
 
 } from "@fortawesome/free-regular-svg-icons";
 import { faSyringe, faTablet, faTablets } from "@fortawesome/free-solid-svg-icons";
+const handleScrollToServices = () => {
+   const servicesSection = document.getElementById("services");
+   const headerHeight = document.querySelector(".header").offsetHeight;
 
+   if (servicesSection) {
+      const scrollPosition = servicesSection.offsetTop - headerHeight;
+      window.scrollTo({
+         top: scrollPosition,
+         behavior: "smooth"
+      });
+   }
+ };
 const HeroButton = ({ children, className }) => {
    return (
       <div
@@ -39,7 +50,7 @@ const Hero = () => {
                </h1>
                <Button
                   className="bg-lightblue rounded-full font-bold font-sm px-4 py-2 my-2"
-                  href="services"
+                  onClick={handleScrollToServices}
                >
                   Our Services
                </Button>
@@ -97,7 +108,7 @@ const Hero = () => {
             />
          </div>
          <section className="w-3/4 mx-auto flex flex-col items-center justify-stretch my-16 gap-4">
-            <div className="">
+            <div id="services" className="">
                <h4 className="  font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
                   Care you can believe in
                </h4>
