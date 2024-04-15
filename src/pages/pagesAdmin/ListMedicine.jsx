@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardMedicines from "../../components/CardMedicines";
+import AddMedicine from "../../components/Form/AddMedicine";
 const ListMedicine = () => {
+  const [addList, setAddList] = useState(false);
   return (
     <>
       <div className="w-full h-full bg-sky-50 mx-auto">
@@ -28,7 +30,10 @@ const ListMedicine = () => {
               Filte
             </button>
           </div>
-          <button className="h-9 w-32 bg-[#FF2B54] mx-10 rounded-md text-white">
+          <button
+            onClick={() => setAddList(!addList)}
+            className="h-9 w-32 bg-[#FF2B54] mx-10 rounded-md text-white"
+          >
             <span>
               <FontAwesomeIcon icon={faPlus} className="px-1" />
             </span>
@@ -36,14 +41,18 @@ const ListMedicine = () => {
           </button>
         </div>
 
-        <div className="item flex flex-col gap-2 items-center">
-          <CardMedicines />
-          <CardMedicines />
-          <CardMedicines />
-          <CardMedicines />
-          <CardMedicines />
-          <CardMedicines />
-        </div>
+        {!addList ? (
+          <div className="item flex flex-col gap-2 items-center">
+            <CardMedicines />
+            <CardMedicines />
+            <CardMedicines />
+            <CardMedicines />
+            <CardMedicines />
+            <CardMedicines />
+          </div>
+        ) : (
+          <AddMedicine />
+        )}
       </div>
     </>
   );

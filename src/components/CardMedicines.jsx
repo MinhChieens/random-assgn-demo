@@ -8,7 +8,7 @@ const CardMedicines = ({ props }) => {
   return (
     <>
       {/* {props ? ( */}
-      <div className="wrap flex flex-row items-center h-14 w-[95%] bg-transparent border-2 pr-3  font-[poppins] font-bold hover:bg-[#FF2B54] cursor-pointer px-5">
+      <div className="wrap flex flex-row items-center h-14 w-[95%] bg-transparent border-2 pr-3  font-[poppins] font-bold hover:bg-[#FF2B54] hover:text-white cursor-pointer px-5">
         <div className="head flex flex-row w-[30%] items-center">
           <img src={ImgService} className="h-10 w-10 rounded-full" alt="" />
           <div className="info pl-3">

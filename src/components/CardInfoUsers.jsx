@@ -3,7 +3,13 @@ import { faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../constants/firebase";
-import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import Swal from "sweetalert2";
 
 const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
@@ -40,6 +46,7 @@ const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
         ListOfPatients: arrayRemove(uid),
       });
     }
+    await deleteDoc(doc(db, "doctors", uid));
     handleDeleteUser();
   };
 
