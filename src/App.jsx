@@ -12,26 +12,26 @@ import Admin from "./pages/Admin";
 import { routesUser, routesAdmin, routesDoctor } from "./Routes";
 
 const App = () => {
-   return (
-      <>
-         <Routes>
-            <Route path="/" element={<HomeInfo></HomeInfo>} />
-            <Route path="/login" element={<Login></Login>} />
-            <Route path="/signup" element={<SignUp></SignUp>} />
-            <Route path="/test" element={<ConfirmAccept />}></Route>
-            <Route path="/forgot" element={<ForgotPass />}></Route>
-            <Route path="/doctors" element={<Doctors></Doctors>}>
-               {routesDoctor}
-            </Route>
-            <Route path="/admin" element={<Admin></Admin>}>
-               {routesAdmin}
-            </Route>
-            <Route path="/users" element={<User />}>
-               {routesUser}
-            </Route>
-         </Routes>
-      </>
-   );
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomeInfo></HomeInfo>} />
+        <Route path="/login" element={<Login></Login>} />
+        <Route path="/signup" element={<SignUp></SignUp>} />
+        <Route path="/test" element={<ConfirmAccept />}></Route>
+        <Route path="/forgot" element={<ForgotPass />}></Route>
+        <Route path="/doctors" element={<Doctors></Doctors>}>
+          {routesDoctor}
+        </Route>
+        <Route path="/admin" element={<Admin></Admin>}>
+          {routesAdmin}
+        </Route>
+        <Route path="/users" element={<User />}>
+          {routesUser}
+        </Route>
+      </Routes>
+    </>
+  );
 };
 
 export default App;

@@ -5,10 +5,33 @@ import { useAuth } from "../context/AuthContext";
 import { db } from "../constants/firebase";
 import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
 
+import Swal from "sweetalert2";
+
 const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
   const { currentUser } = useAuth();
+  const checkDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        handleDelete();
+      }
+    });
+  };
   const handleDelete = async () => {
     const docRef = doc(db, typeUser, currentUser.uid);
+
     if (typeUser === "admin") {
       await updateDoc(docRef, {
         listOfDoctors: arrayRemove(uid),
@@ -50,7 +73,7 @@ const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
               </p>
             )}
           </div>
-          <button onClick={() => handleDelete()} className="pr-5">
+          <button onClick={() => checkDelete()} className="pr-5">
             <FontAwesomeIcon icon={faCircleArrowRight} />
           </button>
         </div>

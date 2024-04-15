@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { setDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { db, auth, storage } from "../../constants/firebase";
+import { toast, Bounce } from "react-toastify";
+
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -17,7 +19,30 @@ const ListDoctors = () => {
   const [btnAddDoc, setBtnAddDoc] = useState(true);
   const [imagePath, setImagePath] = useState(null);
   const { currentUser } = useAuth();
-  1;
+  const notifySuccess = () =>
+    toast.success("Add Successfully!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  const notifyFail = () =>
+    toast.error("Failed! Gmail can existed", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   const [listOfDoctors, setListOfDoctors] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [value, setValues] = useState({
@@ -124,12 +149,12 @@ const ListDoctors = () => {
         addListDoctor(userCredential.user.uid);
 
         setTimeout(() => SignInAgain(preGmail), 900);
+        notifySuccess();
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        if (errorCode == "auth/email-already-in-use")
-          alert("Email already used");
+        notifyFail();
       });
 
     console.log(currentUser);
