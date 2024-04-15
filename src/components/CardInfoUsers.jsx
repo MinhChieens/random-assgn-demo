@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../constants/firebase";
 import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
-
 import Swal from "sweetalert2";
 
 const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {

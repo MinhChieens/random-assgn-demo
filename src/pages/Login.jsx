@@ -5,6 +5,8 @@ import HeadInfo from "../components/HeadInfo";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { toast, Bounce } from "react-toastify";
+
 const Login = () => {
   const navigate = useNavigate();
   const { currentUser, userLoggedIn, loading, type } = useAuth();
@@ -14,11 +16,22 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const alertLogin = () =>
+    toast.success("Login Successfully!", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
 
   useEffect(() => {
     console.log(currentUser);
-    if (!currentUser) return;
-    routeUserLogin(currentUser);
+    if (!currentUser) routeUserLogin(currentUser);
   }, []);
 
   const routeUserLogin = (user) => {
@@ -44,6 +57,7 @@ const Login = () => {
         //.....Sign Up
         const user = userCredential.user;
         routeUserLogin(user);
+        alertLogin();
       })
       .catch((error) => {
         const errorCode = error.code;

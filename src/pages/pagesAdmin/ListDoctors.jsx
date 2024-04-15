@@ -3,7 +3,7 @@ import { setDoc, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { db, auth, storage } from "../../constants/firebase";
 import { toast, Bounce } from "react-toastify";
-
+import { updateProfile } from "firebase/auth";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -144,6 +144,12 @@ const ListDoctors = () => {
 
     await createUserWithEmailAndPassword(auth, value.Gmail, value.PassWord)
       .then((userCredential) => {
+        updateProfile(userCredential.user, {
+          displayName: value.FirstName + " " + value.LastName,
+          photoURL: value.PathImage,
+        }).catch((error) => {
+          console.log(error);
+        });
         setUpInfoUser(userCredential.user.uid);
 
         addListDoctor(userCredential.user.uid);

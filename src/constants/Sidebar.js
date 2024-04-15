@@ -11,6 +11,7 @@ import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { faBookMedical } from "@fortawesome/free-solid-svg-icons";
 import { faFileMedical } from "@fortawesome/free-solid-svg-icons";
 import { faPrescriptionBottleMedical } from "@fortawesome/free-solid-svg-icons";
+import { faCapsules } from "@fortawesome/free-solid-svg-icons";
 export const SidePatient = [
   {
     title: "DashBoard",
@@ -60,6 +61,11 @@ export const SideAdmin = [
     title: "Medical device",
     path: "medicalDevice",
     icon: faKitMedical,
+  },
+  {
+    title: "Medicines",
+    path: "medicines",
+    icon: faCapsules,
   },
 ];
 

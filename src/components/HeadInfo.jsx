@@ -2,23 +2,30 @@ import {
   faPhoneVolume,
   faClock,
   faLocationDot,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, signOut } from "firebase/auth";
 import Doctor from "../assets/doctor.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ConfirmAccept from "./ConfirmAccept";
-import { useState } from "react";
+import Swal from "sweetalert2";
 
 const HeadInfo = ({ currentUser }) => {
   const navigate = useNavigate();
-  const [logout, setLogout] = useState(false);
   const conFirm = () => {
-    signout();
-  };
-
-  const setLogoutPara = () => {
-    setLogout(false);
+    Swal.fire({
+      title: "Are you sure Log Out?",
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signout();
+      }
+    });
   };
   const signout = () => {
     const auth = getAuth();
@@ -49,7 +56,7 @@ const HeadInfo = ({ currentUser }) => {
             <div className="users basis-3/4 flex flex-row justify-end px-10 items-center text-darkblue font-bold text-base font-[poppins]">
               <div className="account flex items-center justify-center rounded-md">
                 <img
-                  src={Doctor}
+                  src={currentUser.photoURL ? currentUser.photoURL : Doctor}
                   alt="Doctor"
                   className=" h-10 w-10 rounded-full"
                 />
@@ -61,7 +68,12 @@ const HeadInfo = ({ currentUser }) => {
                 </p>
               </div>
               <div className="logout flex items-center px-2 rounded-md hover:bg-slate-200 h-10">
-                <button onClick={() => setLogout(true)}>Sign Out</button>
+                <button onClick={() => conFirm()}>
+                  Sign Out
+                  <span className="pl-2">
+                    <FontAwesomeIcon icon={faRightFromBracket} />
+                  </span>
+                </button>
               </div>
             </div>
           ) : (
@@ -109,9 +121,6 @@ const HeadInfo = ({ currentUser }) => {
 
         <div className="nav"></div>
       </div>
-      {logout && (
-        <ConfirmAccept conFirm={conFirm} setLogoutPara={setLogoutPara} />
-      )}
     </>
   );
 };
