@@ -256,11 +256,11 @@ const ListDoctors = () => {
                     <label htmlFor="physicianName">First Name</label>
                     <input
                       onChange={(e) => handleChange(e)}
+                      required
                       className="block w-full h-10 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-sky-300 focus:border-sky-300 opacity-80 "
                       type="text"
                       name="FirstName"
                       id="physicianName"
-                      required
                       placeholder="First Name"
                     />
                   </li>
@@ -268,6 +268,7 @@ const ListDoctors = () => {
                     <label htmlFor="Gmail">Gmail</label>
                     <input
                       onChange={(e) => handleChange(e)}
+                      required
                       name="Gmail"
                       type="email"
                       className="block w-full h-10 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-sky-300 focus:border-sky-300 opacity-80 "
