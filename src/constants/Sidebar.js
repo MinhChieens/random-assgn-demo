@@ -25,8 +25,8 @@ export const SidePatient = [
   },
   { title: "Health Records", path: "records", icon: faBookMedical },
   {
-    title: "Physician Directory",
-    path: "doctors",
+    title: "Test Result",
+    path: "test",
     icon: faNotesMedical,
   },
   {
