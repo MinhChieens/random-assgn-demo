@@ -59,7 +59,7 @@ export const SideAdmin = [
   },
   {
     title: "Medical device",
-    path: "medicalDevice",
+    path: "devices",
     icon: faKitMedical,
   },
   {

@@ -3,11 +3,11 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardMedicines from "../../components/CardMedicines";
-import AddMedicine from "../../components/Form/AddMedicine";
+import AddDevice from "../../components/Form/AddDevice";
 import { db } from "../../constants/firebase";
 import { getDoc, doc } from "firebase/firestore";
 
-const ListMedicine = () => {
+const ListDevice = () => {
   const [addList, setAddList] = useState(false);
   const [filter, setFilter] = useState(false);
   const [listFilter, setListFilter] = useState([]);
@@ -29,6 +29,7 @@ const ListMedicine = () => {
   const handleDeleteMed = () => {
     getListMedicines();
   };
+
   const getListMedicine = async (listMedicine) => {
     const promises = listMedicine.map(async (id) => {
       const refDoctor = doc(db, "medicines", id);
@@ -62,7 +63,7 @@ const ListMedicine = () => {
       <div className="w-full h-full mx-auto">
         <div className="bg-darkblue h-14 flex items-center justify-between px-10 font-[montserrat] text-base text-white/80">
           <div className=" w-60 flex items-center text-white">
-            <h3 className="text-2xl  font-bold">Medicines</h3>
+            <h3 className="text-2xl  font-bold">Devices</h3>
             {!addList ? (
               <p className="text-darkblue text-base ml-3 px-[10px] py-1 bg-stone-200 rounded-full italic">
                 {numMedicine} Item
@@ -100,10 +101,10 @@ const ListMedicine = () => {
             {!addList ? (
               <span className="flex items-center justify-center gap-1 px-1">
                 <FontAwesomeIcon icon={faPlus} />
-                <p>Add Medicine</p>
+                <p>Add Device</p>
               </span>
             ) : (
-              "List Medicine"
+              "List Device"
             )}
           </button>
         </div>
@@ -119,7 +120,7 @@ const ListMedicine = () => {
                   </div>
                   <p className="email col-span-1 ">Quantity</p>
                   <p className="phone col-span-2">Type</p>
-                  <p className="dateAdd col-span-2">Via</p>
+                  <p className="dateAdd col-span-2">Expiry</p>
                   <p className="status col-span-2">Active Principle</p>
                   <p className="status col-span-1">More</p>
                 </div>
@@ -142,7 +143,7 @@ const ListMedicine = () => {
                 </div>
               </div>
             ) : (
-              <AddMedicine />
+              <AddDevice />
             )}
           </>
         ) : (
@@ -180,7 +181,7 @@ const ListMedicine = () => {
                 </div>
               </>
             ) : (
-              <AddMedicine />
+              <AddDevice />
             )}
           </>
         )}
@@ -189,4 +190,4 @@ const ListMedicine = () => {
   );
 };
 
-export default ListMedicine;
+export default ListDevice;

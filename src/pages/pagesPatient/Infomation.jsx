@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Doctor from "../../assets/doctor.png";
-
+import Swal from "sweetalert2";
+import { getAuth } from "firebase/auth";
+import { updateDoc, doc, getDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../constants/firebase";
+import { db } from "../../constants/firebase";
+import { v4 } from "uuid";
 const Infomation = () => {
   const [change, setChange] = useState(false);
   const [upImage, setUpImage] = useState(false);
@@ -16,10 +22,62 @@ const Infomation = () => {
     pathImage: "",
   });
 
+  useEffect(() => {
+    const updateV = async () => {
+      const currentUser = getAuth().currentUser;
+      if (!currentUser) return;
+      const valueDoc = await getDoc(doc(db, "users", currentUser.uid));
+      if (valueDoc.exists()) {
+        console.log(valueDoc.data().information);
+        setValue(valueDoc.data().information);
+      }
+    };
+    updateV();
+  }, []);
+
   const handleChange = (e) => {
     e.preventDefault();
     if (!change) return;
     setValue({ ...value, [e.target.name]: e.target.value });
+  };
+
+  const setData = async () => {
+    const currentUser = getAuth().currentUser;
+    value.pathImage = await setPathImage();
+    console.log(currentUser.uid);
+    await updateDoc(doc(db, "users", currentUser.uid), {
+      information: value,
+    }).then(() => {
+      console.log("Updated doc");
+    });
+  };
+  const setPathImage = async () => {
+    const imgRef = ref(storage, `images/patients/${v4()}`);
+    await uploadBytes(imgRef, upImage);
+    const downloadURL = await getDownloadURL(imgRef);
+    console.log("File available at", downloadURL);
+    return downloadURL;
+    // setValues((preValue) => ({ ...preValue, PathImage: downloadURL }));
+  };
+  const handleSubmit = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Successfully!",
+          icon: "success",
+        });
+      }
+
+      setData();
+    });
+    setChange(!change);
   };
   return (
     <>
@@ -45,8 +103,10 @@ const Infomation = () => {
               <img
                 src={URL.createObjectURL(upImage)}
                 alt="Uploaded"
-                className="w-40 h-40 rounded-full"
+                className="w-60 h-60"
               />
+            ) : value.pathImage ? (
+              <img src={value.pathImage} className="w-60 h-60" alt="" />
             ) : (
               <span>Select Image Avatar </span>
             )}
@@ -157,12 +217,21 @@ const Infomation = () => {
             </li>
           </ul>
 
-          <button
-            onClick={() => setChange(!change)}
-            className="ml-16 mt-4 h-12 w-24 rounded-lg bg-red-500 font-[poppins] font-bold"
-          >
-            {!change ? "Update" : "Save"}
-          </button>
+          {!change ? (
+            <button
+              onClick={() => setChange(!change)}
+              className="ml-16 mt-4 h-12 w-24 rounded-lg bg-red-500 font-[poppins] font-bold"
+            >
+              Update
+            </button>
+          ) : (
+            <button
+              onClick={() => handleSubmit()}
+              className="ml-16 mt-4 h-12 w-24 rounded-lg bg-red-500 font-[poppins] font-bold"
+            >
+              Save
+            </button>
+          )}
         </div>
       </div>
     </>
