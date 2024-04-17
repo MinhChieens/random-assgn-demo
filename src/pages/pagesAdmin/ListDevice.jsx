@@ -11,12 +11,12 @@ const ListDevice = () => {
   const [addList, setAddList] = useState(false);
   const [filter, setFilter] = useState(false);
   const [listFilter, setListFilter] = useState([]);
-  const [listOfMedicine, setListOfMedicine] = useState([]);
-  const [numMedicine, setNumMedicine] = useState(0);
+  const [listOfDevice, setListOfDevice] = useState([]);
+  const [numDevice, setNumDevice] = useState(0);
   const [valueFilter, setValueFilter] = useState(false);
   const handleFilter = () => {
-    if (!listOfMedicine.length) return;
-    const rel = listOfMedicine.filter((med) => {
+    if (!listOfDevice.length) return;
+    const rel = listOfDevice.filter((med) => {
       return med.uid === valueFilter;
     });
     if (!rel.length) {
@@ -27,12 +27,12 @@ const ListDevice = () => {
     setFilter(true);
   };
   const handleDeleteMed = () => {
-    getListMedicines();
+    getListDevices();
   };
 
-  const getListMedicine = async (listMedicine) => {
-    const promises = listMedicine.map(async (id) => {
-      const refDoctor = doc(db, "medicines", id);
+  const getListDevice = async (list) => {
+    const promises = list.map(async (id) => {
+      const refDoctor = doc(db, "devices", id);
       const data = await getDoc(refDoctor);
       if (data.exists()) {
         return { value: data.data(), uid: id };
@@ -43,20 +43,20 @@ const ListDevice = () => {
     const doctorValues = await Promise.all(promises);
     // Filter out any null values returned from documents that don't exist
     const values = doctorValues.filter((value) => value !== null);
-    //console.log(validDoctorValues);
-    setListOfMedicine(values);
+    // console.log(values);
+    setListOfDevice(values);
   };
 
-  const getListMedicines = async () => {
-    const docRef = doc(db, "medicines", "general");
+  const getListDevices = async () => {
+    const docRef = doc(db, "devices", "general");
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      getListMedicine(docSnap.data().ArrayMedicine);
-      setNumMedicine(docSnap.data().numOfMedicine);
+      getListDevice(docSnap.data().ArrayDevice);
+      setNumDevice(docSnap.data().numOfDevice);
     }
   };
   useEffect(() => {
-    getListMedicines();
+    getListDevices();
   }, [addList]);
   return (
     <>
@@ -66,7 +66,7 @@ const ListDevice = () => {
             <h3 className="text-2xl  font-bold">Devices</h3>
             {!addList ? (
               <p className="text-darkblue text-base ml-3 px-[10px] py-1 bg-stone-200 rounded-full italic">
-                {numMedicine} Item
+                {numDevice} Item
               </p>
             ) : (
               ""
@@ -121,17 +121,17 @@ const ListDevice = () => {
                   <p className="email col-span-1 ">Quantity</p>
                   <p className="phone col-span-2">Type</p>
                   <p className="dateAdd col-span-2">Expiry</p>
-                  <p className="status col-span-2">Active Principle</p>
+                  <p className="status col-span-2">Manufacturer</p>
                   <p className="status col-span-1">More</p>
                 </div>
                 <div className="item flex flex-col gap-2 items-center">
-                  {listOfMedicine &&
-                    listOfMedicine.map((element, index) => {
+                  {listOfDevice &&
+                    listOfDevice.map((element, index) => {
                       return (
                         element &&
                         element.value && (
                           <CardMedicines
-                            type={"medicines"}
+                            type={"devices"}
                             key={index}
                             uid={element.uid}
                             handleDeleteMed={handleDeleteMed}

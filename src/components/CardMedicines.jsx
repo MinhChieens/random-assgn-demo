@@ -48,16 +48,16 @@ const CardMedicines = ({ type, uid, handleDeleteMed, props }) => {
   };
 
   const handleDelete = async (num) => {
-    const docRef = doc(db, "medicines", "general");
-    const refMed = doc(db, "medicines", uid);
+    const docRef = doc(db, type, "general");
+    const refMed = doc(db, type, uid);
     const numMed = await getDoc(refMed).then((med) => {
       return med.data().quantity;
     });
     if (num == -1 || num >= numMed) {
-      await deleteDoc(doc(db, "medicines", uid));
+      await deleteDoc(doc(db, type, uid));
       await updateDoc(docRef, {
-        ArrayMedicine: arrayRemove(uid),
-        numOfMedicine: increment(-numMed),
+        ArrayDevice: arrayRemove(uid),
+        numOfDevice: increment(-numMed),
       });
     } else {
       console.log("You entered:", num, numMed);
@@ -65,7 +65,7 @@ const CardMedicines = ({ type, uid, handleDeleteMed, props }) => {
         quantity: numMed - num,
       });
       await updateDoc(docRef, {
-        numOfMedicine: increment(-num),
+        numOfDevice: increment(-num),
       });
     }
     Swal.fire({
@@ -86,14 +86,20 @@ const CardMedicines = ({ type, uid, handleDeleteMed, props }) => {
               alt=""
             />
             <div className="info">
-              <h3>{props.value.NameMedicine}</h3>
+              <h3>{props.value.NameMedicine || props.value.deviceName}</h3>
               <p className=" text-[#B5B5C3]">{props.value.NameMedicine}</p>
             </div>
           </div>
           <p className="col-span-1 ">{props.quantity}</p>
-          <p className="col-span-2">{props.value.Presentation}</p>
-          <p className="col-span-2 ">{props.value.Via}</p>
-          <p className="col-span-2 ">{props.value.PrincipleActive}</p>
+          <p className="col-span-2">
+            {props.value.Presentation || props.value.maintenanceInfo}
+          </p>
+          <p className="col-span-2 ">
+            {props.value.Via || props.value.warrantyInfo}
+          </p>
+          <p className="col-span-2 ">
+            {props.value.PrincipleActive || props.value.manufacturer}
+          </p>
           <div className="col-span-1 flex items-center gap-3">
             <button onClick={() => checkDelete()} className="">
               <FontAwesomeIcon icon={faTrashCan} />
