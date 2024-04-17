@@ -3,15 +3,11 @@ import { useState } from "react";
 
 const AppointmentForm = () => {
    const [value, setValues] = useState({
-      physicianName: "",
       activity: "",
       subject: "",
-      patientName: "",
-      patientPhone: "",
       HI: false,
       time: "",
-      startDate: "",
-      endDate: "",
+      date: "",
       message: "",
    });
 
@@ -22,15 +18,11 @@ const AppointmentForm = () => {
 
    const handleReset = () => {
       const reset = {
-         physicianName: "",
          activity: "",
          subject: "",
-         patientName: "",
-         patientPhone: "",
          HI: false,
          time: "",
-         startDate: "",
-         endDate: "",
+         date: "",
          message: "",
       };
       setValues(reset);
@@ -45,18 +37,7 @@ const AppointmentForm = () => {
          onReset={handleReset}
          className="flex flex-col w-4/5 mx-auto my-4 text-base font-yeseva"
       >
-         <ul className="w-full mx-auto  columns-2 gap-4  items-stretch *:py-2">
-            <li className="flex flex-col gap-1">
-               <label htmlFor="physicianName">Attending physician</label>
-               <input
-                  onChange={(e) => handleChange(e)}
-                  className="border-2 border-gray-300 p-1 rounded-md"
-                  type="text"
-                  name="physicianName"
-                  id="physicianName"
-                  required
-               />
-            </li>
+         <ul className="w-full mx-auto  grid grid-cols-2 gap-2  items-stretch *:py-2">
             <li className="flex flex-col gap-1">
                <label htmlFor="activity">Activity Type</label>
                <select
@@ -88,42 +69,6 @@ const AppointmentForm = () => {
                />
             </li>
             <li className="flex flex-col gap-1">
-               <label htmlFor="patient">Patient</label>
-               <input
-                  onChange={(e) => handleChange(e)}
-                  className="border-2 border-gray-300 p-1 rounded-md"
-                  type="text"
-                  name="patientName"
-                  id="patient"
-                  placeholder="Name"
-                  required
-               />
-               <input
-                  onChange={(e) => handleChange(e)}
-                  className="border-2 border-gray-300 p-1 rounded-md"
-                  type="tel"
-                  name="patientPhone"
-                  id="patient"
-                  placeholder="Phone number"
-                  required
-               />
-            </li>
-            <li className="flex gap-1 items-center">
-               <input
-                  onClick={() => {
-                     value.HI = !value.HI;
-                     handleChange({
-                        target: { name: "HI", value: value.HI },
-                     });
-                  }}
-                  type="checkbox"
-                  id="HI"
-                  name="HI"
-                  value="HI"
-               />
-               <label htmlFor="HI">Home Isolation</label>
-            </li>
-            <li className="flex flex-col gap-1">
                <label htmlFor="time">Time</label>
                <select
                   onChange={(e) => handleChange(e)}
@@ -141,36 +86,38 @@ const AppointmentForm = () => {
                   <option value="15">3PM - 5PM</option>
                </select>
             </li>
+            <div className="flex justify-between">
+               <li className="flex flex-col gap-1 ">
+                  <label htmlFor="date">Date</label>
+                  <div className="flex gap-1 items-stretch">
+                     <input
+                        onChange={(e) => handleChange(e)}
+                        type="date"
+                        className="border-2 border-gray-300 p-1 rounded-md"
+                        id="date"
+                        name="date"
+                        required
+                     />
+                  </div>
+               </li>
+               <li className="flex gap-1 items-center">
+                  <input
+                     onClick={() => {
+                        value.HI = !value.HI;
+                        handleChange({
+                           target: { name: "HI", value: value.HI },
+                        });
+                     }}
+                     type="checkbox"
+                     id="HI"
+                     name="HI"
+                     value="HI"
+                  />
+                  <label htmlFor="HI">Health Insurance</label>
+               </li>
+            </div>
          </ul>
          <hr className="w-full h-px my-2 bg-white/50" />
-         <ul className="w-full mx-auto  columns-2 gap-4  items-stretch *:py-2">
-            <li className="flex flex-col gap-1 ">
-               <label htmlFor="startDate">Start Date</label>
-               <div className="flex gap-1 items-stretch">
-                  <input
-                     onChange={(e) => handleChange(e)}
-                     type="date"
-                     className="border-2 border-gray-300 p-1 rounded-md"
-                     id="startDate"
-                     name="startDate"
-                     required
-                  />
-               </div>
-            </li>
-            <li className="flex flex-col gap-1">
-               <label htmlFor="endDate">End Date</label>
-               <div className="flex gap-1">
-                  <input
-                     onChange={(e) => handleChange(e)}
-                     type="date"
-                     className="border-2 border-gray-300 p-1 rounded-md"
-                     id="endDate"
-                     name="endDate"
-                     required
-                  />
-               </div>
-            </li>
-         </ul>
          <textarea
             onChange={(e) => handleChange(e)}
             className="border-2 border-gray-300 my-2 p-2 rounded-md"

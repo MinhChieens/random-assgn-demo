@@ -89,7 +89,7 @@ const AddMedicine = () => {
 
   return (
     <div className="wrap m-5 font-[poppins]">
-      <form className="grid grid-cols-6">
+      <form className="grid grid-cols-6" onSubmit={(e) => handleSubmit(e)}>
         <div className=" col-span-4 flex flex-col  items-center gap-4">
           <div className="w-4/5 ">
             <h2 className=" font-[Montserrat] text-[#212121] italic">
@@ -193,7 +193,7 @@ const AddMedicine = () => {
               Reset
             </button>
             <button
-              onClick={(e) => handleSubmit(e)}
+              type="submit"
               className="h-12 w-32 bg-skyblue/80 hover:bg-skyblue text-white rounded-lg"
             >
               <div className="flex flex-row items-center justify-center gap-2">
@@ -216,8 +216,8 @@ const AddMedicine = () => {
               type="file"
               accept="image/*"
               className="hidden "
-              required
               id="imageInput"
+              required
               onChange={(e) => setImagePath(e.target.files[0])}
             />
             <label
