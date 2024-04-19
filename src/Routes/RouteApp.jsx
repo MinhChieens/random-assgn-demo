@@ -4,7 +4,6 @@ import DashboardAdmin from "../pages/pagesAdmin/DashboardAdmin";
 import SupportAdmin from "../pages/pagesAdmin/SupportAdmin";
 import DashboardDoctor from "../pages/pagesPatient/Dashboard";
 import SupportDoctor from "../pages/pagesDoctors/SupportDoctor";
-import AppointmentForm from "../components/Form/AppointmentForm";
 import ListDoctors from "../pages/pagesAdmin/ListDoctors";
 import DoctorScheduling from "../pages/pagesDoctors/DoctorScheduling";
 import InfoDoctor from "../pages/pagesDoctors/InfoDoctor";
@@ -12,11 +11,13 @@ import ListMedicine from "../pages/pagesAdmin/ListMedicine";
 import ListPatient from "../pages/pagesDoctors/ListPatient";
 import Infomation from "../pages/pagesPatient/Infomation";
 import ListDevice from "../pages/pagesAdmin/ListDevice";
+import ListAppointment from "../pages/pagesDoctors/ListAppointment";
+import Appointment from "../pages/pagesPatient/Appointment";
 export const RouteUser = [
   { path: "home", element: <Dashboard />, state: "home" },
   { path: "dashboard", element: <Dashboard />, sidebarProps: {} },
   { path: "support", element: <Support />, sidebarProps: {} },
-  { path: "appointment", element: <AppointmentForm />, sidebarProps: {} },
+  { path: "appointment", element: <Appointment />, sidebarProps: {} },
   { path: "information", element: <Infomation />, sidebarProps: {} },
 ];
 export const RouteDoctor = [
@@ -26,6 +27,7 @@ export const RouteDoctor = [
   { path: "schedule", element: <DoctorScheduling />, sidebarProps: {} },
   { path: "profile", element: <InfoDoctor />, sidebarProps: {} },
   { path: "patientList", element: <ListPatient />, sidebarProps: {} },
+  { path: "appointments", element: <ListAppointment />, sidebarProps: {} },
 ];
 
 export const RouteAdmin = [

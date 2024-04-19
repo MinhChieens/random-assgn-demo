@@ -20,7 +20,7 @@ const PageWraper = ({ items }) => {
           <div className="sideBar bg-[#031C30] col-span-1">
             <Sidebar items={items} />
           </div>
-          <div className="content col-span-5 bg-gradient-to-br from-sky-200 to-white">
+          <div className="content col-span-5 bg-gradient-to-br from-sky-100 to-white">
             <Outlet></Outlet>
           </div>
         </div>

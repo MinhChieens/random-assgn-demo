@@ -10,6 +10,7 @@ import { v4 } from "uuid";
 const Infomation = () => {
   const [change, setChange] = useState(false);
   const [upImage, setUpImage] = useState(false);
+
   const [value, setValue] = useState({
     name: "TAO LA PATIENT",
     age: "20",
@@ -52,6 +53,7 @@ const Infomation = () => {
     });
   };
   const setPathImage = async () => {
+    if (!upImage) return;
     const imgRef = ref(storage, `images/patients/${v4()}`);
     await uploadBytes(imgRef, upImage);
     const downloadURL = await getDownloadURL(imgRef);

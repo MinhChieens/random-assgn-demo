@@ -132,7 +132,7 @@ const Login = () => {
           You do not have account yet?
           <span>
             <a className=" underline text-black" href="signup">
-              Sign In
+              Sign Up
             </a>
           </span>
         </p>

@@ -30,11 +30,6 @@ export const SidePatient = [
     icon: faNotesMedical,
   },
   {
-    title: "Prescription",
-    path: "prescriptions",
-    icon: faPrescriptionBottleMedical,
-  },
-  {
     title: "Information",
     path: "information",
     icon: faUsers,
@@ -81,19 +76,15 @@ export const SideDoctor = [
     icon: faUserDoctor,
   },
   { title: "Patient List", path: "patientList", icon: faFileMedical },
-  {
-    title: "Patients Information",
-    path: "patients/profile",
-    icon: faNotesMedical,
-  },
+
   {
     title: "Schedule",
     path: "schedule",
     icon: faPenSquare,
   },
   {
-    title: "Patient Schedule",
-    path: "patient/schedule",
+    title: "Appointments",
+    path: "appointments",
     icon: faListAlt,
   },
 ];
