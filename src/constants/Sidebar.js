@@ -53,6 +53,11 @@ export const SideAdmin = [
     icon: faBookMedical,
   },
   {
+    title: "Patients List",
+    path: "listPatients",
+    icon: faBookMedical,
+  },
+  {
     title: "Medical device",
     path: "devices",
     icon: faKitMedical,

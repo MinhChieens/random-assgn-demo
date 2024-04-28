@@ -1,15 +1,17 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../constants/firebase";
 import HeadInfo from "../components/HeadInfo";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast, Bounce } from "react-toastify";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import Google from "../assets/icons8-google.svg";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { currentUser, userLoggedIn, loading, type } = useAuth();
+  const { currentUser } = useAuth();
   const focusRef = useRef([]);
   const [logInSuccess, setLogInSuccess] = useState(true);
   const [value, setValues] = useState({
@@ -28,10 +30,43 @@ const Login = () => {
       theme: "colored",
       transition: Bounce,
     });
-
+  const setUpInfoUser = async (userCredential) => {
+    try {
+      const checkDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+      if (checkDoc.exists()) return;
+      console.log(userCredential.user);
+      setDoc(doc(db, "users", userCredential.user.uid), {
+        information: {
+          name: userCredential.user.displayName,
+          pathImage: userCredential.user.photoURL,
+        },
+      });
+      console.log("Send data");
+      navigate("/users/information");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        setUpInfoUser(result);
+        navigate("/users");
+      })
+      .catch((error) => {
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
   useEffect(() => {
     console.log(currentUser);
-    if (!currentUser) routeUserLogin(currentUser);
+    if (currentUser) routeUserLogin(currentUser);
   }, []);
 
   const routeUserLogin = (user) => {
@@ -87,6 +122,14 @@ const Login = () => {
         <span className="text-black text-opacity-80 text-2xl font-semibold font-['Inter']">
           Create an account to run wild through our curated experiences.
         </span>
+        <button
+          onClick={signInWithGoogle}
+          className=" google w-4/5 rounded-[5px] border-4 border-black py-2 pl-3 font-bold flex flex-row item-center justify-center"
+        >
+          <img src={Google} alt="" className="w-6 h-6 pr-1" />
+          Continue with Google
+        </button>
+        <p className="text-[#5B5B5B]">or</p>
         <form
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col justify-center items-center w-full gap-5"
