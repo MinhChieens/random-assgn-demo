@@ -9,69 +9,69 @@ import { deleteDoc } from "firebase/firestore";
 import { db } from "../../constants/firebase";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-const CardPatient = ({ props, uid, setUpload }) => {
-  const tempInfor = props.healthRecord || props.information;
-  console.log(tempInfor);
-  const checkProfile = () => {
-    // redirect to user profile
-  };
-  const checkDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
-        handleDelete();
-      }
-    });
-  };
-  const handleDelete = async () => {
-    // const docRef = doc(db, typeUser, currentUser.uid);
-    await deleteDoc(doc(db, "users", uid));
-    setUpload();
-  };
-  return (
-    <div className="w-[95%] mx-auto h-14 grid grid-cols-12 p-2 border-2 hover: items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
-      <div className="head flex flex-row w-full col-span-2 items-center">
-        <img
-          src={tempInfor.pathImage}
-          className="h-10 w-10 rounded-full"
-          alt=""
-        />
+// const CardPatient = ({ props, uid, setUpload }) => {
+//   const tempInfor = props.healthRecord || props.information;
+//   console.log(tempInfor);
+//   const checkProfile = () => {
+//     // redirect to user profile
+//   };
+//   const checkDelete = () => {
+//     Swal.fire({
+//       title: "Are you sure?",
+//       text: "You won't be able to revert this!",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#3085d6",
+//       cancelButtonColor: "#d33",
+//       confirmButtonText: "Yes, delete it!",
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         Swal.fire({
+//           title: "Deleted!",
+//           text: "Your file has been deleted.",
+//           icon: "success",
+//         });
+//         handleDelete();
+//       }
+//     });
+//   };
+//   const handleDelete = async () => {
+//     // const docRef = doc(db, typeUser, currentUser.uid);
+//     await deleteDoc(doc(db, "users", uid));
+//     setUpload();
+//   };
+//   return (
+//     <div className="w-[95%] mx-auto h-14 grid grid-cols-12 p-2 border-2 hover: items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
+//       <div className="head flex flex-row w-full col-span-2 items-center">
+//         <img
+//           src={tempInfor.pathImage}
+//           className="h-10 w-10 rounded-full"
+//           alt=""
+//         />
 
-        <h3 className="pl-3">{tempInfor.name}</h3>
-      </div>
-      <div className="col-span-2">{tempInfor.diagnose}</div>
-      <div className="col-span-1">{tempInfor.age}</div>
-      <div className="col-span-2">{tempInfor.gender}</div>
-      <div className="col-span-2">{tempInfor.timeTreat}</div>
-      <div className="col-span-2">{tempInfor.birthday}</div>
-      <div className="col-span-1">
-        <button
-          onClick={() => checkDelete()}
-          className="pr-5 hover:text-red-500"
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
-        <button onClick={() => checkProfile()} className="pr-5">
-          <FontAwesomeIcon icon={faCircleInfo} />
-        </button>
-      </div>
-    </div>
-  );
-};
+//         <h3 className="pl-3">{tempInfor.name}</h3>
+//       </div>
+//       <div className="col-span-2">{tempInfor.diagnose}</div>
+//       <div className="col-span-1">{tempInfor.age}</div>
+//       <div className="col-span-2">{tempInfor.gender}</div>
+//       <div className="col-span-2">{tempInfor.timeTreat}</div>
+//       <div className="col-span-2">{tempInfor.birthday}</div>
+//       <div className="col-span-1">
+//         <button
+//           onClick={() => checkDelete()}
+//           className="pr-5 hover:text-red-500"
+//         >
+//           <FontAwesomeIcon icon={faTrashCan} />
+//         </button>
+//         <button onClick={() => checkProfile()} className="pr-5">
+//           <FontAwesomeIcon icon={faCircleInfo} />
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
 
-const ListPatientOfAdmin = () => {
+const Staff = () => {
   const [btnAdd, setBtnAdd] = useState(true);
   const [Loading, setLoading] = useState(false);
   const [listPatients, setListPatients] = useState(null);
@@ -91,13 +91,13 @@ const ListPatientOfAdmin = () => {
   const setUpload = () => {
     getPatents();
   };
-  useEffect(() => {
-    getPatents();
-  }, []);
+  //   useEffect(() => {
+  //     getPatents();
+  //   }, []);
   const [value, setValue] = useState({
     name: "HCMUT",
     age: "57",
-    diagnose: "Deadline",
+    position: "Deadline",
     timeTreat: "4 years",
     gender: "other",
     level: "2",
@@ -119,13 +119,9 @@ const ListPatientOfAdmin = () => {
     <>
       <div className="bg-darkblue h-14 flex justify-between items-center px-10 font-[poppins] text-base gap-4">
         <div className="flex gap-5 items-center">
-          <h3 className="text-2xl  font-bold text-white">List Patients</h3>
+          <h3 className="text-2xl  font-bold text-white">All Staff</h3>
           <p className="text-darkblue text-base ml-3 px-[10px] py-1 bg-stone-200 rounded-full italic">
-            {listPatients && listPatients.length} Patients
-          </p>
-          <p className="text-white font-bold">
-            Date : {new Date().getDate()}/ {new Date().getMonth()}/
-            {new Date().getFullYear()}
+            {listPatients && listPatients.length} Totals
           </p>
         </div>
 
@@ -136,7 +132,7 @@ const ListPatientOfAdmin = () => {
           {btnAdd ? (
             <span>
               <FontAwesomeIcon icon={faUserPlus} className="pr-2" />
-              Edit Patient
+              Add Staff
             </span>
           ) : (
             <p>My Patients</p>
@@ -147,10 +143,10 @@ const ListPatientOfAdmin = () => {
         <div className="pt-2">
           <div className="w-[95%] mx-auto grid grid-cols-12 p-3 bg-gray-100 items-center justify-items-center justify-center font-[poppins] font-bold text-gray-500 ">
             <div className="col-span-2 justify-self-start">Name</div>
-            <div className="col-span-2">Diagnose</div>
+            <div className="col-span-2">Qualifications</div>
             <div className="col-span-1">Age</div>
             <div className="col-span-2">Gender</div>
-            <div className="col-span-2">Treatment Time</div>
+            <div className="col-span-2">Phone number</div>
             <div className="col-span-2">Start Date</div>
             <div className="col-span-1">Details</div>
           </div>
@@ -316,4 +312,4 @@ const ListPatientOfAdmin = () => {
   );
 };
 
-export default ListPatientOfAdmin;
+export default Staff;

@@ -54,6 +54,10 @@ const HeadInfo = ({ currentUser }) => {
 
           {currentUser ? (
             <div className="users basis-3/4 flex flex-row justify-end px-10 items-center text-darkblue font-bold text-base font-[poppins]">
+              <p className="text-[#1F2B6C] font-bold pr-5">
+                Date : {new Date().getDate()}/ {new Date().getMonth()}/
+                {new Date().getFullYear()}
+              </p>
               <div className="account flex items-center justify-center rounded-md">
                 <img
                   src={currentUser.photoURL ? currentUser.photoURL : Doctor}

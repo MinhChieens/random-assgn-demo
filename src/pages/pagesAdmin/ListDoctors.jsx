@@ -218,7 +218,7 @@ const ListDoctors = () => {
           {btnAddDoc ? (
             <div className="">
               <CardInfoUsers />
-              <div className="list flex flex-col justify-center items-center gap-5 pt-3">
+              <div className="list flex flex-col justify-center items-center gap-4 pt-3">
                 {listOfDoctors &&
                   listOfDoctors.map((doctor, index) => {
                     // console.log(doctor);

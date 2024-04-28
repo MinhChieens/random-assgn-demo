@@ -11,6 +11,7 @@ import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { faBookMedical } from "@fortawesome/free-solid-svg-icons";
 import { faFileMedical } from "@fortawesome/free-solid-svg-icons";
 import { faPrescriptionBottleMedical } from "@fortawesome/free-solid-svg-icons";
+
 import { faCapsules } from "@fortawesome/free-solid-svg-icons";
 export const SidePatient = [
   {
@@ -53,8 +54,8 @@ export const SideAdmin = [
     icon: faBookMedical,
   },
   {
-    title: "Patients List",
-    path: "listPatients",
+    title: "All Patients",
+    path: "allPatients",
     icon: faBookMedical,
   },
   {
@@ -67,6 +68,7 @@ export const SideAdmin = [
     path: "medicines",
     icon: faCapsules,
   },
+  { title: "Staff", path: "staff", icon: faUsers },
 ];
 
 export const SideDoctor = [

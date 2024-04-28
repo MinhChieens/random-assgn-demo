@@ -14,6 +14,7 @@ import ListDevice from "../pages/pagesAdmin/ListDevice";
 import ListAppointment from "../pages/pagesDoctors/ListAppointment";
 import Appointment from "../pages/pagesPatient/Appointment";
 import ListPatientOfAdmin from "../pages/pagesAdmin/ListPatientOfAdmin";
+import Staff from "../pages/pagesAdmin/Staff";
 export const RouteUser = [
   { path: "home", element: <Dashboard />, state: "home" },
   { path: "dashboard", element: <Dashboard />, sidebarProps: {} },
@@ -38,5 +39,6 @@ export const RouteAdmin = [
   { path: "listDoctors", element: <ListDoctors />, sidebarProps: {} },
   { path: "medicines", element: <ListMedicine />, sidebarProps: {} },
   { path: "devices", element: <ListDevice />, sidebarProps: {} },
-  { path: "listPatients", element: <ListPatientOfAdmin />, sidebarProps: {} },
+  { path: "allPatients", element: <ListPatientOfAdmin />, sidebarProps: {} },
+  { path: "staff", element: <Staff />, sidebarProps: {} },
 ];
