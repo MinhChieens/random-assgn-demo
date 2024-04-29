@@ -41,7 +41,7 @@ const CardPatient = ({ props, uid, setUpload }) => {
     setUpload();
   };
   return (
-    <div className="w-[95%] mx-auto h-14 grid grid-cols-12 p-2 border-2 hover: items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
+    <div className="w-[95%] mx-auto h-14 grid grid-cols-12 p-2 border-2  justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
       <div className="head flex flex-row w-full col-span-2 items-center">
         <img
           src={tempInfor.pathImage}
