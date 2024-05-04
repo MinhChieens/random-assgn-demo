@@ -1,120 +1,97 @@
-export const items = [
-   {
-      title: "General",
-      childrens: [
-         {
-            title: "Home",
-            path: "home",
-         },
-         {
-            title: "About",
-            path: "support",
-         },
-      ],
-   },
-   {
-      title: "Account",
-      childrens: [
-         {
-            title: "Make an Appointment",
-            path: "/users/appointment",
-         },
-         {
-            title: "Login",
-            path: "/login",
-         },
-         {
-            title: "Register",
-            path: "/register",
-         },
-         {
-            title: "Forgot Password",
-            path: "/forgot-password",
-         },
-         {
-            title: "Reset Password",
-            path: "/reset-password",
-         },
-      ],
-   },
-   {
-      title: "Profile",
-      childrens: [
-         {
-            title: "Profile",
-            path: "/profile",
-         },
+import { icon } from "@fortawesome/fontawesome-svg-core";
+import { faListAlt } from "@fortawesome/free-regular-svg-icons";
+import { faPenSquare, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faKitMedical } from "@fortawesome/free-solid-svg-icons";
+import { faNotesMedical } from "@fortawesome/free-solid-svg-icons";
+import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
+import { faBookMedical } from "@fortawesome/free-solid-svg-icons";
+import { faFileMedical } from "@fortawesome/free-solid-svg-icons";
+import { faPrescriptionBottleMedical } from "@fortawesome/free-solid-svg-icons";
 
-         {
-            title: "Logout",
-            path: "/logout",
-         },
-      ],
-   },
-   {
-      title: "Advance",
-      childrens: [
-         {
-            title: "Search",
-            path: "/search",
-         },
-         {
-            title: "History",
-            path: "/history",
-         },
-      ],
-   },
+import { faCapsules } from "@fortawesome/free-solid-svg-icons";
+export const SidePatient = [
+  {
+    title: "DashBoard",
+    path: "dashboard",
+    icon: faHouseMedical,
+  },
+  {
+    title: "Medical appointments",
+    path: "appointment",
+    icon: faPenSquare,
+  },
+  { title: "Health Records", path: "records", icon: faBookMedical },
+  {
+    title: "Test Result",
+    path: "test",
+    icon: faNotesMedical,
+  },
+  {
+    title: "Information",
+    path: "information",
+    icon: faUsers,
+  },
+  {
+    title: "More",
+    path: "",
+    icon: faAngleRight,
+  },
 ];
 
-export const homeAdmin = [
-   {
-      title: "Doctors Information",
-      path: "/doctors/profile",
-   },
-   {
-      title: "Medicine Information",
-      path: "/medicine",
-   },
-   {
-      title: "History",
-      path: "/history",
-   },
-   {
-      title: "List Doctors",
-      path: "listDoctors",
-   },
+export const SideAdmin = [
+  {
+    title: "Dashboard",
+    path: "dashboard",
+    icon: faHouseMedical,
+  },
+  {
+    title: "Doctor List",
+    path: "listDoctors",
+    icon: faBookMedical,
+  },
+  {
+    title: "All Patients",
+    path: "allPatients",
+    icon: faBookMedical,
+  },
+  {
+    title: "Medical device",
+    path: "devices",
+    icon: faKitMedical,
+  },
+  {
+    title: "Medicines",
+    path: "medicines",
+    icon: faCapsules,
+  },
+  { title: "Staff", path: "staff", icon: faUsers },
 ];
 
-export const homeUser = [
-   {
-      title: "Users Information",
-      path: "/profile",
-   },
-   {
-      title: "Doctors Information",
-      path: "/doctors/profile",
-   },
-   {
-      title: "Schedule",
-      path: "/schedule",
-   },
-];
+export const SideDoctor = [
+  {
+    title: "Dashboard",
+    path: "dashboard",
+    icon: faHouseMedical,
+  },
+  {
+    title: "Doctors Information",
+    path: "profile",
+    icon: faUserDoctor,
+  },
+  { title: "Patient List", path: "patientList", icon: faFileMedical },
 
-export const homeDoctor = [
-   {
-      title: "Doctors Information",
-      path: "/profile",
-   },
-   {
-      title: "Patients Information",
-      path: "/patients/profile",
-   },
-   {
-      title: "Schedule",
-      path: "/schedule",
-   },
-   {
-      title: "Patient Schedule",
-      path: "/patient/schedule",
-   },
+  {
+    title: "Schedule",
+    path: "schedule",
+    icon: faPenSquare,
+  },
+  {
+    title: "Appointments",
+    path: "appointments",
+    icon: faListAlt,
+  },
 ];

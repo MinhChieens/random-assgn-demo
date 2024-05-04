@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
-import { items } from "../constants/Sidebar";
+import { SidePatient } from "../constants/Sidebar";
 
 import PageWraper from "../Layout/PageWraper";
 const User = () => {
-   return (
-      <>
-         <PageWraper items={items} />;
-      </>
-   );
+  return (
+    <>
+      <PageWraper items={SidePatient} />;
+    </>
+  );
 };
 
 export default User;

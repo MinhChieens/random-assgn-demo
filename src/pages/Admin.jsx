@@ -1,8 +1,8 @@
 import React from "react";
-import { homeAdmin } from "../constants/Sidebar";
+import { SideAdmin } from "../constants/Sidebar";
 import PageWraper from "../Layout/PageWraper";
 const Admin = () => {
-   return <PageWraper items={homeAdmin} />;
+  return <PageWraper items={SideAdmin} />;
 };
 
 export default Admin;

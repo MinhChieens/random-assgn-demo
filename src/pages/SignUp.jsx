@@ -1,163 +1,332 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { db, auth } from "../constants/firebase";
 
+import { db, auth } from "../constants/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 import HeadInfo from "../components/HeadInfo";
-import Google from "../assets/icons8-google.svg";
+import { storage } from "../constants/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 const SignUp = () => {
-   const navigate = useNavigate();
-   const reff = useRef();
-   const [passValid, setPassValid] = useState(true);
-   const { currentUser, type } = useAuth();
-   const [value, setValues] = useState({
-      email: "",
-      password: "",
-      confirmPassword: "",
-   });
+  const navigate = useNavigate();
+  const reff = useRef();
+  const [passValid, setPassValid] = useState(true);
+  const [upImage, setUpImage] = useState(false);
+  const { currentUser, type } = useAuth();
+  const [checkIn, setCheckIn] = useState(false);
+  const [valueAccount, setValuesAccont] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [value, setValue] = useState({
+    name: "",
+    age: "",
+    birthday: "",
+    gender: "",
+    phone: "",
+    email: "",
+    address: "",
+    hi: "",
+    pathImage: "",
+  });
+  useEffect(() => {
+    if (!currentUser) return;
+    console.log(currentUser);
+    navigate(`/login`);
+  }, []);
+  const setUpInfoUser = (userCredential) => {
+    try {
+      setDoc(doc(db, "users", userCredential.user.uid), {
+        information: value,
+      });
+      console.log("Send data");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleSubmitInfo = async (e) => {
+    e.preventDefault();
+    setCheckIn(!checkIn);
+    value.pathImage = await setPathImage();
+    console.log(value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.table(valueAccount);
 
-   useEffect(() => {
-      if (!currentUser) return;
-      if (type) navigate(`/${type}`);
-   }, []);
-   const setUpInfoUser = (userCredential) => {
-      try {
-         setDoc(doc(db, "users", userCredential.user.uid), {
-            name: "",
-            state: "active",
-            content: "",
-         });
-         console.log("Send data");
-      } catch (err) {
-         console.log(err);
-      }
-   };
-   const handleSubmit = async (e) => {
-      e.preventDefault();
-      console.table(value);
+    if (valueAccount.password != valueAccount.confirmPassword) {
+      setPassValid(false);
+      reff.current.focus();
+      return;
+    }
 
-      if (value.password != value.confirmPassword) {
-         setPassValid(false);
-         reff.current.focus();
-         return;
-      }
+    await createUserWithEmailAndPassword(
+      auth,
+      valueAccount.email,
+      valueAccount.password
+    )
+      .then((userCredential) => {
+        setUpInfoUser(userCredential);
+        navigate(`/users`);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode == "auth/email-already-in-use")
+          alert("Email already used");
+      });
 
-      await createUserWithEmailAndPassword(auth, value.email, value.password)
-         .then((userCredential) => {
-            setUpInfoUser(userCredential);
-            navigate(`/${type}`);
-         })
-         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode == "auth/email-already-in-use")
-               alert("Email already used");
-         });
+    console.log(currentUser);
+  };
 
-      console.log(currentUser);
-   };
+  const setPathImage = async () => {
+    if (!upImage) return;
+    const imgRef = ref(storage, `images/patients/${v4()}`);
+    await uploadBytes(imgRef, upImage);
+    const downloadURL = await getDownloadURL(imgRef);
+    console.log("File available at", downloadURL);
+    return downloadURL;
+    // setValues((preValue) => ({ ...preValue, PathImage: downloadURL }));
+  };
+  const handleChange = (e) => {
+    setValuesAccont({ ...valueAccount, [e.target.name]: e.target.value });
+    setPassValid(true);
+  };
+  const handleChangeInfo = (e) => {
+    e.preventDefault();
+    setValue({ ...value, [e.target.name]: e.target.value });
+  };
+  return (
+    <>
+      <HeadInfo />
+      <div className="">
+        {!checkIn ? (
+          <div className="wrap w-[90%] h-full mx-auto mt-12  grid grid-cols-3">
+            <div className="image flex flex-col items-center  gap-5 col-span-1 bg-purple-100 ">
+              <input
+                name="ImagePath"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                id="imageInput"
+                onChange={(e) => setUpImage(e.target.files[0])}
+              />
+              <label
+                htmlFor="imageInput"
+                className={`flex w-2/3 h-64 mt-16 justify-center items-center ${
+                  !upImage
+                    ? "border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-100"
+                    : ""
+                }`}
+              >
+                {upImage ? (
+                  <img
+                    src={URL.createObjectURL(upImage)}
+                    alt="Uploaded"
+                    className="w-60 h-60"
+                  />
+                ) : value.pathImage ? (
+                  <img src={value.pathImage} className="w-60 h-60" alt="" />
+                ) : (
+                  <span>Select Image Avatar </span>
+                )}
+              </label>
+              <p>TAO LA PATIENT</p>
+            </div>
+            <form
+              onSubmit={(e) => handleSubmitInfo(e)}
+              className="info col-span-2"
+            >
+              <ul className="columns-2 w-[90%] mx-auto gap-8 items-stretch *:py-3* mt-10 font-[poppins] border-2 rounded-2xl px-5 py-5">
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3 ">
+                  <label className="pl-2 font-bold" htmlFor="name">
+                    Full Name
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    type="text"
+                    value={value.name}
+                    name="name"
+                    required
+                  />
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label className="pl-2 font-bold border-t-2" htmlFor="age">
+                    Age
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    type="number"
+                    value={value.age}
+                    name="age"
+                    required
+                  />
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label
+                    className="pl-2 font-bold border-t-2"
+                    htmlFor="birthday"
+                  >
+                    Day Of Birthday
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    name="birthday"
+                    value={value.birthday}
+                    type="date"
+                    placeholder="Select your birthday"
+                    required
+                  />
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label className="pl-2 font-bold border-t-2" htmlFor="gender">
+                    Gender
+                  </label>
+                  <select
+                    value={value.gender}
+                    onChange={(e) => handleChangeInfo(e)}
+                    name="gender"
+                    required
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label className="pl-2 font-bold " htmlFor="phone">
+                    Phone Number
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    type="number"
+                    value={value.phone}
+                    name="phone"
+                    required
+                  />
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label className="pl-2 font-bold border-t-2" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    type="email"
+                    value={value.email}
+                    name="email"
+                    required
+                  />
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label
+                    className="pl-2 font-bold border-t-2"
+                    htmlFor="address"
+                  >
+                    Address
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    type="text"
+                    value={value.address}
+                    name="address"
+                    required
+                  />
+                </li>
+                <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
+                  <label className="pl-2 font-bold border-t-2" htmlFor="hi">
+                    Health Insurance
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInfo(e)}
+                    className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                    type="text"
+                    value={value.hi}
+                    name="hi"
+                    required
+                  />
+                </li>
+              </ul>
 
-   const signInWithGoogle = async () => {
-      const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider)
-         .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            setUpInfoUser(result);
-            navigate("/about");
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
-         })
-         .catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-         });
-   };
-   const handleChange = (e) => {
-      setValues({ ...value, [e.target.name]: e.target.value });
-      setPassValid(true);
-   };
-   return (
-      <>
-         <HeadInfo />
-         <div className="wrap flex flex-col pt-28 items-center justify-center h-[28rem] w-[30rem] mx-auto gap-5 font-['Inter'] ">
+              <button
+                type="submit"
+                className="ml-16 mt-4 h-12 w-24 rounded-lg bg-red-500 font-[poppins] font-bold"
+              >
+                Continue
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="wrap flex flex-col pt-28 items-center justify-center h-[28rem] w-[30rem] mx-auto gap-5 font-['Inter'] ">
             <div className="head"></div>
             <h2 className="text-black text-4xl font-bold font-['Inter']">
-               Hospital check-in
+              Hospital check-in
             </h2>
             <span className="text-black text-opacity-80 text-2xl font-semibold font-['Inter']">
-               Create an account to run wild through our curated experiences.
+              Create an account to run wild through our curated experiences.
             </span>
-            <button
-               onClick={signInWithGoogle}
-               className=" google w-4/5 rounded-[5px] border-4 border-black py-2 pl-3 font-bold flex flex-row item-center justify-center"
-            >
-               <img src={Google} alt="" className="w-6 h-6 pr-1" />
-               Continue with Google
-            </button>
-            <p className="text-[#5B5B5B]">or</p>
+
             <form
-               onSubmit={(e) => handleSubmit(e)}
-               className="flex flex-col justify-center items-center w-full gap-5"
+              onSubmit={(e) => handleSubmit(e)}
+              className="flex flex-col justify-center items-center w-full gap-5"
             >
-               <input
-                  onChange={(e) => handleChange(e)}
-                  className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold"
-                  type="email"
-                  placeholder="Gmail"
-                  name="email"
-               />
-               <input
-                  onChange={(e) => handleChange(e)}
-                  className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-               />
-               <input
-                  ref={reff}
-                  onChange={(e) => handleChange(e)}
-                  className={
-                     "w-4/5 rounded-[5px] border-4 pl-3 border-black py-2 font-bold" +
-                     (!passValid && reff.current == document.activeElement
-                        ? " border-red-700"
-                        : "")
-                  }
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="confirmPassword"
-               />
-               <button
-                  className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold hover:bg-slate-300"
-                  type="submit"
-               >
-                  Sign Up
-               </button>
+              <input
+                onChange={(e) => handleChange(e)}
+                className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold"
+                type="email"
+                placeholder="Gmail"
+                name="email"
+              />
+              <input
+                onChange={(e) => handleChange(e)}
+                className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold"
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
+              <input
+                ref={reff}
+                onChange={(e) => handleChange(e)}
+                className={
+                  "w-4/5 rounded-[5px] border-4 pl-3 border-black py-2 font-bold" +
+                  (!passValid && reff.current == document.activeElement
+                    ? " border-red-700"
+                    : "")
+                }
+                type="password"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+              />
+              <button
+                className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold hover:bg-slate-300"
+                type="submit"
+              >
+                Sign Up
+              </button>
             </form>
 
             <p className="text-[#5B5B5B] font-['Inter'] tracking-[1.6px] text-base font-bold">
-               You already have account?
-               <span>
-                  <a className=" underline text-black" href="login">
-                     Log In
-                  </a>
-               </span>
+              You already have account?
+              <span>
+                <a className=" underline text-black" href="login">
+                  Log In
+                </a>
+              </span>
             </p>
-         </div>
-      </>
-   );
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default SignUp;
