@@ -15,6 +15,7 @@ import ListAppointment from "../pages/pagesDoctors/ListAppointment";
 import Appointment from "../pages/pagesPatient/Appointment";
 import ListPatientOfAdmin from "../pages/pagesAdmin/ListPatientOfAdmin";
 import Staff from "../pages/pagesAdmin/Staff";
+import StaffSchedule from "../pages/pagesAdmin/StaffSchedule";
 export const RouteUser = [
   { path: "home", element: <Dashboard />, state: "home" },
   { path: "dashboard", element: <Dashboard />, sidebarProps: {} },
@@ -41,4 +42,5 @@ export const RouteAdmin = [
   { path: "devices", element: <ListDevice />, sidebarProps: {} },
   { path: "allPatients", element: <ListPatientOfAdmin />, sidebarProps: {} },
   { path: "staff", element: <Staff />, sidebarProps: {} },
+  { path: "staffSchedule", element: <StaffSchedule />, sidebarProps: {} },
 ];
