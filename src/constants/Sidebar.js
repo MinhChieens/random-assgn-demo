@@ -83,7 +83,7 @@ export const SideDoctor = [
     icon: faHouseMedical,
   },
   {
-    title: "Doctors Information",
+    title: "Doctors Profile",
     path: "profile",
     icon: faUserDoctor,
   },
