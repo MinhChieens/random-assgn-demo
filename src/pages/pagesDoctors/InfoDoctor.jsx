@@ -41,7 +41,7 @@ const InfoDoctor = ({ idDoctor }) => {
             <h3 className="text-xl font-bold mb-2">Thông tin liên lạc</h3>
             <p>Email: {value.Gmail}</p>
             <p>Số điện thoại: {value.PhoneNumber}</p>
-            <p>Địa chỉ: Số nhà, Đường, TP</p>
+            <p>Địa chỉ: {value.address}</p>
           </div>
         </div>
         <div className="">
