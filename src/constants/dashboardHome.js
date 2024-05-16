@@ -1,16 +1,22 @@
 export const homeAdmin = [
    {
-      title: "Doctors Information",
-      path: "doctors/profile",
+      title: "Doctor List",
+      path: "listDoctors",
    },
    {
-      title: "Medicine Information",
-      path: "medicine",
+      title: "All Patients",
+      path: "allPatients",
    },
    {
-      title: "History",
-      path: "history",
+      title: "Medical device",
+      path: "devices",
    },
+   {
+      title: "Medicines",
+      path: "medicines",
+   },
+   { title: "Staff", path: "staff" },
+   { title: "Staff Schedule", path: "staffSchedule" },
 ];
 
 export const homePatient = [

@@ -7,16 +7,17 @@ const DashboardHome = ({ title, homeContent }) => {
          <div className="grid grid-cols-3 gap-4 mt-4">
             {homeContent.map((item, index) => {
                return (
-                  <div className="bg-lightblue rounded-md" key={index}>
+                  <a
+                     className="bg-lightblue rounded-md"
+                     href={item.path}
+                     key={index}
+                  >
                      <div className="p-4 rounded-md hover:bg-darkblue/30 hover:cursor-pointer">
-                        <a
-                           className="text-xl font-semibold text-darkblue"
-                           href={item.path}
-                        >
+                        <p className="text-xl font-semibold text-darkblue">
                            {item.title}
-                        </a>
+                        </p>
                      </div>
-                  </div>
+                  </a>
                );
             })}
          </div>
