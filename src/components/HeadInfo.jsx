@@ -65,7 +65,7 @@ const HeadInfo = ({ currentUser }) => {
                   className=" h-10 w-10 rounded-full"
                 />
                 <p className=" px-4">
-                  {/* {console.log(currentUser)} */}
+                  {console.log(currentUser)}
                   {currentUser.displayName
                     ? currentUser.displayName
                     : currentUser.email}
