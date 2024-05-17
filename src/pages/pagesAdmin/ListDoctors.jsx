@@ -361,7 +361,7 @@ const ListDoctors = () => {
     await createUserWithEmailAndPassword(auth, value.Gmail, value.PassWord)
       .then((userCredential) => {
         updateProfile(userCredential.user, {
-          displayName: value.FirstName + " " + value.LastName,
+          displayName: value.fullName,
           photoURL: value.PathImage,
         }).catch((error) => {
           console.log(error);
