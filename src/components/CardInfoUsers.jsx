@@ -86,7 +86,7 @@ const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props, nav }) => {
           <p className="phone w-1/5">{props.value.PhoneNumber}</p>
           <p className="dateAdd w-1/5">{props.value.Birthday}</p>
           <div className="status w-[15%]">
-            {props.value.status ? (
+            {props.value.status == "true" ? (
               <p className=" w-16 h-6 bg-green-100 rounded text-green-500 text-center">
                 Active
               </p>

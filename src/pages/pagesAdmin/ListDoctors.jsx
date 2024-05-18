@@ -16,7 +16,19 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Spin from "../../assets/spin-svgrepo-com.svg";
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
-const PageInfo = (uid) => {
+const PageInfo = ({ uid }) => {
+  const notifySuccess = () =>
+    toast.success("Updated Successfully!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   const [formData, setFormData] = useState({
     fullName: "",
     Specialist: "",
@@ -31,19 +43,28 @@ const PageInfo = (uid) => {
     qualifications: "",
     school: "",
   });
-
+  useEffect(() => {
+    const getDatas = async () => {
+      const getData = await getDoc(doc(db, "doctors", uid));
+      setFormData(getData.data().value);
+    };
+    getDatas();
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send data to an API)
-    console.log(formData);
+    await updateDoc(doc(db, "doctors", uid), {
+      value: formData,
+    });
+    notifySuccess();
   };
 
   return (
@@ -87,7 +108,7 @@ const PageInfo = (uid) => {
                 />
               </label>
               <label className="block mb-2">
-                Giới tính:
+                Giới tính: {formData.Gender}
                 <select
                   name="Gender"
                   value={formData.Gender}
@@ -139,8 +160,8 @@ const PageInfo = (uid) => {
                 Bằng cấp:
                 <input
                   type="text"
-                  name="qualification"
-                  value={formData.qualification}
+                  name="qualifications"
+                  value={formData.qualifications}
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-7 pl-2"
                 />
@@ -155,8 +176,8 @@ const PageInfo = (uid) => {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-7 pl-2"
                 />
               </label>
-              <p>Bằng cấp: Bác sĩ Y khoa</p>
-              <p>Trường đào tạo: Đại học Y</p>
+              <p>Bằng cấp: {formData.qualifications}</p>
+              <p>Trường đào tạo: {formData.school}</p>
               <p>
                 File Attach:
                 <a
@@ -179,10 +200,11 @@ const PageInfo = (uid) => {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-7 pl-2"
                 />
               </label>
-              <p>Khám tổng quát, Tư vấn sức khỏe, Điều trị bệnh Z</p>
+              <p>{formData.services}</p>
               <label className=" mt-4">
                 <p className="text-xl font-bold">
-                  Status Active: {formData.status}
+                  Status Active:{" "}
+                  {formData.status == "true" ? "Active" : "Declined"}
                 </p>
                 <select
                   name="status"
@@ -190,8 +212,8 @@ const PageInfo = (uid) => {
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-7 pl-2"
                 >
-                  <option value="Decline">Decline</option>
-                  <option value="Active">Active</option>
+                  <option value="false">Decline</option>
+                  <option value="true">Active</option>
                 </select>
               </label>
             </div>
@@ -269,7 +291,7 @@ const ListDoctors = () => {
       const refDoctor = doc(db, "doctors", doctorUid);
       const data = await getDoc(refDoctor);
       if (data.exists()) {
-        console.log(data.data());
+        // console.log(data.data());
         return { value: data.data(), uid: doctorUid };
       }
       return null;
@@ -282,7 +304,7 @@ const ListDoctors = () => {
     setListOfDoctors(validDoctorValues);
   };
   const getList = async () => {
-    console.log(currentUser.uid);
+    // console.log(currentUser.uid);
     if (currentUser) {
       const docRef = doc(db, "admin", currentUser.uid);
       const docSnap = await getDoc(docRef);
@@ -296,7 +318,7 @@ const ListDoctors = () => {
   };
   useEffect(() => {
     getList();
-  }, [btnAddDoc]);
+  }, [btnAddDoc, turnBack]);
   const handleDelDoc = () => {
     getList();
   };
