@@ -42,6 +42,9 @@ const Appointment = () => {
          (doc) => doc.Specialist === e.target.value
       );
       setAvailableDoctors(availDocs);
+      if (availDocs.length === 0) {
+         setValues({ ...value, doctor: "" });
+      }
       console.log(availableDoctors);
    };
 
@@ -112,6 +115,7 @@ const Appointment = () => {
                      name="doctor"
                      id="doctor"
                      defaultValue=""
+                     required
                   >
                      <option value="" hidden>
                         Select doctor

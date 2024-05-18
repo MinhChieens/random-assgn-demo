@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react";
 import Spin from "../../assets/spin-svgrepo-com.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+   faCircleInfo,
+   faArrowCircleLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../../constants/firebase";
 import { getAuth } from "firebase/auth";
 import { toast, Bounce } from "react-toastify";
-import { set } from "firebase/database";
 
-const HealthRecord = () => {
+const AHealthRecord = () => {
    const [value, setValue] = useState({
       name: "a",
       dob: "2024-04-17",
       age: 20,
       phone: "0123456789",
       gender: "other",
-      weight: 60,
-      height: 1.6,
+      weight: 0,
+      height: 0,
       SSN: "080204000421",
       hi: "HC4720001500041",
-      bloodGroup: "O",
-      bloodRate: "120/80",
-      history: ["anxiety", "depression", "", ""],
-      medication: ["aspirin", "", "", ""],
+      bloodGroup: "",
+      bloodRate: "",
+      history: ["", "", "", ""],
+      medication: ["", "", "", ""],
       allergies: ["", "", "", ""],
       surgery: ["", "", "", ""],
    });
@@ -100,16 +104,8 @@ const HealthRecord = () => {
             phone: data.information.phone,
             gender: data.information.gender,
             hi: data.information.hi,
-            SSN: data.healthRecord.SSN,
-            weight: data.healthRecord.weight,
-            height: data.healthRecord.height,
-            bloodGroup: data.healthRecord.bloodGroup,
-            bloodRate: data.healthRecord.bloodRate,
-            history: data.healthRecord.history,
-            medication: data.healthRecord.medication,
-            allergies: data.healthRecord.allergies,
-            surgery: data.healthRecord.surgery,
          });
+         if (data.healthRecord) setValue({ ...value, ...data.healthRecord });
       };
       updateRecord();
    }, []);
@@ -334,6 +330,78 @@ const HealthRecord = () => {
                </button>
             </div>
          </form>
+      </>
+   );
+};
+
+const HealthRecord = () => {
+   const [id, setId] = useState(null);
+   return (
+      <>
+         {id === null ? (
+            <>
+               <div className="bg-darkblue h-14 flex justify-between items-center px-10 font-[poppins] text-base gap-4">
+                  <div className="flex gap-5 items-center">
+                     <h3 className="text-2xl  font-bold text-white">
+                        All Health Records
+                     </h3>
+                     <p className="text-darkblue text-base ml-3 px-[10px] py-1 bg-stone-200 rounded-full italic">
+                        {1} Totals
+                     </p>
+                  </div>
+               </div>
+               <div className="pt-2">
+                  <div className="w-[95%] mx-auto grid grid-cols-12 p-3 bg-gray-100 items-center justify-items-center justify-center font-[poppins] font-bold text-gray-500 ">
+                     <div className="col-span-1"></div>
+                     <div className="col-span-5">Name</div>
+                     <div className="col-span-4">Date</div>
+                     <div className="col-span-2">Action</div>
+                  </div>
+                  <div className="flex flex-col justify-center items-center gap-4 pt-4">
+                     {/* {listStaff &&
+                     listStaff.map((p) => {
+                        return (
+                           <Card
+                              props={p.patient}
+                              uid={p.uid}
+                              setUpload={setUpload}
+                           />
+                        );
+                     })} */}
+                     <div className="w-[95%] mx-auto  h-14 grid grid-cols-12 p-1 border-2 items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
+                        <div className="col-span-1">1</div>
+                        <div className="col-span-5">Name</div>
+                        <div className="col-span-4">Date</div>
+                        <div className="col-span-2">
+                           <button onClick={() => setId(0)} className="pr-5">
+                              <FontAwesomeIcon icon={faCircleInfo} />
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </>
+         ) : (
+            <>
+               <div className=" bg-darkblue h-12 flex items-center justify-between px-10 font-[poppins] text-base">
+                  <div className="flex items-center gap-5">
+                     <h3
+                        onClick={() => setId(null)}
+                        className="text-2xl  font-bold text-white hover:bg-black cursor-pointer"
+                     >
+                        <span>
+                           <FontAwesomeIcon
+                              icon={faArrowCircleLeft}
+                              className="pr-3"
+                           />
+                        </span>{" "}
+                        Back
+                     </h3>
+                  </div>
+               </div>
+               <AHealthRecord />
+            </>
+         )}
       </>
    );
 };
