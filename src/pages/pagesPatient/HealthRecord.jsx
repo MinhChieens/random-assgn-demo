@@ -5,22 +5,34 @@ import {
    faCircleInfo,
    faArrowCircleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+   doc,
+   updateDoc,
+   getDoc,
+   addDoc,
+   setDoc,
+   collection,
+   getDocs,
+} from "firebase/firestore";
+import PropTypes from "prop-types";
 import { db } from "../../constants/firebase";
 import { getAuth } from "firebase/auth";
 import { toast, Bounce } from "react-toastify";
 
-const AHealthRecord = () => {
-   const [value, setValue] = useState({
+const AHealthRecord = ({ id }) => {
+   const [user, setUser] = useState({
       name: "a",
       dob: "2024-04-17",
       age: 20,
       phone: "0123456789",
       gender: "other",
+      hi: "HC4720001500041",
+   });
+
+   const [record, setRecord] = useState({
+      SSN: "080204000421",
       weight: 0,
       height: 0,
-      SSN: "080204000421",
-      hi: "HC4720001500041",
       bloodGroup: "",
       bloodRate: "",
       history: ["", "", "", ""],
@@ -28,11 +40,12 @@ const AHealthRecord = () => {
       allergies: ["", "", "", ""],
       surgery: ["", "", "", ""],
    });
+
    const [Loading, setLoading] = useState(false);
 
    const handleHistoryChange = (e) => {
       e.preventDefault();
-      setValue((prev) => {
+      setRecord((prev) => {
          let temp = [...prev.history];
          temp[e.target.id] = e.target.value;
          return { ...prev, history: temp };
@@ -41,7 +54,7 @@ const AHealthRecord = () => {
 
    const handleMedicationChange = (e) => {
       e.preventDefault();
-      setValue((prev) => {
+      setRecord((prev) => {
          let temp = [...prev.medication];
          temp[e.target.id] = e.target.value;
          return { ...prev, medication: temp };
@@ -50,7 +63,7 @@ const AHealthRecord = () => {
 
    const handleAllergiesChange = (e) => {
       e.preventDefault();
-      setValue((prev) => {
+      setRecord((prev) => {
          let temp = [...prev.allergies];
          temp[e.target.id] = e.target.value;
          return { ...prev, allergies: temp };
@@ -59,7 +72,7 @@ const AHealthRecord = () => {
 
    const handleSurgeryChange = (e) => {
       e.preventDefault();
-      setValue((prev) => {
+      setRecord((prev) => {
          let temp = [...prev.surgery];
          temp[e.target.id] = e.target.value;
          return { ...prev, surgery: temp };
@@ -68,7 +81,7 @@ const AHealthRecord = () => {
 
    const handleChange = (e) => {
       e.preventDefault();
-      setValue({ ...value, [e.target.name]: e.target.value });
+      setRecord({ ...user, [e.target.name]: e.target.value });
    };
 
    const alertSuccess = () => {
@@ -86,44 +99,55 @@ const AHealthRecord = () => {
    };
 
    useEffect(() => {
+      console.log(id);
       const updateRecord = async () => {
          const currentUser = getAuth().currentUser;
          if (!currentUser) return;
-         const docRef = doc(db, "users", currentUser.uid);
-         const docSnap = await getDoc(docRef);
-         if (!docSnap.exists()) {
-            console.log("No such document!");
+         const recordSnap = await getDoc(
+            doc(db, "healthRecords", currentUser.uid, "records", id.toString())
+         );
+         if (!recordSnap.exists()) {
+            console.log("No such record!");
             return;
          }
-         const data = docSnap.data();
-         setValue({
-            ...value,
-            name: data.information.name,
-            dob: data.information.birthday,
-            age: data.information.age,
-            phone: data.information.phone,
-            gender: data.information.gender,
-            hi: data.information.hi,
+         const userSnap = await getDoc(doc(db, "users", currentUser.uid));
+         if (!userSnap.exists()) {
+            console.log("No such user!");
+            return;
+         }
+         const userData = userSnap.data();
+         setUser({
+            ...user,
+            name: userData.information.name,
+            dob: userData.information.birthday,
+            age: userData.information.age,
+            phone: userData.information.phone,
+            gender: userData.information.gender,
+            hi: userData.information.hi,
          });
-         if (data.healthRecord) setValue({ ...value, ...data.healthRecord });
+         if (userData.healthRecord)
+            setRecord({ ...user, ...recordSnap.data() });
       };
       updateRecord();
    }, []);
 
    const setData = async () => {
       setLoading(true);
+      setRecord({ ...record, date: new Date().toISOString() });
       const currentUser = getAuth().currentUser;
       if (!currentUser) return;
-      await updateDoc(doc(db, "users", currentUser.uid), {
-         healthRecord: value,
-      });
+      await setDoc(
+         // change fix id to dynamic id
+         doc(db, "healthRecords", currentUser.uid, "records", id.toString()),
+         record
+      );
       setLoading(false);
       alertSuccess();
    };
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(value);
+      console.log(user);
       setData();
    };
 
@@ -141,7 +165,7 @@ const AHealthRecord = () => {
                      Full Name
                   </label>
                   <p className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 ">
-                     {value.name}
+                     {user.name}
                   </p>
                </li>
                <li className="flex flex-col gap-1 h-20">
@@ -149,7 +173,7 @@ const AHealthRecord = () => {
                      Day Of Birth
                   </label>
                   <p className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 ">
-                     {value.dob}
+                     {user.dob}
                   </p>
                </li>
                <li className="flex flex-col gap-1 h-20">
@@ -157,7 +181,7 @@ const AHealthRecord = () => {
                      Age
                   </label>
                   <p className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 ">
-                     {value.age}
+                     {user.age}
                   </p>
                </li>
                <li className="flex flex-col gap-1 h-20">
@@ -165,7 +189,7 @@ const AHealthRecord = () => {
                      Gender
                   </label>
                   <p className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 ">
-                     {value.gender}
+                     {user.gender}
                   </p>
                </li>
                <li className="flex flex-col gap-1 h-20">
@@ -173,7 +197,7 @@ const AHealthRecord = () => {
                      Phone Number
                   </label>
                   <p className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 ">
-                     {value.phone}
+                     {user.phone}
                   </p>
                </li>
                <li className="flex flex-col gap-1 h-20 col-span-2">
@@ -184,7 +208,7 @@ const AHealthRecord = () => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
-                     value={value.SSN}
+                     value={record.SSN}
                      name="SSN"
                   />
                </li>
@@ -193,7 +217,7 @@ const AHealthRecord = () => {
                      Health Insurance
                   </label>
                   <p className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 ">
-                     {value.hi}
+                     {user.hi}
                   </p>
                </li>
                <hline className="col-span-4 border-t-2"></hline>
@@ -205,7 +229,7 @@ const AHealthRecord = () => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="number"
-                     value={value.weight}
+                     value={record.weight}
                      name="weight"
                   />
                </li>
@@ -217,7 +241,7 @@ const AHealthRecord = () => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="number"
-                     value={value.height}
+                     value={record.height}
                      name="height"
                   />
                </li>
@@ -229,7 +253,7 @@ const AHealthRecord = () => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
-                     value={value.bloodGroup}
+                     value={record.bloodGroup}
                      name="blood"
                   />
                </li>
@@ -241,7 +265,7 @@ const AHealthRecord = () => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
-                     value={value.bloodRate}
+                     value={record.bloodRate}
                      name="bloodRate"
                   />
                </li>
@@ -250,7 +274,7 @@ const AHealthRecord = () => {
                      Medical History
                   </label>
                   <div className="grid grid-cols-4 gap-3">
-                     {value.history.map((item, index) => (
+                     {record.history.map((item, index) => (
                         <input
                            key={index}
                            id={index}
@@ -267,7 +291,7 @@ const AHealthRecord = () => {
                      Medication
                   </label>
                   <div className="grid grid-cols-4 gap-3">
-                     {value.medication.map((item, index) => (
+                     {record.medication.map((item, index) => (
                         <input
                            key={index}
                            id={index}
@@ -284,7 +308,7 @@ const AHealthRecord = () => {
                      Allergies
                   </label>
                   <div className="grid grid-cols-4 gap-3">
-                     {value.allergies.map((item, index) => (
+                     {record.allergies.map((item, index) => (
                         <input
                            key={index}
                            id={index}
@@ -301,7 +325,7 @@ const AHealthRecord = () => {
                      Surgery
                   </label>
                   <div className="grid grid-cols-4 gap-3">
-                     {value.surgery.map((item, index) => (
+                     {record.surgery.map((item, index) => (
                         <input
                            key={index}
                            id={index}
@@ -336,6 +360,30 @@ const AHealthRecord = () => {
 
 const HealthRecord = () => {
    const [id, setId] = useState(null);
+   const [records, setRecords] = useState([]);
+   const getRecords = async () => {
+      const currentUser = getAuth().currentUser;
+      if (!currentUser) return;
+      const docRef = collection(
+         db,
+         "healthRecords",
+         currentUser.uid,
+         "records"
+      );
+      const docSnap = await getDocs(docRef);
+      if (docSnap.empty) {
+         console.log("No such document!");
+         return;
+      }
+      const data = docSnap.docs.map((doc) => doc.data());
+      console.log(data);
+      setRecords(data);
+   };
+   useEffect(() => {
+      getRecords();
+      console.log(records);
+   }, []);
+
    return (
       <>
          {id === null ? (
@@ -358,36 +406,47 @@ const HealthRecord = () => {
                      <div className="col-span-2">Action</div>
                   </div>
                   <div className="flex flex-col justify-center items-center gap-4 pt-4">
-                     {/* {listStaff &&
-                     listStaff.map((p) => {
-                        return (
-                           <Card
-                              props={p.patient}
-                              uid={p.uid}
-                              setUpload={setUpload}
-                           />
-                        );
-                     })} */}
-                     <div className="w-[95%] mx-auto  h-14 grid grid-cols-12 p-1 border-2 items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
+                     {records &&
+                        records.map((p) => {
+                           return (
+                              <div
+                                 key={p.id}
+                                 className="w-[95%] mx-auto  h-14 grid grid-cols-12 p-1 border-2 items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white "
+                              >
+                                 <div className="col-span-1">{p.id}</div>
+                                 <div className="col-span-5">{p.name}</div>
+                                 <div className="col-span-4">{p.date}</div>
+                                 <div className="col-span-2">
+                                    <button
+                                       onClick={() => setId(p.id)}
+                                       className="pr-5"
+                                    >
+                                       <FontAwesomeIcon icon={faCircleInfo} />
+                                    </button>
+                                 </div>
+                              </div>
+                           );
+                        })}
+                     {/* <div className="w-[95%] mx-auto  h-14 grid grid-cols-12 p-1 border-2 items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white ">
                         <div className="col-span-1">1</div>
-                        <div className="col-span-5">Name</div>
+                        <div className="col-span-5">Demo</div>
                         <div className="col-span-4">Date</div>
                         <div className="col-span-2">
                            <button onClick={() => setId(0)} className="pr-5">
                               <FontAwesomeIcon icon={faCircleInfo} />
                            </button>
                         </div>
-                     </div>
+                     </div> */}
                   </div>
                </div>
             </>
          ) : (
             <>
-               <div className=" bg-darkblue h-12 flex items-center justify-between px-10 font-[poppins] text-base">
+               <div className="bg-darkblue h-12 flex items-center justify-between px-10 font-[poppins] text-base">
                   <div className="flex items-center gap-5">
                      <h3
                         onClick={() => setId(null)}
-                        className="text-2xl  font-bold text-white hover:bg-black cursor-pointer"
+                        className="text-2xl  font-bold text-white hover:bg-lightblue py-1 px-2 rounded-lg cursor-pointer"
                      >
                         <span>
                            <FontAwesomeIcon
@@ -399,11 +458,15 @@ const HealthRecord = () => {
                      </h3>
                   </div>
                </div>
-               <AHealthRecord />
+               <AHealthRecord id={id} />
             </>
          )}
       </>
    );
+};
+
+AHealthRecord.propTypes = {
+   id: PropTypes.number.isRequired,
 };
 
 export default HealthRecord;
