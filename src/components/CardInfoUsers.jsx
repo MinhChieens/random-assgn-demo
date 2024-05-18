@@ -13,20 +13,33 @@ import {
 } from "firebase/firestore";
 import Swal from "sweetalert2";
 
-const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
+const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props, nav }) => {
   const { currentUser } = useAuth();
   const checkProfile = () => {
-    // redirect to user profile
+    nav(uid);
   };
   const checkDelete = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to revert this! Enter password to continue",
       icon: "warning",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+      preConfirm: (value) => {
+        // Validate input if needed
+        if (value != "111111") {
+          console.log(value);
+          Swal.showValidationMessage("Password is incorrect");
+        }
+        return value;
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -65,15 +78,15 @@ const CardInfoUsers = ({ typeUser, uid, handleDeleteUser, props }) => {
               alt=""
             />
             <div className="info pl-3">
-              <h3>{props.value.FirstName}</h3>
-              <p className=" text-[#B5B5C3]">{props.value.Activity}</p>
+              <h3>{props.value.fullName}</h3>
+              <p className=" text-[#B5B5C3]">{props.value.Specialist}</p>
             </div>
           </div>
           <p className="email w-[25%]">{props.value.Gmail}</p>
           <p className="phone w-1/5">{props.value.PhoneNumber}</p>
           <p className="dateAdd w-1/5">{props.value.Birthday}</p>
           <div className="status w-[15%]">
-            {props.status ? (
+            {props.value.status == "true" ? (
               <p className=" w-16 h-6 bg-green-100 rounded text-green-500 text-center">
                 Active
               </p>
