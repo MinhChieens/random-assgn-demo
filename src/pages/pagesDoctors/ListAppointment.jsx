@@ -59,9 +59,8 @@ const ListAppointment = () => {
           <div className="col-span-2 justify-self-start">Patient Name</div>
           <div className="col-span-2 justify-self-start">Phone Number</div>
           <div className="col-span-1 justify-self-start">Gender</div>
-          <div className="col-span-2 justify-self-start">Date of visit</div>
-          <div className="col-span-2 justify-self-start">Time of visit</div>
-          <div className="col-span-2 justify-self-start ml-[-2rem]">Reason</div>
+          <div className="col-span-3 justify-self-start">Time of visit</div>
+          <div className="col-span-3 justify-self-start ml-[-2rem]">Reason</div>
           <div className="col-span-1 justify-self-start ml-[-4rem]">Action</div>
         </div>
         <div className="flex flex-col justify-center items-center gap-4 pt-4">
@@ -72,25 +71,23 @@ const ListAppointment = () => {
                   key={index}
                   className="w-[95%] mx-auto grid grid-cols-12 p-3 border-2 hover: items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white"
                 >
-                  <div className="col-span-2 justify-self-start">{p.name}</div>
-                  <div className="col-span-2 justify-self-start">{p.phone}</div>
+                  <div className="col-span-2 justify-self-start">
+                    {p.information.name}
+                  </div>
+                  <div className="col-span-2 justify-self-start">
+                    {p.information.phone}
+                  </div>
                   <div className="col-span-1 justify-self-start">
-                    {p.gender}
+                    {p.information.gender}
                   </div>
-                  <div className="col-span-2 justify-self-start">
-                    {p.dateVisit}
+                  <div className="col-span-3 justify-self-start">
+                    {p.appt.time}, {p.appt.date}
                   </div>
-                  <div className="col-span-2 justify-self-start">
-                    {p.timeVisit}
-                  </div>
-                  <div className="col-span-2 justify-self-start ml-[-2rem]">
-                    {p.reason}
+                  <div className="col-span-3 justify-self-start ml-[-2rem]">
+                    {p.appt.message}
                   </div>
                   <div className="col-span-1 flex justify-self-start ml-[-4rem]">
-                    <p className=" w-[90px]">{p.action} </p>
-                    <button className="px-1 h-6 bg-green-400 text-white rounded-md">
-                      <Request></Request>
-                    </button>
+                    <button className="px-1 h-6 w-10 bg-green-400 text-white rounded-md"></button>
                   </div>
                 </div>
               );

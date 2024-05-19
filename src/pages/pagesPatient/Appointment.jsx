@@ -170,10 +170,10 @@ const Appointment = () => {
             <option value="" selected hidden>
               Select time
             </option>
-            <option value="8">8AM - 10AM</option>
-            <option value="10">10AM - 12AM</option>
-            <option value="13">1PM - 3PM</option>
-            <option value="15">3PM - 5PM</option>
+            <option value="8AM - 10AM">8AM - 10AM</option>
+            <option value="10AM - 12AM">10AM - 12AM</option>
+            <option value="1PM - 3PM">1PM - 3PM</option>
+            <option value="3PM - 5PM">3PM - 5PM</option>
           </select>
         </li>
       </ul>
