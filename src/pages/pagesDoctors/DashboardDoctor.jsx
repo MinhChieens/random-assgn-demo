@@ -1,7 +1,10 @@
 import React from "react";
-import { homeDoctor } from "../../constants/dashboardHome";
-import DashboardHome from "../../components/Dashboard/DashboardHome";
 import { getAuth } from "firebase/auth";
+import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+import { faNotesMedical } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Schedular from "../../components/Schedular";
 
 const DashboardDoctor = () => {
   const crtUser = getAuth().currentUser;
@@ -14,30 +17,31 @@ const DashboardDoctor = () => {
             {crtUser.displayName ? crtUser.displayName : crtUser.email}
           </span>
         </h1>
-        <div className="w-11/12 h-44 m-auto flex flex-row gap-10 items-center g bg-orange-100 font-[poppins]">
-          <div className="patient w-52 h-28 bg-sky-300 pl-3  flex items-center">
-            <img src="" alt="Icon" />
-            <div className="pl-3">
-              <p className="">Total Patients</p>
+        <div className="w-11/12 h-44 m-auto flex flex-row gap-10 items-center justify-around bg-orange-100 font-[poppins]">
+          <div className="patient w-52 h-28 bg-sky-200 pl-3  flex items-center shadow-md">
+            <FontAwesomeIcon icon={faHospitalUser} size="2xl" />
+            <div className="pl-6">
+              <p className="font-bold">Total Patients</p>
               <p className="font-bold text-4xl pt-3">{100} </p>
             </div>
           </div>
-          <div className="patient w-52 h-28 bg-sky-300 pl-3  flex items-center">
-            <img src="" alt="Icon" />
-            <div className="pl-3">
-              <p className="">Total Appointments</p>
+          <div className="patient w-52 h-28 bg-sky-200 pl-3  flex items-center shadow-md">
+            <FontAwesomeIcon icon={faCalendarCheck} size="2xl" />
+            <div className="pl-6">
+              <p className="font-bold">Total Appointments</p>
               <p className="font-bold text-4xl pt-3">{100} </p>
             </div>
           </div>
-          <div className="patient w-52 h-28 bg-sky-300 pl-3  flex items-center">
-            <img src="" alt="Icon" />
-            <div className="pl-3">
-              <p className="">Total Test</p>
-              <p className="font-bold text-4xl pt-3">{100} </p>
+          <div className="patient w-52 h-28 bg-sky-200 pl-3  flex items-center shadow-md">
+            <FontAwesomeIcon icon={faNotesMedical} size="2xl" />
+            <div className="pl-6">
+              <p className="font-bold">Total Test</p>
+              <p className="font-bold text-4xl pt-3 ">{100} </p>
             </div>
           </div>
         </div>
       </div>
+      <Schedular uid={crtUser.uid} />
     </>
   );
 };

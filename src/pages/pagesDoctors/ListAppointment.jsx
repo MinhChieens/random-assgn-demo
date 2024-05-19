@@ -12,13 +12,31 @@ const ListAppointment = () => {
   const [Loading, setLoading] = useState(false);
   const [ListAppointment, setListAppointment] = useState(null);
 
+  const getInfoAppt = async (list) => {
+    const listAppt = list.map(async (item) => {
+      const dataPatient = await getDoc(doc(db, "users", item));
+      console.log(dataPatient.data());
+      if (dataPatient.exists)
+        return {
+          information: dataPatient.data().information,
+          appt: dataPatient.data().myAppointment,
+        };
+      return null;
+    });
+
+    const valuee = await Promise.all(listAppt);
+    const validList = valuee.filter((v) => v != null);
+    console.log(validList);
+    setListAppointment(validList);
+  };
+
   const getListAppointment = async () => {
     const CrtUser = getAuth().currentUser;
-    const list = await getDoc(doc(db, "doctors", CrtUser.uid));
-    if (list.exists()) {
-      console.log(list.data().ListAppointment[0]);
-      setListAppointment(list.data().ListAppointment);
-    }
+    const data = await getDoc(doc(db, "doctors", CrtUser.uid));
+    const appt = await getDoc(doc(db, "doctors", "appointments"));
+    const type = data.data().value.Specialist;
+    console.log(appt.data()[type]);
+    getInfoAppt(appt.data()[type]);
   };
   useEffect(() => {
     getListAppointment();
