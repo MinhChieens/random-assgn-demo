@@ -75,16 +75,13 @@ const Hero = () => {
         </div>
         <div className="content w-[40rem] flex flex-col justify-center items-center ">
           <h4 className="  font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
-            Welcome To Meddical
+            Welcome To X Hospital
           </h4>
           <h3 className="text-center text-blue-950 text-[32px]  font-bold font-yeseva">
             A Great Place to Receive Care
           </h3>
           <p className="text-center line-clamp-3">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-            placerat scelerisque tortor ornare ornare. Convallis felis vitae
-            tortor augue. Velit nascetur proin massa in. Consequat faucibus
-            porttitor enim et.
+          Welcome to X Hospital, where exceptional care meets compassion. Our state-of-the-art facilities and dedicated team of professionals ensure you receive the highest quality medical services. At X Hospital, your health and well-being are our top priorities. Experience personalized, comprehensive care in a supportive and welcoming environment. Your journey to better health starts here.
           </p>
           <a
             href=""
@@ -94,9 +91,9 @@ const Hero = () => {
           </a>
         </div>
         <img
-          src="https://via.placeholder.com/992x250"
+          src="./hospital-home.jpg"
           alt="image"
-          className=""
+          className="w-[40rem] "
         />
       </div>
       <section
@@ -111,42 +108,42 @@ const Hero = () => {
             Our Services
           </h3>
         </div>
-        <div className="flex gap-4">
-          <div className="flex flex-col border-darkblue border-2 rounded-sm">
-            <HeroButton>Free Checkup</HeroButton>
-            <HeroButton>Cardiogram</HeroButton>
-            <HeroButton>Dna Testing</HeroButton>
-            <HeroButton>Blood Bank</HeroButton>
-          </div>
-          <article className="flex flex-col gap-3 my-6">
-            <h5 className="text-xl font-bold">
-              A passion for putting patients first.
-            </h5>
-            <ul className="grid grid-cols-2 list-inside list-disc">
-              <li>A Passion for Healing</li>
-              <li>All our best</li>
-              <li>A Legacy of Excellence</li>
-              <li>5-Star Care</li>
-              <li>Believe in Us</li>
-              <li>Always Caring</li>
-            </ul>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              placerat scelerisque tortor ornare ornare. Quisque placerat
-              scelerisque tortor ornare ornare Convallis felis vitae tortor
-              augue. Velit nascetur proin massa in. Consequat faucibus porttitor
-              enim et.
-            </p>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              placerat scelerisque. Convallis felis vitae tortor augue. Velit
-              nascetur proin massa in.
-            </p>
-          </article>
-          <div className="flex flex-col gap-2">
-            <img src="./assets/doctor.png" width="480" height="480" />
-            <img src=".../assets/doctor.png" width="480" height="480" />
-          </div>
+        <div className="flex flex-row items-center justify-center">
+        <div className="flex border-darkblue border-2 rounded-sm">
+              <div className="flex flex-col justify-between">
+                <HeroButton>Free Checkup</HeroButton>
+                <HeroButton>Cardiogram</HeroButton>
+                <HeroButton>DNA Testing</HeroButton>
+                <HeroButton>Blood Bank</HeroButton>
+              </div>
+      </div>
+          <article className="flex flex-col gap-3 my-8 max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-4xl mx-auto px-4">
+      <h5 className="text-xl font-bold">
+        A passion for putting patients first.
+      </h5>
+      <ul className="grid grid-cols-2 list-inside list-disc">
+        <li>A Passion for Healing</li>
+        <li>All our best</li>
+        <li>A Legacy of Excellence</li>
+        <li>5-Star Care</li>
+        <li>Believe in Us</li>
+        <li>Always Caring</li>
+      </ul>
+          <p className="text-sm text-justify mb-4">
+  Putting patients first is more than a motto, it's our guiding principle in everything we do. We strive to provide compassionate care and exceptional service to every individual who walks through our doors.
+        </p>
+          <p className="text-sm text-justify mb-4">
+            We strive to deliver our best each day, drawing from a rich legacy of excellence in healthcare. Our team is dedicated to providing nothing short of 5-star care, ensuring that every patient receives the highest quality treatment and attention.
+          </p>
+          <p className="text-sm text-justify mb-4">
+            When you choose our hospital, you're not just placing your trust in our expertise; you're believing in our unwavering commitment to your well-being. From the moment you walk through our doors, you'll experience the warmth and compassion that define our approach to healthcare.
+          </p>
+    </article> 
+    <div className="flex flex-col space-y-4">
+  <img src="./ART-Doctors-Patient.png" alt="Hospital Image" className="w-full max-w-lg h-auto" />
+  <img src="./ART-Patient-doctor-Medicare-1024x683.png" alt="Hospital Image" className="w-full max-w-lg h-auto" />
+</div>
+
         </div>
       </section>
 
@@ -179,19 +176,18 @@ const Hero = () => {
       </section>
       <Appointment href="Contact"></Appointment>
 
-      <div className="ourDoctor w-3/4 mx-auto my-16 gap-4">
-        <h4 className="  font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
+            <div className="ourDoctor w-3/4 mx-auto my-4 gap-16">
+        <h4 className="font-bold text-lg text-center text-sky-500 uppercase tracking-[2.88px]">
           Trust Care
         </h4>
-        <h3 className="text-center text-blue-950 text-[32px]  font-bold font-yeseva">
+        <h3 className="text-center text-blue-950 text-[32px] font-bold font-yeseva my-4">
           Our Doctors
         </h3>
-        <div className="doctorsImg flex gap-5 items-center justify-center pt-16">
-          <FrameDoctor />
-          <FrameDoctor />
+        <div className="my-24"> {/* Added margin to provide spacing */}
           <FrameDoctor />
         </div>
       </div>
+  
     </>
   );
 };
