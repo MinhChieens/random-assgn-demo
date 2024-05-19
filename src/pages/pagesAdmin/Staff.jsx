@@ -4,7 +4,14 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Spin from "../../assets/spin-svgrepo-com.svg";
-import { addDoc, collection, doc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  increment,
+  updateDoc,
+} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { deleteDoc } from "firebase/firestore";
 import { storage } from "../../constants/firebase";
@@ -42,6 +49,9 @@ const Card = ({ props, uid, setUpload }) => {
   const handleDelete = async () => {
     // const docRef = doc(db, typeUser, currentUser.uid);
     await deleteDoc(doc(db, "staff", uid));
+    await updateDoc(doc(db, "staff", "general"), {
+      numOfStaff: increment(-1),
+    });
     setUpload();
   };
   return (
@@ -166,6 +176,9 @@ const Staff = () => {
 
     await addDoc(collection(db, "staff"), {
       information: value,
+    });
+    await updateDoc(doc(db, "staff", "general"), {
+      numOfStaff: increment(1),
     });
     setLoading(false);
     alertSuccess();
