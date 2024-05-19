@@ -69,6 +69,10 @@ const ListAppointment = () => {
     await updateDoc(doc(db, "doctors", CrtUser.uid), {
       ListPatient: arrayUnion(uid),
     });
+
+    await updateDoc(doc(db, "users", uid), {
+      messages: arrayUnion("Your Appointments is accepted!"),
+    });
     notifySuccess();
   };
 

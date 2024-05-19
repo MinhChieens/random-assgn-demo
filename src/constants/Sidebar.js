@@ -46,7 +46,7 @@ export const SidePatient = [
     icon: faAngleRight,
   },
   {
-    title: "Messages",
+    title: "Notifications",
     path: "messages",
     icon: faMessage,
   },
@@ -81,7 +81,7 @@ export const SideAdmin = [
   { title: "Staff", path: "staff", icon: faUsers },
   { title: "Staff Schedule", path: "staffSchedule", icon: faCalendar },
   {
-    title: "Messages",
+    title: "Notifications",
     path: "messages",
     icon: faMessage,
   },
@@ -106,7 +106,7 @@ export const SideDoctor = [
     icon: faListAlt,
   },
   {
-    title: "Messages",
+    title: "Notifications",
     path: "messages",
     icon: faMessage,
   },
