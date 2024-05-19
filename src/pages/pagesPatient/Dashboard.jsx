@@ -4,6 +4,7 @@ import UsageStatisticsChart from "../../components/Dashboard/UsageStatisticChart
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../constants/firebase";
 import { getAuth } from "firebase/auth";
+import TreatmentSchedule from "../../components/TimelineTreat";
 
 const Dashboard = () => {
   const crtUser = getAuth().currentUser;
@@ -24,6 +25,7 @@ const Dashboard = () => {
         </p>
       </div>
       <UsageStatisticsChart />
+      <TreatmentSchedule />
     </div>
   );
 };
