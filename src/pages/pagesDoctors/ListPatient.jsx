@@ -1,27 +1,45 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCircleInfo,
-  faClinicMedical,
   faClipboardList,
   faEdit,
-  faHistory,
-  faRecordVinyl,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import CardPatients from "../../components/CardPatients";
 import Spin from "../../assets/spin-svgrepo-com.svg";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../constants/firebase";
 import { getAuth } from "firebase/auth";
 import { toast, Bounce } from "react-toastify";
 import AHealthRecord from "../../components/Form/AHealthRecord";
+import Swal from "sweetalert2";
 const ListPatient = () => {
   const [btnAdd, setBtnAdd] = useState(null);
   const [btnAddRecord, setAddRecord] = useState(null);
   const [Loading, setLoading] = useState(false);
   const [listPatients, setListPatients] = useState(null);
+  const checkDelete = (uid) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        handleDelete(uid);
+      }
+    });
+  };
   const notifySuccess = () =>
     toast.success("Updated Successfully!", {
       position: "top-center",
@@ -34,6 +52,11 @@ const ListPatient = () => {
       theme: "light",
       transition: Bounce,
     });
+  const handleDelete = async (uid) => {
+    await updateDoc(doc(db, "doctors", uid), {
+      ListPatient: arrayRemove(uid),
+    });
+  };
   const getPatents = async (list) => {
     const relList = list.map(async (pId) => {
       const docPatient = await getDoc(doc(db, "users", pId));
@@ -149,6 +172,12 @@ const ListPatient = () => {
                         onClick={() => setAddRecord(p.uid)}
                       >
                         <FontAwesomeIcon icon={faClipboardList} />
+                      </button>
+                      <button
+                        className="ml-3 hover:text-red-600"
+                        onClick={() => checkDelete(p.uid)}
+                      >
+                        <FontAwesomeIcon icon={faX} />
                       </button>
                     </div>
                   </div>

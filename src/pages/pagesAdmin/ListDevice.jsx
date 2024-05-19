@@ -119,7 +119,7 @@ const ListDevice = () => {
                     </div>
                   </div>
                   <p className="email col-span-1 ">Quantity</p>
-                  <p className="phone col-span-2">Type</p>
+                  <p className="phone col-span-2">Status</p>
                   <p className="dateAdd col-span-2">Expiry</p>
                   <p className="status col-span-2">Manufacturer</p>
                   <p className="status col-span-1">More</p>

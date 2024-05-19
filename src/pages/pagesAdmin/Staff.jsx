@@ -49,9 +49,6 @@ const Card = ({ props, uid, setUpload }) => {
   const handleDelete = async () => {
     // const docRef = doc(db, typeUser, currentUser.uid);
     await deleteDoc(doc(db, "staff", uid));
-    await updateDoc(doc(db, "staff", "general"), {
-      numOfStaff: increment(-1),
-    });
     setUpload();
   };
   return (
@@ -145,7 +142,7 @@ const Staff = () => {
     });
   };
   const alertSuccess = () => {
-    toast.success("🦄 Wow so easy!", {
+    toast.success("Add Successfull!", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -176,9 +173,6 @@ const Staff = () => {
 
     await addDoc(collection(db, "staff"), {
       information: value,
-    });
-    await updateDoc(doc(db, "staff", "general"), {
-      numOfStaff: increment(1),
     });
     setLoading(false);
     alertSuccess();

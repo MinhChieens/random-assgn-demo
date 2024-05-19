@@ -25,6 +25,14 @@ const DashboardAdmin = () => {
     });
     return count;
   };
+  const getStaff = async () => {
+    const queryStaff = await getDocs(collection(db, "staff"));
+    let relList = 0;
+    queryStaff.forEach((doc) => {
+      relList += 1;
+    });
+    return relList;
+  };
   useEffect(() => {
     const getData = async () => {
       const numMedicine = (await getDoc(doc(db, "medicines", "general"))).data()
@@ -33,8 +41,7 @@ const DashboardAdmin = () => {
         .numOfDevice;
       const numDoctor = (await getDoc(doc(db, "admin", crtUser.uid))).data()
         .listOfDoctors.length;
-      const numStaff = (await getDoc(doc(db, "staff", "general"))).data()
-        .numOfStaff;
+      const numStaff = await getStaff();
       const numPatients = await getPatents();
 
       setTotal({
