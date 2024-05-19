@@ -2,17 +2,17 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 //add sample data random
 const data = [
-  { date: '12/2023', logins: 20 },
-  { date: '11/2023', logins: 25 },
-    { date: '10/2023', logins: 30 },
-    { date: '9/2023', logins: 35 },
-    { date: '8/2023', logins: 40 },
-    { date: '7/2023', logins: 45 },
-    { date: '6/2023', logins: 50 },
-    { date: '5/2023', logins: 55 },
-    { date: '4/2023', logins: 30 },
-    { date: '3/2023', logins: 35 },
-    { date: '2/2023', logins: 20 },
+  { date: '6/2023', logins: 2 },
+  { date: '7/2023', logins: 2 },
+    { date: '8/2023', logins: 3 },
+    { date: '9/2023', logins: 3},
+    { date: '10/2023', logins: 4 },
+    { date: '11/2023', logins: 4 },
+    { date: '12/2023', logins: 5 },
+    { date: '1/2024', logins: 5 },
+    { date: '2/2024', logins: 3 },
+    { date: '3/2024', logins: 3 },
+    { date: '5/2024', logins: 2 },
 ];
 
 const UsageStatisticsChart = () => (
