@@ -23,9 +23,13 @@ const Dashboard = () => {
         <p className="pt-2 pl-4 text-2xl">
           Hello : {dataUser.information && dataUser.information.name}
         </p>
-      </div>
+      </div >
+      <div className="flex flex-row gap-4 ml-2 mr-2">
       <UsageStatisticsChart />
       <TreatmentSchedule />
+      </div>
+      
+
     </div>
   );
 };

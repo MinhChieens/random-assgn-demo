@@ -1,92 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 
 const TreatmentSchedule = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-4">LỊCH TRÌNH ĐIỀU TRỊ</h1>
+    <div className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg ">
+      <h1 className="text-2xl font-bold mt-4">Recent Treatment Schedule</h1>
 
       {/* Personal Information */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Thông tin cá nhân:</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className={` ${expanded ? 'mb-2' : 'mt-8'}`}>
+        <h2 className="text-xl font-semibold mb-2">Personal Information:</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block font-medium">Tên:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
+            <label className="block font-medium">Name:</label>
+            <input type="text" className="w-full border-gray-300 rounded-md" placeholder="John Doe" />
           </div>
           <div>
-            <label className="block font-medium">Tuổi:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
+            <label className="block font-medium">Age:</label>
+            <input type="text" className="w-full border-gray-300 rounded-md" placeholder="30" />
           </div>
           <div>
-            <label className="block font-medium">Giới tính:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
+            <label className="block font-medium">SSN:</label>
+            <input type="text" className="w-full border-gray-300 rounded-md" placeholder="123-45-6789" />
+          </div>
+          <div>
+            <label className="block font-medium">Blood Type:</label>
+            <input type="text" className="w-full border-gray-300 rounded-md" placeholder="A+" />
           </div>
         </div>
       </div>
 
+
       {/* Treatment Schedule */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Lịch trình điều trị:</h2>
-        {[...Array(3)].map((_, i) => (
+      <div className={`mb-6 ${expanded ? '' : 'h-0 overflow-hidden'}`}>
+        <h2 className="text-xl font-semibold mb-2">Treatment Schedule:</h2>
+        {[...Array(2)].map((_, i) => (
           <div key={i} className="mb-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block font-medium">Ngày:</label>
+                <label className="block font-medium">Date:</label>
                 <input
                   type="text"
                   className="w-full border-gray-300 rounded-md"
+                  placeholder="2024-05-20"
                 />
               </div>
               <div>
-                <label className="block font-medium">Thời gian:</label>
+                <label className="block font-medium">Time:</label>
                 <input
                   type="text"
                   className="w-full border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block font-medium">
-                  Tên cuộc hẹn/điều trị:
-                </label>
-                <input
-                  type="text"
-                  className="w-full border-gray-300 rounded-md"
+                  placeholder="10:00 AM"
                 />
               </div>
             </div>
             <div className="mt-2">
-              <label className="block font-medium">Thông tin chi tiết:</label>
-              <textarea className="w-full border-gray-300 rounded-md"></textarea>
+              <label className="block font-medium">Appointment/Treatment Name:</label>
+              <input
+                type="text"
+                className="w-full border-gray-300 rounded-md"
+                placeholder="Follow-up Checkup"
+              />
             </div>
           </div>
         ))}
       </div>
 
       {/* Medication Information */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Thông tin về thuốc:</h2>
-        {[...Array(3)].map((_, i) => (
+      <div className={`mb-6 ${expanded ? '' : 'h-0 overflow-hidden'}`}>
+        <h2 className="text-xl font-semibold mb-2">Medication Information:</h2>
+        {[...Array(1)].map((_, i) => (
           <div key={i} className="mb-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block font-medium">Tên thuốc:</label>
+                <label className="block font-medium">Medication Name:</label>
                 <input
                   type="text"
                   className="w-full border-gray-300 rounded-md"
+                  placeholder="Aspirin"
                 />
               </div>
               <div>
-                <label className="block font-medium">Liều lượng:</label>
+                <label className="block font-medium">Dosage:</label>
                 <input
                   type="text"
                   className="w-full border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block font-medium">Thời gian dùng:</label>
-                <input
-                  type="text"
-                  className="w-full border-gray-300 rounded-md"
+                  placeholder="500mg"
                 />
               </div>
             </div>
@@ -95,50 +98,53 @@ const TreatmentSchedule = () => {
       </div>
 
       {/* Contact Information */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Thông tin liên lạc:</h2>
+      <div className={`mb-6 ${expanded ? '' : 'h-0 overflow-hidden'}`}>
+        <h2 className="text-xl font-semibold mb-2">Contact Information:</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block font-medium">Bác sĩ:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
-            <label className="block font-medium mt-2">Số điện thoại:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
-          </div>
-          <div>
-            <label className="block font-medium">Nhân viên y tế:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
-            <label className="block font-medium mt-2">Số điện thoại:</label>
-            <input type="text" className="w-full border-gray-300 rounded-md" />
+            <label className="block font-medium">Doctor:</label>
+            <input type="text" className="w-full border-gray-300 rounded-md" placeholder="Dr. Smith" />
           </div>
         </div>
       </div>
 
       {/* Reminders and Alerts */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Nhắc nhở và cảnh báo:</h2>
-        {[...Array(2)].map((_, i) => (
+      <div className={`mb-6 ${expanded ? '' : 'h-0 overflow-hidden'}`}>
+        <h2 className="text-xl font-semibold mb-2">Reminders and Alerts:</h2>
+        {[...Array(1)].map((_, i) => (
           <div key={i} className="mb-2">
             <input
               type="text"
               className="w-full border-gray-300 rounded-md"
-              placeholder="Thông điệp nhắc nhở/cảnh báo"
+              placeholder="Take medication after meal."
             />
           </div>
         ))}
       </div>
 
       {/* Notes and Attachments */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Ghi chú và tài liệu:</h2>
-        {[...Array(2)].map((_, i) => (
+      <div className={`mb-6 ${expanded ? '' : 'h-0 overflow-hidden'}`}>
+        <h2 className="text-xl font-semibold mb-2">Notes and Attachments:</h2>
+        {[...Array(1)].map((_, i) => (
           <div key={i} className="mb-2">
             <input
+              
               type="text"
               className="w-full border-gray-300 rounded-md"
-              placeholder="Ghi chú/Tài liệu đính kèm"
+              placeholder="Attach prescription document."
             />
           </div>
         ))}
+      </div>
+
+      {/* Toggle Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={toggleExpanded}
+          className="text-blue-500 hover:underline"
+        >
+          {expanded ? "See less" : "See more"}
+        </button>
       </div>
     </div>
   );
