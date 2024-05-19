@@ -24,10 +24,12 @@ const AHealthRecord = ({ userid, id }) => {
       bloodGroup: "",
       bloodRate: "",
       date: "",
+      diagnosis: "",
       history: ["", "", "", ""],
       medication: ["", "", "", ""],
       allergies: ["", "", "", ""],
       surgery: ["", "", "", ""],
+      message: "",
    });
 
    const [Loading, setLoading] = useState(false);
@@ -120,7 +122,18 @@ const AHealthRecord = ({ userid, id }) => {
 
    const setData = async () => {
       setLoading(true);
-      setRecord({ ...record, date: new Date().toString() });
+      const nowString =
+         new Date().getDate() +
+         "/" +
+         (new Date().getMonth() + 1) +
+         "/" +
+         new Date().getFullYear();
+      console.log(nowString);
+      setRecord({
+         ...record,
+         date: nowString,
+      });
+
       await addDoc(
          // change fix id to dynamic id
          collection(db, "healthRecords", userid, "records"),
@@ -139,15 +152,12 @@ const AHealthRecord = ({ userid, id }) => {
       <>
          <form onSubmit={(e) => handleSubmit(e)}>
             <ul className="bg-white grid grid-cols-4 w-[90%] mx-auto items-stretch *:py-0 gap-3 my-3 font-[poppins] border-2 rounded-2xl px-5 py-5">
-               <p className="col-span-4">
-                  - above hline is const (taken from user.information, except
-                  for SSN which isnt in user.information), below is editable
-                  (but should be changed to be edited by doctors only).
-               </p>
-               <p className="col-span-2 justify-self-center self-stretch flex gap-1">
-                  <p className="font-bold">Record date: </p>
-                  <p>{record.date}</p>
-               </p>
+               {id != null && (
+                  <p className="col-span-2 justify-self-center self-stretch flex gap-1">
+                     <p className="font-bold">Record date: </p>
+                     <p>{record.date}</p>
+                  </p>
+               )}
                <li className="flex flex-col gap-1 h-20 col-span-4">
                   <label className="pl-2 font-bold" htmlFor="name">
                      Full Name
@@ -258,6 +268,20 @@ const AHealthRecord = ({ userid, id }) => {
                   />
                </li>
                <li className="flex flex-col gap-1 h-20 col-span-4">
+                  <label className="pl-2 font-bold" htmlFor="diagnosis">
+                     Diagnosis
+                  </label>
+                  <input
+                     onChange={(e) => handleChange(e)}
+                     className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                     type="text"
+                     value={record.diagnosis}
+                     name="diagnosis"
+                     placeholder="Diagnosis"
+                     id="diagnosis"
+                  />
+               </li>
+               <li className="flex flex-col gap-1 h-20 col-span-4">
                   <label className="pl-2 font-bold" htmlFor="history">
                      Medical History
                   </label>
@@ -324,6 +348,20 @@ const AHealthRecord = ({ userid, id }) => {
                         />
                      ))}
                   </div>
+               </li>
+               <li className="flex flex-col gap-1 h-20 col-span-4">
+                  <label className="pl-2 font-bold" htmlFor="message">
+                     Message
+                  </label>
+                  <input
+                     onChange={(e) => handleChange(e)}
+                     className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
+                     type="text"
+                     value={record.message}
+                     name="message"
+                     placeholder="Message"
+                     id="message"
+                  />
                </li>
             </ul>
             {id == null && (
