@@ -229,6 +229,7 @@ const AHealthRecord = ({ userid, id }) => {
                      type="number"
                      value={record.weight}
                      name="weight"
+                     required
                   />
                </li>
                <li className="flex flex-col gap-1 h-20">
@@ -236,6 +237,7 @@ const AHealthRecord = ({ userid, id }) => {
                      Height
                   </label>
                   <input
+                     required
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="number"
@@ -245,14 +247,16 @@ const AHealthRecord = ({ userid, id }) => {
                </li>
                <li className="flex flex-col gap-1 h-20">
                   <label className="pl-2 font-bold" htmlFor="blood">
-                     Blood Type
+                     Blood Group
                   </label>
                   <input
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
                      value={record.bloodGroup}
-                     name="blood"
+                     name="bloodGroup"
+                     id="blood"
+                     required
                   />
                </li>
                <li className="flex flex-col gap-1 h-20">
@@ -260,6 +264,7 @@ const AHealthRecord = ({ userid, id }) => {
                      Blood Pressure
                   </label>
                   <input
+                     required
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
@@ -272,6 +277,7 @@ const AHealthRecord = ({ userid, id }) => {
                      Diagnosis
                   </label>
                   <input
+                     required
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
@@ -354,6 +360,7 @@ const AHealthRecord = ({ userid, id }) => {
                      Message
                   </label>
                   <input
+                     required
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="text"
