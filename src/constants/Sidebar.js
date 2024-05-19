@@ -89,11 +89,7 @@ export const SideDoctor = [
   },
   { title: "Patient List", path: "patientList", icon: faFileMedical },
 
-  {
-    title: "Schedule",
-    path: "schedule",
-    icon: faPenSquare,
-  },
+  
   {
     title: "Appointments",
     path: "appointments",
