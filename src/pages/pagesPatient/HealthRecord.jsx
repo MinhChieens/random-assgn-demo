@@ -53,9 +53,9 @@ const HealthRecord = () => {
                </div>
                <div className="pt-2">
                   <div className="w-[95%] mx-auto grid grid-cols-12 p-3 bg-gray-100 items-center justify-items-center justify-center font-[poppins] font-bold text-gray-500 ">
-                     <div className="col-span-3">Id</div>
-                     <div className="col-span-3">Name</div>
-                     <div className="col-span-4">Date</div>
+                     <div className="col-span-1">Date</div>
+                     <div className="col-span-3">Diagnosis</div>
+                     <div className="col-span-6">Message</div>
                      <div className="col-span-2">Action</div>
                   </div>
                   <div className="flex flex-col justify-center items-center gap-4 pt-4">
@@ -66,9 +66,9 @@ const HealthRecord = () => {
                                  key={p.id}
                                  className="w-[95%] mx-auto  h-14 grid grid-cols-12 p-1 border-2 items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white "
                               >
-                                 <div className="col-span-3">{p.id}</div>
-                                 <div className="col-span-3">{p.name}</div>
-                                 <div className="col-span-4">{p.date}</div>
+                                 <div className="col-span-1">{p.date}</div>
+                                 <div className="col-span-3">{p.diagnosis}</div>
+                                 <div className="col-span-6">{p.message}</div>
                                  <div className="col-span-2">
                                     <button
                                        onClick={() => setId(p.id)}
