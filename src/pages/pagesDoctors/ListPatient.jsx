@@ -64,7 +64,7 @@ const ListPatient = () => {
         <div className="flex gap-5 items-center">
           <h3 className="text-2xl  font-bold text-white">My Patients</h3>
           <p className="text-darkblue text-base ml-3 px-[10px] py-1 bg-stone-200 rounded-full italic">
-            {1} Patients
+            {listPatients && listPatients.length} Patients
           </p>
           <p className="text-white font-bold">
             Date : {new Date().getDate()}/ {new Date().getMonth()}/
