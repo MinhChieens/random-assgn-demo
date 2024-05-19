@@ -10,7 +10,7 @@ import { db } from "../../constants/firebase";
 import { getAuth } from "firebase/auth";
 import AHealthRecord from "../../components/Form/AHealthRecord";
 const ListPatient = () => {
-   const [btnAdd, setBtnAdd] = useState("");
+   const [btnAdd, setBtnAdd] = useState(null);
    const [Loading, setLoading] = useState(false);
    const [listPatients, setListPatients] = useState(null);
 

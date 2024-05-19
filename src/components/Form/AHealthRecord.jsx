@@ -128,7 +128,7 @@ const AHealthRecord = ({ userid, id }) => {
          (new Date().getMonth() + 1) +
          "/" +
          new Date().getFullYear();
-
+      console.log(nowString);
       setRecord({
          ...record,
          date: nowString,
