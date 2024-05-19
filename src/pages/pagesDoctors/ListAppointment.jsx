@@ -4,11 +4,29 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import CardPatients from "../../components/CardPatients";
-
-import { doc, getDoc } from "firebase/firestore";
+import { toast, Bounce } from "react-toastify";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../constants/firebase";
 import { getAuth } from "firebase/auth";
 const ListAppointment = () => {
+  const notifySuccess = () =>
+    toast.success("Updated Successfully!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   const [Loading, setLoading] = useState(false);
   const [ListAppointment, setListAppointment] = useState(null);
 
@@ -20,6 +38,7 @@ const ListAppointment = () => {
         return {
           information: dataPatient.data().information,
           appt: dataPatient.data().myAppointment,
+          uid: item,
         };
       return null;
     });
@@ -30,8 +49,8 @@ const ListAppointment = () => {
     setListAppointment(validList);
   };
 
+  const CrtUser = getAuth().currentUser;
   const getListAppointment = async () => {
-    const CrtUser = getAuth().currentUser;
     const data = await getDoc(doc(db, "doctors", CrtUser.uid));
     const appt = await getDoc(doc(db, "doctors", "appointments"));
     const type = data.data().value.Specialist;
@@ -42,7 +61,16 @@ const ListAppointment = () => {
     getListAppointment();
   }, []);
 
-  // redirect to user profile
+  const handleAccept = async (uid, activity) => {
+    await updateDoc(doc(db, "doctors", "appointments"), {
+      [activity]: arrayRemove(uid),
+    });
+
+    await updateDoc(doc(db, "doctors", CrtUser.uid), {
+      ListPatient: arrayUnion(uid),
+    });
+    notifySuccess();
+  };
 
   return (
     <>
@@ -57,7 +85,7 @@ const ListAppointment = () => {
       <div className="pt-2">
         <div className="w-[95%] mx-auto grid grid-cols-12 p-3 bg-gray-100 items-center justify-items-center justify-center font-[poppins] font-bold text-gray-500 ">
           <div className="col-span-2 justify-self-start">Patient Name</div>
-          <div className="col-span-2 justify-self-start">Phone Number</div>
+          <div className="col-span-2 justify-self-start">Activity</div>
           <div className="col-span-1 justify-self-start">Gender</div>
           <div className="col-span-3 justify-self-start">Time of visit</div>
           <div className="col-span-3 justify-self-start ml-[-2rem]">Reason</div>
@@ -75,7 +103,7 @@ const ListAppointment = () => {
                     {p.information.name}
                   </div>
                   <div className="col-span-2 justify-self-start">
-                    {p.information.phone}
+                    {p.information.activa}
                   </div>
                   <div className="col-span-1 justify-self-start">
                     {p.information.gender}
@@ -87,7 +115,12 @@ const ListAppointment = () => {
                     {p.appt.message}
                   </div>
                   <div className="col-span-1 flex justify-self-start ml-[-4rem]">
-                    <button className="px-1 h-6 w-10 bg-green-400 text-white rounded-md"></button>
+                    <button
+                      onClick={() => handleAccept(p.uid, p.appt.activity)}
+                      className="px-1 h-6 w-16 bg-green-400 text-white rounded-md"
+                    >
+                      Accept
+                    </button>
                   </div>
                 </div>
               );

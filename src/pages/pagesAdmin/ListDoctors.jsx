@@ -20,7 +20,7 @@ const PageInfo = ({ uid }) => {
   const notifySuccess = () =>
     toast.success("Updated Successfully!", {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,

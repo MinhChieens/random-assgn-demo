@@ -2,6 +2,7 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import { faListAlt } from "@fortawesome/free-regular-svg-icons";
 import {
   faCalendar,
+  faMessage,
   faPenSquare,
   faUserDoctor,
 } from "@fortawesome/free-solid-svg-icons";
@@ -44,6 +45,11 @@ export const SidePatient = [
     path: "",
     icon: faAngleRight,
   },
+  {
+    title: "Messages",
+    path: "messages",
+    icon: faMessage,
+  },
 ];
 
 export const SideAdmin = [
@@ -74,6 +80,11 @@ export const SideAdmin = [
   },
   { title: "Staff", path: "staff", icon: faUsers },
   { title: "Staff Schedule", path: "staffSchedule", icon: faCalendar },
+  {
+    title: "Messages",
+    path: "messages",
+    icon: faMessage,
+  },
 ];
 
 export const SideDoctor = [
@@ -89,10 +100,14 @@ export const SideDoctor = [
   },
   { title: "Patient List", path: "patientList", icon: faFileMedical },
 
-  
   {
     title: "Appointments",
     path: "appointments",
     icon: faListAlt,
+  },
+  {
+    title: "Messages",
+    path: "messages",
+    icon: faMessage,
   },
 ];
