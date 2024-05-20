@@ -19,6 +19,7 @@ import StaffSchedule from "../pages/pagesAdmin/StaffSchedule";
 import HealthRecord from "../pages/pagesPatient/HealthRecord";
 import TestResult from "../pages/pagesPatient/TestResult";
 import Messages from "../components/Messages";
+import ForgotPass from "../pages/ForgotPass";
 export const RouteUser = [
   { path: "home", element: <Dashboard />, state: "home" },
   { path: "dashboard", element: <Dashboard />, sidebarProps: {} },
@@ -28,6 +29,7 @@ export const RouteUser = [
   { path: "records", element: <HealthRecord />, sidebarProps: {} },
   { path: "test", element: <TestResult />, sidebarProps: {} },
   { path: "messages", element: <Messages />, sidebarProps: {} },
+  { path: "forgot", element: <ForgotPass />, sidebarProps: {} },
 ];
 export const RouteDoctor = [
   { path: "", element: <DashboardDoctor />, state: "home" },
@@ -38,6 +40,7 @@ export const RouteDoctor = [
   { path: "patientList", element: <ListPatient />, sidebarProps: {} },
   { path: "appointments", element: <ListAppointment />, sidebarProps: {} },
   { path: "messages", element: <Messages />, sidebarProps: {} },
+  { path: "forgot", element: <ForgotPass />, sidebarProps: {} },
 ];
 
 export const RouteAdmin = [

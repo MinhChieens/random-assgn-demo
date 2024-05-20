@@ -168,7 +168,7 @@ const Login = () => {
           </button>
         </form>
 
-        <a className="underline" href="forgotPassword">
+        <a className="underline text-sky-400" href="forgot">
           Forgot Password
         </a>
         <p className="text-[#5B5B5B] font-['Inter'] tracking-[1.6px] text-base font-bold">

@@ -2,6 +2,7 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import { faListAlt } from "@fortawesome/free-regular-svg-icons";
 import {
   faCalendar,
+  faLock,
   faMessage,
   faPenSquare,
   faUserDoctor,
@@ -49,6 +50,11 @@ export const SidePatient = [
     title: "Messages",
     path: "messages",
     icon: faMessage,
+  },
+  {
+    title: "Change password",
+    path: "forgot",
+    icon: faLock,
   },
 ];
 
@@ -109,5 +115,10 @@ export const SideDoctor = [
     title: "Messages",
     path: "messages",
     icon: faMessage,
+  },
+  {
+    title: "Change password",
+    path: "forgot",
+    icon: faLock,
   },
 ];
