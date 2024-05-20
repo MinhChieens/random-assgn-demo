@@ -151,49 +151,52 @@ const ListPatient = () => {
                   {listPatients &&
                      listPatients.map((p) => {
                         console.log(p);
-                        return (
-                           <div
-                              key={p.healthInfo.name}
-                              className="w-[95%] mx-auto grid grid-cols-12 p-3 border-2 hover: items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white "
-                           >
-                              <div className="col-span-2 justify-self-start">
-                                 {p.healthInfo.name}
+                        if (p.healthInfo)
+                           return (
+                              <div
+                                 key={p.healthInfo.name}
+                                 className="w-[95%] mx-auto grid grid-cols-12 p-3 border-2 hover: items-center justify-items-center justify-center font-[poppins] font-bold hover:bg-darkblue hover:text-white "
+                              >
+                                 <div className="col-span-2 justify-self-start">
+                                    {p.healthInfo.name}
+                                 </div>
+                                 <div className="col-span-3">
+                                    {p.healthInfo.diagnose}
+                                 </div>
+                                 <div className="col-span-1">
+                                    {p.healthInfo.age}
+                                 </div>
+                                 <div className="col-span-3">
+                                    {p.healthInfo.medicine}
+                                 </div>
+                                 <div className="col-span-2">
+                                    {p.healthInfo.timeTreat}
+                                 </div>
+                                 <div className="col-span-1">
+                                    <button
+                                       onClick={() =>
+                                          handleAddBtn(p.healthInfo, p.uid)
+                                       }
+                                    >
+                                       <FontAwesomeIcon icon={faEdit} />
+                                    </button>
+                                    <button
+                                       className="ml-3"
+                                       onClick={() => setAddRecord(p.uid)}
+                                    >
+                                       <FontAwesomeIcon
+                                          icon={faClipboardList}
+                                       />
+                                    </button>
+                                    <button
+                                       className="ml-3 hover:text-red-600"
+                                       onClick={() => checkDelete(p.uid)}
+                                    >
+                                       <FontAwesomeIcon icon={faX} />
+                                    </button>
+                                 </div>
                               </div>
-                              <div className="col-span-3">
-                                 {p.healthInfo.diagnose}
-                              </div>
-                              <div className="col-span-1">
-                                 {p.healthInfo.age}
-                              </div>
-                              <div className="col-span-3">
-                                 {p.healthInfo.medicine}
-                              </div>
-                              <div className="col-span-2">
-                                 {p.healthInfo.timeTreat}
-                              </div>
-                              <div className="col-span-1">
-                                 <button
-                                    onClick={() =>
-                                       handleAddBtn(p.healthInfo, p.uid)
-                                    }
-                                 >
-                                    <FontAwesomeIcon icon={faEdit} />
-                                 </button>
-                                 <button
-                                    className="ml-3"
-                                    onClick={() => setAddRecord(p.uid)}
-                                 >
-                                    <FontAwesomeIcon icon={faClipboardList} />
-                                 </button>
-                                 <button
-                                    className="ml-3 hover:text-red-600"
-                                    onClick={() => checkDelete(p.uid)}
-                                 >
-                                    <FontAwesomeIcon icon={faX} />
-                                 </button>
-                              </div>
-                           </div>
-                        );
+                           );
                      })}
                </div>
             </div>
