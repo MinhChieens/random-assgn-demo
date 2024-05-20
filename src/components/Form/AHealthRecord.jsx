@@ -217,6 +217,7 @@ const AHealthRecord = ({ userid, id }) => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="number"
+                     min="0"
                      value={record.weight}
                      name="weight"
                      required
@@ -231,6 +232,7 @@ const AHealthRecord = ({ userid, id }) => {
                      onChange={(e) => handleChange(e)}
                      className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                      type="number"
+                     min="0"
                      value={record.height}
                      name="height"
                   />
