@@ -22,7 +22,12 @@ const AHealthRecord = ({ userid, id }) => {
       height: 0,
       bloodGroup: "",
       bloodRate: "",
-      date: "",
+      date:
+         new Date().getDate() +
+         "/" +
+         (new Date().getMonth() + 1) +
+         "/" +
+         new Date().getFullYear(),
       diagnosis: "",
       history: ["", "", "", ""],
       medication: ["", "", "", ""],
@@ -90,7 +95,6 @@ const AHealthRecord = ({ userid, id }) => {
 
    useEffect(() => {
       const updateRecord = async () => {
-         console.log(userid);
          const userSnap = await getDoc(doc(db, "users", userid));
          if (!userSnap.exists()) {
             console.log("No such user!");
@@ -128,12 +132,10 @@ const AHealthRecord = ({ userid, id }) => {
          (new Date().getMonth() + 1) +
          "/" +
          new Date().getFullYear();
-      console.log(nowString);
       setRecord({
          ...record,
          date: nowString,
       });
-
       await addDoc(
          // change fix id to dynamic id
          collection(db, "healthRecords", userid, "records"),
