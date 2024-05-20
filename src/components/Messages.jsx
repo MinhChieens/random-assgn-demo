@@ -57,6 +57,7 @@ const MessageAdmin = ({ uid }) => {
           onChange={(e) => setMessage(e.target.value)}
           className="p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Type your message here..."
+          required
         ></textarea>
         <button
           type="submit"
