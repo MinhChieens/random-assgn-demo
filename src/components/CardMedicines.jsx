@@ -53,20 +53,38 @@ const CardMedicines = ({ type, uid, handleDeleteMed, props }) => {
     const numMed = await getDoc(refMed).then((med) => {
       return med.data().quantity;
     });
-    if (num == -1 || num >= numMed) {
-      await deleteDoc(doc(db, type, uid));
-      await updateDoc(docRef, {
-        ArrayDevice: arrayRemove(uid),
-        numOfDevice: increment(-numMed),
-      });
+    if (type == "devices") {
+      if (num == -1 || num >= numMed) {
+        await deleteDoc(doc(db, type, uid));
+        await updateDoc(docRef, {
+          ArrayDevice: arrayRemove(uid),
+          numOfDevice: increment(-numMed),
+        });
+      } else {
+        console.log("You entered:", num, numMed);
+        await updateDoc(refMed, {
+          quantity: numMed - num,
+        });
+        await updateDoc(docRef, {
+          numOfDevice: increment(-num),
+        });
+      }
     } else {
-      console.log("You entered:", num, numMed);
-      await updateDoc(refMed, {
-        quantity: numMed - num,
-      });
-      await updateDoc(docRef, {
-        numOfDevice: increment(-num),
-      });
+      if (num == -1 || num >= numMed) {
+        await deleteDoc(doc(db, type, uid));
+        await updateDoc(docRef, {
+          ArrayMedicine: arrayRemove(uid),
+          numOfMedicine: increment(-numMed),
+        });
+      } else {
+        console.log("You entered:", num, numMed);
+        await updateDoc(refMed, {
+          quantity: numMed - num,
+        });
+        await updateDoc(docRef, {
+          numOfMedicine: increment(-num),
+        });
+      }
     }
     Swal.fire({
       title: "Deleted!",
