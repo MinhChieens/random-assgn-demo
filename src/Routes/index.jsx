@@ -8,5 +8,5 @@ const generatedRoute = (routes) => {
 };
 
 export const routesUser = generatedRoute(RouteUser);
-export const routesDoctor = generatedRoute(RouteAdmin);
-export const routesAdmin = generatedRoute(RouteDoctor);
+export const routesDoctor = generatedRoute(RouteDoctor);
+export const routesAdmin = generatedRoute(RouteAdmin);

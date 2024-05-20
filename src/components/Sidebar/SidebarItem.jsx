@@ -1,36 +1,30 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+
 const SidebarItem = ({ item }) => {
-   const navigate = useNavigate();
-   const [open, setOpen] = useState(false);
-   const [pick, setPick] = useState(false);
-   const click = (i) => {
-      if (i && i.path) {
-         navigate(i.path);
-      } else setOpen(!open);
-   };
-   return (
-      <div
-         className="sidebar_Item p-3 text-zinc-700 block border-b-2 border-cyan-800 hover:bg-black hover:cursor-pointer
-        "
-      >
-         <div
-            onClick={() => click(item)}
-            className="sidebar-title flex justify-between"
-         >
-            {item ? <span>{item.title}</span> : ""}
-         </div>
-         {open && item ? (
-            <div className="content pt-2 pl-2 hover:bg-blue-300 ">
-               {item.childrens.map((child, index) => {
-                  return <SidebarItem key={index} item={child} />;
-               })}
-            </div>
-         ) : (
-            ""
-         )}
-      </div>
-   );
+  const navigate = useNavigate();
+  const click = (i) => {
+    if (i && i.path) {
+      navigate(i.path);
+    }
+  };
+  return (
+    <div
+      onClick={() => click(item)}
+      className={`sidebar-title flex h-10 text-[#EFF2F4] font-[poppins] font-bold items-center justify-between hover:bg-[#EFF2F4] hover:cursor-pointer hover:text-darkblue py-1 px-2 rounded-sm }`}
+    >
+      {item ? (
+        <div>
+          <FontAwesomeIcon icon={item.icon} className="w-4" />
+          <span className="pl-4">{item.title}</span>
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
+  );
 };
 
 export default SidebarItem;
