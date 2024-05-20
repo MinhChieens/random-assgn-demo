@@ -39,6 +39,18 @@ const Login = () => {
         information: {
           name: userCredential.user.displayName,
           pathImage: userCredential.user.photoURL,
+          age: "",
+          birthday: "",
+          gender: "",
+          phone: "",
+          email: userCredential.user.email,
+          address: "",
+          hi: "",
+        },
+        healthRecord: {
+          name: userCredential.user.displayName,
+          age: "",
+          gender: "",
         },
       });
       console.log("Send data");
@@ -53,9 +65,9 @@ const Login = () => {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
+
         // The signed-in user info.
-        const user = result.user;
+
         setUpInfoUser(result);
         navigate("/users");
       })
@@ -122,14 +134,14 @@ const Login = () => {
         <span className="text-black text-opacity-80 text-2xl font-semibold font-['Inter']">
           Enter your gmail, password to login.
         </span>
-        {/* <button
+        <button
           onClick={signInWithGoogle}
           className=" google w-4/5 rounded-[5px] border-4 border-black py-2 pl-3 font-bold flex flex-row item-center justify-center"
         >
           <img src={Google} alt="" className="w-6 h-6 pr-1" />
           Continue with Google
-        </button> */}
-
+        </button>
+        <p className="text-[#5B5B5B]">or</p>
         <form
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col justify-center items-center w-full gap-5"
