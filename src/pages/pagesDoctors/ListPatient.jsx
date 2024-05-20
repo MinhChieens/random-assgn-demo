@@ -57,6 +57,7 @@ const ListPatient = () => {
     await updateDoc(doc(db, "doctors", CrtUser.uid), {
       ListPatient: arrayRemove(uid),
     });
+    getPatents();
   };
   const getPatents = async (list) => {
     const relList = list.map(async (pId) => {

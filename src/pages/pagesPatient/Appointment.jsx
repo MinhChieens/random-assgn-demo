@@ -4,6 +4,7 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  getDoc,
 } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -35,6 +36,7 @@ const Appointment = () => {
     });
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await updateDoc(doc(db, "users", crtUser.uid), {
       myAppointment: value,
     });
