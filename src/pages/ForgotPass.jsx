@@ -24,26 +24,28 @@ const ForgotPass = () => {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      notifySuccess();
       setError(null);
     } catch (error) {
       setError(error.message);
       setSuccessMessage("");
     }
+    notifySuccess();
   };
 
   return (
     <div class="w-2/3 h-64 mx-auto flex flex-col justify-center items-center">
-      <h2 class="font-bold font-[poppins]">Forgot Password</h2>
+      <h2 class="font-bold font-[poppins] text-2xl">Forgot Password</h2>
       <form onSubmit={handleResetPassword}>
         <div>
-          <label>Email:</label>
+          <label>Email: </label>
           <input
+            onChange={(e) => setEmail(e.target.value)}
+            className={
+              "w-4/5 rounded-[5px] border-4 pl-3 border-black py-2 font-bold"
+            }
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"
+            name="email"
           />
         </div>
         <button
