@@ -9,7 +9,20 @@ import HeadInfo from "../components/HeadInfo";
 import { storage } from "../constants/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
+import { toast, Bounce } from "react-toastify";
 const SignUp = () => {
+  const notifySuccess = () =>
+    toast.success("Sign Up Successfully!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   const navigate = useNavigate();
   const reff = useRef();
   const [passValid, setPassValid] = useState(true);
@@ -60,8 +73,9 @@ const SignUp = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    valueAccount.email = value.email;
     console.table(valueAccount);
-
+    valueAccount.email = value.email;
     if (valueAccount.password != valueAccount.confirmPassword) {
       setPassValid(false);
       reff.current.focus();
@@ -83,7 +97,7 @@ const SignUp = () => {
         if (errorCode == "auth/email-already-in-use")
           alert("Email already used");
       });
-
+    notifySuccess();
     console.log(currentUser);
   };
 
@@ -139,7 +153,7 @@ const SignUp = () => {
                   <span>Select Image Avatar </span>
                 )}
               </label>
-              <p>TAO LA PATIENT</p>
+              <p></p>
             </div>
             <form
               onSubmit={(e) => handleSubmitInfo(e)}
@@ -200,9 +214,9 @@ const SignUp = () => {
                     required
                     className="block w-full h-10 px-4 py-2 border bg-transparent rounded-md shadow-sm outline-none opacity-80 "
                   >
+                    <option value="other">Other</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="other">Other</option>
                   </select>
                 </li>
                 <li className="flex flex-col gap-1 h-20 pt-3 pl-3">
@@ -285,11 +299,11 @@ const SignUp = () => {
               className="flex flex-col justify-center items-center w-full gap-5"
             >
               <input
-                onChange={(e) => handleChange(e)}
                 className="w-4/5 rounded-[5px] border-4 border-black pl-3 py-2 font-bold"
                 type="email"
                 placeholder="Gmail"
                 name="email"
+                value={value.email}
               />
               <input
                 onChange={(e) => handleChange(e)}

@@ -22,7 +22,7 @@ const Appointment = () => {
     state: false,
   });
   const notifySuccess = () =>
-    toast.success("Check your gmail box!", {
+    toast.success("Appoitments Success!", {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,

@@ -4,14 +4,7 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Spin from "../../assets/spin-svgrepo-com.svg";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  increment,
-  updateDoc,
-} from "firebase/firestore";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { deleteDoc } from "firebase/firestore";
 import { storage } from "../../constants/firebase";

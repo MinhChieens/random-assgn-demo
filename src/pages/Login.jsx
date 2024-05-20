@@ -117,19 +117,19 @@ const Login = () => {
       <div className="wrap flex flex-col pt-24 items-center justify-center h-[28rem] w-[30rem] mx-auto gap-5 font-['Inter']">
         <div className="head"></div>
         <h2 className="text-black text-4xl font-bold font-['Inter']">
-          Hospital check-in
+          Hospital Login
         </h2>
         <span className="text-black text-opacity-80 text-2xl font-semibold font-['Inter']">
-          Create an account to run wild through our curated experiences.
+          Enter your gmail, password to login.
         </span>
-        <button
+        {/* <button
           onClick={signInWithGoogle}
           className=" google w-4/5 rounded-[5px] border-4 border-black py-2 pl-3 font-bold flex flex-row item-center justify-center"
         >
           <img src={Google} alt="" className="w-6 h-6 pr-1" />
           Continue with Google
-        </button>
-        <p className="text-[#5B5B5B]">or</p>
+        </button> */}
+
         <form
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col justify-center items-center w-full gap-5"

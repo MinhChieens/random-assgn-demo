@@ -33,8 +33,8 @@ const ForgotPass = () => {
   };
 
   return (
-    <div className="w-2/3 h-64 mx-auto flex flex-col justify-center items-center">
-      <h2 className="font-bold">Forgot Password</h2>
+    <div class="w-2/3 h-64 mx-auto flex flex-col justify-center items-center">
+      <h2 class="font-bold font-[poppins]">Forgot Password</h2>
       <form onSubmit={handleResetPassword}>
         <div>
           <label>Email:</label>
@@ -43,14 +43,18 @@ const ForgotPass = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"
           />
         </div>
-        <button type="submit" className=" mt-3 h-10 w-32 bg-sky-400">
+        <button
+          type="submit"
+          class="mt-3 h-10 w-32 bg-blue-400 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+        >
           Reset Password
         </button>
       </form>
-      {error && <p>{error}</p>}
-      {successMessage && <p>{successMessage}</p>}
+      {error && <p class="text-red-500">{error}</p>}
+      {successMessage && <p class="text-green-500">{successMessage}</p>}
     </div>
   );
 };
